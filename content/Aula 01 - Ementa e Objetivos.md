@@ -20,22 +20,22 @@ Ao final da disciplina, o estudante deverá ser capaz de:
 
 ## 🗓️ Cronograma Semestral (Table View no Notion)
 
-| Semana | Tópico Principal | Atividade | Status |
-| --- | --- | --- | --- |
-| 01 | Aula Inicial: Contrato Pedagógico | Apresentação e alinhamento | 🟢 Planejado |
-| 02 | Modelos de Serviço: IaaS, PaaS e SaaS | Matriz de responsabilidade | ⚪ Por iniciar |
-| 03 | Laboratório 01: IAM e Acesso Seguro | Hands-on: usuários, grupos, políticas | ⚪ Por iniciar |
-| 04 | Computação e Armazenamento | Hands-on: EC2 / S3 (ou equivalente) | ⚪ Por iniciar |
-| 05 | Redes na Nuvem: VPC, subnets e segurança | Desenho de topologia | ⚪ Por iniciar |
-| 06 | Cloud + IA: APIs de Visão e NLP | Integração de serviços gerenciados | ⚪ Por iniciar |
-| 07 | Avaliação N1 | Prova – Módulos 1 e 2 | 🚩 Marco |
-| 08 | Bases de Dados: RDS e NoSQL gerenciado | Hands-on: persistência | ⚪ Por iniciar |
-| 09 | Containers I: Dockerizando aplicações | Criação de Dockerfiles | ⚪ Por iniciar |
-| 10 | Containers II: Kubernetes | Deploy em cluster (conceitos básicos) | ⚪ Por iniciar |
-| 11 | Infraestrutura como Código | Terraform CLI / templates | ⚪ Por iniciar |
-| 12 | FinOps, Ética e Sustentabilidade | Calculadoras de TCO e pegada de carbono | ⚪ Por iniciar |
-| 13 | Laboratório Final | Projeto cloud-native integrando módulos | ⚪ Por iniciar |
-| 14 | Avaliação N2 | Prova – Módulos 3, 4 e 5 | 🚩 Marco |
+| Semana | Tópico Principal                         | Atividade                               | Status        |
+| ------ | ---------------------------------------- | --------------------------------------- | ------------- |
+| 01     | Aula Inicial: Contrato Pedagógico        | Apresentação e alinhamento              | 🟢 Planejado  |
+| 02     | Modelos de Serviço: IaaS, PaaS e SaaS    | Matriz de responsabilidade              | ⚪ Por iniciar |
+| 03     | Laboratório 01: IAM e Acesso Seguro      | Hands-on: usuários, grupos, políticas   | ⚪ Por iniciar |
+| 04     | Computação e Armazenamento               | Hands-on: EC2 / S3 (ou equivalente)     | ⚪ Por iniciar |
+| 05     | Redes na Nuvem: VPC, subnets e segurança | Desenho de topologia                    | ⚪ Por iniciar |
+| 06     | Cloud + IA: APIs de Visão e NLP          | Integração de serviços gerenciados      | ⚪ Por iniciar |
+| 07     | Avaliação N1                             | Prova – Módulos 1 e 2                   | 🚩 Marco      |
+| 08     | Bases de Dados: RDS e NoSQL gerenciado   | Hands-on: persistência                  | ⚪ Por iniciar |
+| 09     | Containers I: Dockerizando aplicações    | Criação de Dockerfiles                  | ⚪ Por iniciar |
+| 10     | Containers II: Kubernetes                | Deploy em cluster (conceitos básicos)   | ⚪ Por iniciar |
+| 11     | Infraestrutura como Código               | Terraform CLI / templates               | ⚪ Por iniciar |
+| 12     | FinOps, Ética e Sustentabilidade         | Calculadoras de TCO e pegada de carbono | ⚪ Por iniciar |
+| 13     | Laboratório Final                        | Projeto cloud-native integrando módulos | ⚪ Por iniciar |
+| 14     | Avaliação N2                             | Prova – Módulos 3, 4 e 5                | 🚩 Marco      |
 
 **Obs.**: Ajustes conforme turma e calendário institucional.
 

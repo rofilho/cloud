@@ -24,11 +24,11 @@ Surgiu com força a partir dos anos 2000 e revolucionou o mercado ao reduzir cus
 - É acessível por diversos dispositivos (PC, notebook, smartphone, tablet) em qualquer lugar com conexão à internet.
 - Recursos (computação, armazenamento, rede, bancos de dados, IA, etc.) são consumidos sob demanda.
 
-![image.png](image%201.png)
+![[assets/image 1.png]]
 
-![image.png](image%202.png)
+![[assets/image 2.png]]
 
-![image.png](image%203.png)
+![[assets/image 3.png]]
 
 ## 🔹 Importância atual
 
@@ -152,9 +152,9 @@ A organização tem controle total sobre políticas, segurança e configuração
     - Escalabilidade limitada pela capacidade física instalada.
     - Ciclos de atualização tecnológica mais lentos.
 
-![image.png](image%204.png)
+![[assets/image 4.png]]
 
-![image.png](image%205.png)
+![[assets/image 5.png]]
 
 ---
 
