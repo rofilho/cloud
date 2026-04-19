@@ -21,7 +21,6 @@ const config: QuartzConfig = {
       "avaliacoes",
       "_Sistema_de_Aulas",
       "_Template_Aula",
-      "_*.md",
     ],
     defaultDateType: "modified",
     theme: {
