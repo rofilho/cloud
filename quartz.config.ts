@@ -14,7 +14,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "pt-BR",
-    baseUrl: "rofilho.github.io/cloud-uniube",
+    baseUrl: "rofilho.github.io/cloud",
     ignorePatterns: [
       "private",
       ".obsidian",
