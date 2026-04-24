@@ -120,7 +120,9 @@ graph TD
 
 A infraestrutura prioriza **isolamento de responsabilidades** e **imutabilidade**. O **Portainer** é a ferramenta que nos dá uma interface visual para gerenciar tudo.
 
-> 💡 **O que é o Portainer?** É uma interface web que permite gerenciar containers Docker sem precisar usar o terminal. Você pode ver quais containers estão rodando, reiniciar serviços, verificar logs e fazer deploy de novas stacks — tudo pelo navegador. Acesso: [monitora.horizonte.tech/portainer](https://monitora.horizonte.tech/portainer/#!/auth)
+> 💡 **O que é o Portainer?** É uma interface web que permite gerenciar containers Docker sem precisar usar o terminal. Você pode ver quais containers estão rodando, reiniciar serviços, verificar logs e fazer deploy de novas stacks — tudo pelo navegador.
+
+🔗 **Acesse agora e acompanhe ao vivo:** [monitora.horizonte.tech/portainer](https://monitora.horizonte.tech/portainer/#!/auth)
 
 ### Por que separamos em Stacks?
 
@@ -156,7 +158,12 @@ Um dos pilares mais importantes do nosso pipeline é o **ambiente de Lab (Homolo
 
 ### O que é o Lab?
 
-O Lab é uma réplica do ambiente de produção, acessível em [lab.sana.app.br](https://lab.sana.app.br). Ele serve como **porta de entrada obrigatória** antes de qualquer mudança chegar aos usuários reais.
+O Lab é uma réplica do ambiente de produção. Ele serve como **porta de entrada obrigatória** antes de qualquer mudança chegar aos usuários reais.
+
+| **Ambiente** | **Link** |
+| --- | --- |
+| 🚀 Produção | [sana.app.br](https://sana.app.br) |
+| 🧪 Lab (Homologação) | [lab.sana.app.br](https://lab.sana.app.br) |
 
 ### Como funciona o fluxo Lab → Produção?
 
@@ -293,6 +300,9 @@ api-gateway:
 
 **Observabilidade** é a capacidade de entender o que está acontecendo dentro de um sistema a partir dos sinais que ele emite. Diferente do monitoramento tradicional (que só alerta quando algo quebra), a observabilidade nos permite **investigar problemas antes que eles afetem os usuários**.
 
+🔗 **Dashboard ao vivo do Sana (acompanhe durante a aula):**
+👉 [monitora.horizonte.tech — Overview Executivo](https://monitora.horizonte.tech/d/sana-overview/sana-e28094-01-overview-executivo?orgId=1&refresh=30s)
+
 ### Os 3 Pilares da Observabilidade
 
 | **Pilar** | **O que é** | **Ferramenta no Sana** |
@@ -303,8 +313,9 @@ api-gateway:
 
 ### Dashboard de Monitoramento (Grafana)
 
-O dashboard executivo do Sana está acessível em tempo real:
-👉 [monitora.horizonte.tech/grafana — Overview Executivo](https://monitora.horizonte.tech/d/sana-overview/sana-e28094-01-overview-executivo?orgId=1&refresh=30s)
+O dashboard executivo do Sana atualiza automaticamente a cada **30 segundos**. Durante a aula, vamos abrir o dashboard e observar as métricas em tempo real:
+
+🔗 **[Abrir Dashboard Grafana — Sana Overview](https://monitora.horizonte.tech/d/sana-overview/sana-e28094-01-overview-executivo?orgId=1&refresh=30s)**
 
 ```mermaid
 graph TD
