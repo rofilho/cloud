@@ -143,6 +143,15 @@ A infraestrutura foi pensada para facilitar a automação através de IAs Autôn
 
 ---
 
+## 📌 5. Centralização de Conhecimento e Governança (doc.sana.app.br)
+
+Para garantir que toda a equipe (e agentes de IA) tenha uma **única fonte da verdade**, centralizamos todo o conhecimento técnico e de produto no domínio fechado `doc.sana.app.br`.
+
+- **A Biblioteca Oficial (MkDocs):** Hospeda a organização das regras de negócios, requisitos de produto (Roadmaps, Specs), Guias de Desenvolvimento, Runbooks de SRE, e acompanhamento de bugs (Issues/Post-mortems).
+- **Segurança e SSO (Zero Trust):** A documentação é estritamente privada. Ela roda na máquina de identidade (`vm-sana-identity`) protegida pelo **OAuth2 Proxy**. O Traefik intercepta qualquer tentativa de acesso público e exige um login validado no provedor centralizado (Zitadel IAM), garantindo segurança corporativa total.
+
+---
+
 ## 📋 Resumo Estrutural (Variáveis Chave)
 
 | **Variável** | **Definição em Uma Frase** |
