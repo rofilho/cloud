@@ -60,7 +60,7 @@ O ecossistema Sana está hospedado no **Google Cloud Platform (GCP)** e possui d
 ### O Sistema Sana (Aplicação)
 
 É uma plataforma dividida em múltiplos serviços conteinerizados:
-- **Frontends Angular:** Portal do aluno e painel administrativo.
+- **Frontends Angular:** Interface principal do usuário e painel administrativo.
 - **Gateways de API:** Recebem e distribuem as requisições externas.
 - **Backend Central:** Motor de processamento principal.
 - **Identity Server:** Responsável pela autenticação centralizada via **Zitadel IAM**.
