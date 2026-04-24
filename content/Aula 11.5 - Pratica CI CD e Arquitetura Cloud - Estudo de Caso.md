@@ -323,6 +323,24 @@ graph TD
 
 ---
 
+## 📌 6. O Futuro: IA Interna, Bancos Vetoriais e Custos de Nuvem
+
+O ecossistema Sana está se preparando para integrar **Inteligência Artificial nativa** nas operações do sistema (buscas semânticas, recomendações e análise de prontuários/dados). 
+
+Para que isso seja possível sem criar um banco de dados novo do zero, a arquitetura utilizará o próprio PostgreSQL (no Cloud SQL) com a extensão **`pgvector`**.
+
+### O Impacto na Arquitetura e nos Custos
+
+> ⚠️ **Atenção:** A adoção de bancos de dados vetoriais não é uma mudança simples de software; é uma **mudança drástica de infraestrutura**.
+
+1. **Processamento Intensivo (CPU):** Buscas vetoriais (calcular a distância matemática entre embeddings de IA) consomem exponencialmente mais processamento do que buscas relacionais tradicionais (como `SELECT * WHERE id = 1`).
+2. **Consumo de Memória (RAM):** Os índices vetoriais precisam ser carregados na memória RAM para garantir baixa latência nas respostas da IA.
+3. **Escalada de Custos:** Para suportar essa carga sem deixar o sistema lento para os usuários comuns, o tamanho da instância do Cloud SQL precisará ser escalado verticalmente de forma agressiva. **É esperado que os custos com banco de dados na nuvem possam quadruplicar** em relação ao modelo relacional padrão.
+
+**Conceito Prático:** Quando projetamos para IA, o custo da infraestrutura (FinOps) deve ser a primeira variável a ser calculada antes de escrever qualquer linha de código.
+
+---
+
 ## 📋 Resumo Estrutural — Conceitos Chave
 
 | **Conceito** | **Definição** |
