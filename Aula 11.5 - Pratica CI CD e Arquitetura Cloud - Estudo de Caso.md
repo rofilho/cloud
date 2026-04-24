@@ -105,7 +105,27 @@ Para não quebrar a infraestrutura acidentalmente em deploys, o **Portainer** se
 
 ## 📌 3. O Pipeline de Deploy Passo a Passo (GitOps V3)
 
-Como o código sai da máquina do desenvolvedor e vai para o ar sem derrubar os clientes que já estão usando o site?
+Como o código sai da máquina do desenvolvedor e vai para o ar sem derrubar os clientes que já estão usando o site? Acompanhe o fluxo visual da nossa "esteira" de entrega:
+
+### Diagrama da Esteira de Deploy (CI/CD)
+
+```mermaid
+sequenceDiagram
+    participant Dev as Desenvolvedor
+    participant Git as GitHub (Repositório)
+    participant Action as GitHub Actions
+    participant Prod as vm-sana-core (Produção)
+    participant Traefik as Traefik (Roteador)
+
+    Dev->>Git: 1. Fecha Release com Tag (ex: v0.27.0)
+    Git->>Action: 2. Dispara a Action (deploy.yml)
+    Action->>Action: 3. Build Paralelo das Imagens
+    Action->>Prod: 4. Conecta via SSH
+    Prod->>Prod: 5. Roda Migrations (Zero Touch) no container antigo
+    Prod->>Prod: 6. Baixa novas imagens e recria containers (--force-recreate)
+    Prod->>Traefik: 7. Healthcheck OK (HTTP 200)
+    Traefik-->>Dev: 8. Tráfego direcionado aos novos containers (Zero Downtime)
+```
 
 **Passo 1: Git (O Fluxo de Código)**
 Trabalhamos com *Trunk Based Development*. A branch `main` é sagrada. O código entra via Pull Requests. O deploy para produção só é disparado quando fechamos uma "Release" com Tag semântica (ex: `v0.27.0`).
