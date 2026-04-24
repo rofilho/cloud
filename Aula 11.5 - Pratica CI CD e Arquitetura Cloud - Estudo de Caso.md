@@ -1,10 +1,10 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 15
+aula: 11.5
 titulo: "Prática CI/CD e Arquitetura Cloud - Estudo de Caso Sana"
 tipo: teorica e pratica
-semana: 15
+semana: 11
 data: 2026-04-24
 status: publicado
 tags:
@@ -13,26 +13,28 @@ tags:
   - cicd
   - devops
   - docker
+  - ai
 publicar: true
 ---
 
-# 🟢 Aula 15: Prática CI/CD e Arquitetura Cloud - Estudo de Caso Sana
+# 🟢 Aula 11.5: Prática CI/CD e Arquitetura Cloud - Estudo de Caso Sana
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube
-**Semana:** 15 | Sexta-feira
+**Semana:** 11 | Sexta-feira
 **Professor:** Romualdo Mathias Filho
 **Tipo:** 📘 Teórica / 🔬 Prática
-**Tópicos:** CI/CD, GitOps V3, Docker, Traefik, Portainer, Zero Downtime Deployment
+**Tópicos:** CI/CD, GitOps V3, Docker, Traefik, IA Agentic Coding, Zero Downtime Deployment
 
 ---
 
 ## 🎯 Objetivo da Aula (Competências)
 
 Ao final desta aula, os alunos serão capazes de:
-- [ Compreender a arquitetura de uma aplicação moderna nativa da nuvem com separação de serviços (Gateway, Frontends, Backends e Identity). ]
+- [ Compreender a arquitetura de uma aplicação moderna nativa da nuvem com separação de serviços. ]
 - [ Entender a implementação do padrão "Zero Downtime Deployment" usando infraestrutura imutável e saúde de containers. ]
-- [ Mapear e descrever um pipeline completo de CI/CD (GitOps V3), desde o Trunk Based Development no Git até a publicação automatizada usando GitHub Actions e Portainer. ]
+- [ Mapear e descrever um pipeline completo de CI/CD (GitOps V3), incluindo automações e Governança de Banco de Dados. ]
+- [ Relacionar a infraestrutura em nuvem (IaC) com as novas features de Inteligência Artificial e Agentic Coding. ]
 
 ---
 
@@ -40,9 +42,9 @@ Ao final desta aula, os alunos serão capazes de:
 
 | **Conceito (Aula Anterior)** | **Conexão com hoje** |
 | --- | --- |
-| Bancos de Dados na Nuvem (RDS/Cloud SQL) | Como mantemos o DB desacoplado e rodamos migrations antes do deploy de forma segura. |
+| Bancos de Dados na Nuvem (RDS) | Como mantemos o PostgreSQL desacoplado no Cloud SQL e escalamos horizontalmente. |
 | Redes e VPC | O isolamento da rede interna dos containers (sana-net) e a exposição segura via Traefik. |
-| Computação / Instâncias | A divisão lógica de VMs de Produção e Identity. |
+| Agentic Coding e IA | Como o repositório serve de Context Ingestion para Agentes de IA autônomos. |
 
 ---
 
@@ -55,6 +57,32 @@ O ecossistema que utilizaremos como Estudo de Caso é dividido logicamente entre
 
 > 💡 **Exemplo prático:** Pense nisso como um prédio (Cloud SQL) com uma portaria muito inteligente (Traefik) e vários escritórios internos que só conversam entre si por ramais fechados (`sana-net`).
 
+### Diagrama de Arquitetura (Traefik & Zero Trust)
+
+```mermaid
+graph TD
+    User((Usuário)) --> |DNS/HTTPS| CF[Cloudflare DNS]
+    CF --> |Gateway| TR[Traefik v3]
+    
+    subgraph "Nuvem (Isolado)"
+        SQL[(Cloud SQL / PostgreSQL)]
+    end
+    
+    subgraph "Sistema Sana (Docker / sana-net)"
+        TR --> |Roteamento Host/Path| API[sana-api / sana-admin-api]
+        TR --> |Roteamento| UI[sana-ui / sana-admin]
+        API --> CORE[sana-core]
+    end
+    
+    subgraph "Sistema Identity (VM Separada)"
+        IAM[Zitadel IAM]
+    end
+    
+    API -.-> |Validação de Token| IAM
+    CORE --> |Rede Privada| SQL
+```
+> *Legenda: Fluxo de dados no Ecossistema Sana e Nuvem com separação de responsabilidades.*
+
 ---
 
 ## 📌 2. Organização da Infraestrutura e Portainer
@@ -62,14 +90,16 @@ O ecossistema que utilizaremos como Estudo de Caso é dividido logicamente entre
 A infraestrutura de nuvem prioriza o **isolamento de responsabilidades** e a **imutabilidade**.
 
 **Topologia de Servidores:**
-1. **`vm-sana-core` (10.0.1.2):** O coração da aplicação (Frontends, Backends e agentes de métricas).
-2. **`vm-sana-identity` (10.0.2.2):** O servidor do IAM e documentação.
-3. **Cloud SQL (10.0.2.200):** Onde os dados vitais estão salvos.
+1. **`vm-sana-core` (10.0.1.2):** O coração da aplicação (Frontends, Backends e agentes de observabilidade).
+2. **`vm-sana-identity` (10.0.2.2):** O servidor do IAM e documentação (MkDocs + OAuth2, Fórum NodeBB).
+3. **Cloud SQL (10.0.2.200):** Onde os dados vitais estão salvos, desacoplados das VMs para garantir alta disponibilidade.
+
+*(Temos também um ambiente de Homologação/Lab no Proxmox com banco conteinerizado usado como Test Gate).*
 
 Para não quebrar a infraestrutura acidentalmente em deploys, o **Portainer** separa tudo logicamente em **Stacks**:
-- `sana-infra`: Traefik v3 e Proxy do Docker (Muda quase nunca).
+- `sana-infra`: Traefik v3 e Proxy do Docker (impede que os certificados se percam nos deploys diários).
 - `sana-monitoring-core`: Agentes de métricas.
-- `sana`: Aplicação principal. Essa é a Stack que o nosso pipeline CI/CD vai atualizar frequentemente!
+- `sana`: Aplicação principal (8 containers - atualizada a cada deploy).
 
 ---
 
@@ -83,26 +113,44 @@ Trabalhamos com *Trunk Based Development*. A branch `main` é sagrada. O código
 **Passo 2: GitHub Actions (CI/CD)**
 O arquivo `.github/workflows/deploy.yml` orquestra a construção das imagens.
 - Ele usa o `Docker Buildx` para compilar o Frontend e o Backend em paralelo.
-- Ele salva as imagens construídas no GitHub Container Registry (GHCR) atreladas à Tag da Release.
+- Ele salva as imagens construídas no GitHub Container Registry (GHCR) atreladas à Tag da Release e `:latest`.
 
 **Passo 3: Orquestração Segura e Migrations**
-Antes de substituir os containers, a Action entra na máquina de produção via SSH e executa as migrações de banco de dados diretamente no container antigo que ainda está rodando. Assim, o banco está pronto para o código novo.
+Antes de substituir os containers e causar inatividade, a Action entra na máquina de produção via SSH e executa as migrações de banco de dados diretamente no container antigo que ainda está rodando. Assim, o banco está pronto para o código novo.
 
 **Passo 4: Produção (Zero Downtime / Rolling Updates)**
-Em vez de usar Webhooks demorados, o GitOps V3 realiza o deploy via SSH Direto:
-1. Um `docker compose pull` assíncrono baixa as novas imagens do GHCR.
-2. É feito um `--force-recreate` via Docker Engine.
-3. O Traefik faz um *Healthcheck*: ele só começa a enviar os usuários para o container novo quando este avisa que carregou perfeitamente (respondendo `HTTP 200 OK`). Isso garante que não há tempo de inatividade (Zero Downtime).
+Em vez de usar Webhooks demorados do Portainer (que causavam timeouts), o GitOps V3 realiza o deploy via SSH Direto:
+1. Snapshots locais são gerados (`docker tag ... :rollback`).
+2. Um `docker compose pull` assíncrono baixa as novas imagens do GHCR.
+3. É feito um `--force-recreate` via Docker Engine.
+4. O Traefik faz um *Healthcheck* (`http://localhost:80/up`): ele só começa a enviar os usuários para o container novo quando este avisa que carregou perfeitamente.
 
 ---
 
-## 📋 Resumo Estrutural
+## 📌 4. Features de Inteligência Artificial e Governança do Banco
 
-| **Conceito** | **Definição em Uma Frase** |
+Nosso ecossistema também foi projetado pensando em resiliência e inovação tecnológica contínua, unindo a segurança do banco de dados e as novas interações com Inteligência Artificial:
+
+### Cloud SQL e Governança Zero Touch
+- **Desacoplamento e Alta Disponibilidade:** Mantemos nosso banco PostgreSQL isolado (Cloud SQL). Isso permite escalar as instâncias web horizontalmente sem gargalos no storage.
+- **Migrations "Zero Touch":** O `sana-core` gerencia as estruturas de dados. Com a injeção do comando `php artisan migrate --force` dentro do processo de boot (`entrypoint.sh`), as tabelas são atualizadas automaticamente durante os deploys. **Nenhuma intervenção humana no banco é necessária**, reduzindo os erros operacionais.
+
+### Alimentação e Integração de Agentes de IA (Agentic Coding)
+A infraestrutura foi pensada para facilitar a automação através de IAs Autônomas (Agentic Coding). 
+- **Context Ingestion:** O repositório SANA detém documentações estratégicas e scripts legíveis que atuam como base de contexto para Agentes de IA.
+- **Infrastructure as Code (IaC):** Essa estrutura legível e estrita de IaC (com separação entre Stacks de CI e CD) ajuda IAs orquestradoras e assistentes de desenvolvimento a entenderem limites seguros.
+- **Automação Segura:** Permite que a IA realize automações no banco de dados e na infraestrutura garantindo imutabilidade e resiliência (como nos fluxos de validação do `.env` e dos schemas do banco).
+
+---
+
+## 📋 Resumo Estrutural (Variáveis Chave)
+
+| **Variável** | **Definição em Uma Frase** |
 | --- | --- |
-| Traefik | Proxy reverso que roteia inteligentemente requisições da web para containers Docker específicos. |
-| Zero Downtime | Prática de deployment onde os usuários não percebem inatividade enquanto a aplicação é atualizada. |
-| Imutabilidade de Container | A exata mesma imagem Docker testada em homologação é a que rodará em produção; apenas as variáveis de ambiente mudam. |
+| `IMAGE_TAG` | Garante a imutabilidade; a mesma imagem vai rodar em Lab e Prod. |
+| `SANA_DOMAIN` | Define dinamicamente o roteamento do Traefik (`lab.sana...` ou `sana...`). |
+| `CF_DNS_API_TOKEN` | Permite gerar certificados SSL wildcard diretamente com o Cloudflare. |
+| `APP_KEY` / `ZITADEL_SERVICE_TOKEN` | Segredos sensíveis de segurança isolados por ambiente. |
 
 ---
 
@@ -111,28 +159,28 @@ Em vez de usar Webhooks demorados, o GitOps V3 realiza o deploy via SSH Direto:
 > 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
 
 ### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** No estudo de caso do sistema Sana, o pipeline de deploy utiliza um processo de Healthcheck atrelado ao Traefik v3 durante a recriação dos containers com `--force-recreate`. Qual é o principal benefício dessa prática na infraestrutura?
+**Enunciado:** A infraestrutura do Sana foi adaptada para facilitar o "Agentic Coding" (Programação via Agentes de IA). Qual característica da arquitetura permite que as IAs autônomas operem de forma segura no ambiente?
 
-- [ ] A) Reduzir o consumo de CPU durante a compilação paralela das imagens.
-- [ ] B) Garantir que o código novo seja testado pela primeira vez dentro do banco de dados relacional.
-- [x] C) Permitir o roteamento de tráfego (Zero Downtime), direcionando usuários ao container novo apenas quando ele estiver pronto para receber requisições. ✅
-- [ ] D) Evitar o uso do GitHub Actions como servidor de CI central.
+- [ ] A) O uso exclusivo de instâncias locais para o banco de dados.
+- [ ] B) A utilização do Portainer como única ferramenta de deploy, eliminando scripts de IaC.
+- [x] C) A separação clara entre Stacks e o uso de Infrastructure as Code (IaC) com documentação estratégica (Context Ingestion), definindo limites seguros de atuação para a IA. ✅
+- [ ] D) A execução manual de migrations no banco Cloud SQL.
 
-**Justificativa:** O Traefik intercepta a rede e realiza healthchecks configurados no Docker Compose. Ele segura o tráfego nos containers antigos até que os novos respondam HTTP 200, efetivando o Zero Downtime.
+**Justificativa:** A base de conhecimento e a separação de responsabilidades (IaC, Stacks) orientam as IAs, servindo como Context Ingestion e garantindo que atuem sem ferir a resiliência do sistema.
 
 ---
 
-### Questão 2: Teórica (Dissertativa — Nível: Básico/Intermediário)
-**Enunciado:** Explique por que o banco de dados principal (Cloud SQL) no sistema Sana não é armazenado como um container comum dentro da Stack `sana` e não é recriado a cada ciclo de CI/CD.
+### Questão 2: Teórica (Dissertativa — Nível: Avançado)
+**Enunciado:** Explique o conceito de "Migrations Zero Touch" no contexto do ecossistema Sana e como ele se integra ao pipeline GitOps V3 para garantir "Zero Downtime".
 
-**Resposta esperada:** O banco de dados lida com armazenamento persistente e transacional, que precisa ser mantido com o máximo de estabilidade, isolamento e tolerância a falhas. Mantê-lo como um serviço gerenciado (Cloud SQL) fora do ciclo de vida volátil dos containers da aplicação garante backups automatizados de nível empresarial e impede que um erro de deploy (recreate) afete ou corrompa os dados.
+**Resposta esperada:** Migrations Zero Touch refere-se à automação total das alterações no banco de dados sem intervenção humana. No Sana, isso ocorre através da injeção de comandos de migration (`migrate --force`) antes ou durante o boot do novo container. Isso se integra ao GitOps V3 porque, aliado ao Healthcheck do Traefik, assegura que o novo container só receba tráfego (Zero Downtime) após atestar que tanto o código quanto a estrutura do Cloud SQL estão prontos e compatíveis, minimizando riscos operacionais.
 
 ---
 
 ## 📚 Referências Bibliográficas e Citações
 
 - Documentação Interna da Organização: `material_aula_sana.md`.
-- Docker Documentation. *Best practices for writing Dockerfiles*. Disponível na base oficial.
+- Docker Documentation. *Best practices for writing Dockerfiles*.
 - Traefik Labs. *Traefik v3 Routing Configuration*.
 
 ---
