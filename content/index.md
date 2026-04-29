@@ -30,7 +30,7 @@ Bem-vindo ao portal de estudos da disciplina de **Cloud Computing**. Aqui você 
 
 ### Bloco N2 (Aulas 10–15)
 - [[Aula 10 - Banco de Dados na Nuvem|Aula 10 — Banco de Dados na Nuvem]]
-- [[Aula 11 - Pratica de Banco de Dados|Aula 11 — Pratica de Banco de Dados]]
+- [[Aula 11 - Pratica de Banco de Dados|Aula 11 — Terraform: Prática de Banco de Dados (RDS)]]
 - [[Aula 11.5 - Pratica CI CD e Arquitetura Cloud - Estudo de Caso|Aula 11.5 — Prática CI/CD e Arquitetura Cloud (Sana)]]
 - [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2|Aula 12 — Terraform na Prática (Lightsail e EC2)]]
 - [[Aula 13 - Seguranca na Nuvem|Aula 13 — Seguranca na Nuvem]]
