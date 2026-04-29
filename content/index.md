@@ -28,13 +28,14 @@ Bem-vindo ao portal de estudos da disciplina de **Cloud Computing**. Aqui você 
 - [[Aula 08 - Lancando Instancias EC2 AWS CLI e Terraform|Aula 08 — EC2 com AWS CLI e Terraform]]
 - [[Aula 09 - Pratica Auto Scaling e Lambda|Aula 09 — Pratica Auto Scaling e Lambda]]
 
-### Bloco N2 (Aulas 10–14)
+### Bloco N2 (Aulas 10–15)
 - [[Aula 10 - Banco de Dados na Nuvem|Aula 10 — Banco de Dados na Nuvem]]
 - [[Aula 11 - Pratica de Banco de Dados|Aula 11 — Pratica de Banco de Dados]]
 - [[Aula 11.5 - Pratica CI CD e Arquitetura Cloud - Estudo de Caso|Aula 11.5 — Prática CI/CD e Arquitetura Cloud (Sana)]]
-- [[Aula 12 - Redes e VPC|Aula 12 — Redes e VPC]]
+- [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2|Aula 12 — Terraform na Prática (Lightsail e EC2)]]
 - [[Aula 13 - Seguranca na Nuvem|Aula 13 — Seguranca na Nuvem]]
 - [[Aula 14 - FinOps e Custos|Aula 14 — FinOps e Custos]]
+- [[Aula 15 - Redes e VPC|Aula 15 — Redes e VPC]]
 
 ---
 
