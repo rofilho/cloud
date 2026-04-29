@@ -357,7 +357,7 @@ Outputs:
 
 ip_publico_estatico = "3.x.x.x"
 url_acesso          = "http://3.x.x.x"
-nome_instancia      = "servidor-terraform-aula15"
+nome_instancia      = "servidor-terraform-aula12"
 comando_ssh         = "ssh -i ~/.ssh/SuaChave.pem ubuntu@3.x.x.x"
 ```
 
@@ -580,4 +580,4 @@ Execute o roteiro da aula completo e documente com evidências:
 
 ---
 
-*Última atualização: 2026-04-29 | Status: rascunho*
+*Última atualização: 2026-04-29 | Status: publicado*
