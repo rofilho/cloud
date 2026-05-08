@@ -87,12 +87,12 @@ Escolham **um** dos temas abaixo ou proponham o próprio (com aprovação do pro
 
 ### As 6 Etapas de Entrega
 
-O trabalho é entregue em partes. **Cada etapa tem prazo e pontuação própria.**
+O trabalho é desenvolvido e acompanhado em partes. **Cada etapa tem um prazo para garantir o ritmo do projeto.**
 
 ---
 
 #### Etapa 0 — Proposta do Grupo
-**Prazo:** Quarta, 10/06 | **Valor:** sem nota, mas obrigatória
+**Prazo:** Quarta, 10/06
 
 Antes de começar a codar, o grupo precisa ter um plano. Entreguem um documento (`.md` ou Google Docs) com:
 
@@ -107,7 +107,7 @@ Antes de começar a codar, o grupo precisa ter um plano. Entreguem um documento 
 ---
 
 #### Etapa 1 — Documento de Arquitetura
-**Prazo:** Sexta, 12/06 | **Valor:** 3 pontos
+**Prazo:** Sexta, 12/06
 
 Arquivo `docs/arquitetura.md` dentro do repositório GitHub, contendo:
 
@@ -117,17 +117,10 @@ Arquivo `docs/arquitetura.md` dentro do repositório GitHub, contendo:
 - **Estimativa de custo mensal** usando o [AWS Pricing Calculator](https://calculator.aws)
 - **Pelo menos uma decisão de arquitetura explicada** — ex: *"escolhemos Lambda em vez de EC2 porque nossa aplicação tem picos de uso curtos e o Lambda é mais barato nesse cenário"*
 
-| O que será avaliado | Pontos |
-|---|---|
-| Diagrama completo e coerente com o que foi implementado | 1,0 |
-| Justificativa de serviços com argumentos técnicos | 1,0 |
-| Estimativa de custo presente e realista | 0,5 |
-| Documento bem organizado e legível | 0,5 |
-
 ---
 
 #### Etapa 2 — Infraestrutura como Código
-**Prazo:** Quarta, 17/06 | **Valor:** 5 pontos
+**Prazo:** Quarta, 17/06
 
 Diretório `infra/` no repositório com todos os arquivos Terraform. A infraestrutura **deve subir do zero** com um único comando: `terraform apply`.
 
@@ -143,19 +136,12 @@ infra/
 └── README.md      ← como rodar (terraform init → plan → apply)
 ```
 
-| O que será avaliado | Pontos |
-|---|---|
-| `terraform apply` executa sem erros (testado ao vivo) | 2,0 |
-| VPC com subnets e security groups corretos | 1,0 |
-| Banco provisionado via Terraform e conectado à app | 1,0 |
-| Sem credenciais hardcoded nos arquivos `.tf` | 1,0 |
-
-> ⚠️ **Atenção:** O professor vai rodar `terraform apply` durante a apresentação. Se não funcionar, a nota cai.
+> ⚠️ **Atenção:** O professor vai rodar `terraform apply` durante a avaliação. Se não funcionar, a nota da parte escrita cai.
 
 ---
 
 #### Etapa 3 — Aplicação Rodando na Nuvem
-**Prazo:** Quarta, 17/06 | **Valor:** 4 pontos
+**Prazo:** Quarta, 17/06
 
 Código da aplicação no diretório `app/` do repositório, com a aplicação **acessível publicamente via URL** no momento da apresentação.
 
@@ -164,16 +150,10 @@ Código da aplicação no diretório `app/` do repositório, com a aplicação *
 - Pelo menos 1 endpoint que leia ou escreva no banco de dados
 - `app/README.md` com instruções para rodar localmente e variáveis de ambiente necessárias
 
-| O que será avaliado | Pontos |
-|---|---|
-| Aplicação responde via URL pública no dia da apresentação | 2,0 |
-| Integração com banco funcionando (demonstrada ao vivo) | 1,0 |
-| Código organizado, sem segredos expostos, com README | 1,0 |
-
 ---
 
 #### Etapa 4 — Pipeline CI/CD
-**Prazo:** Sexta, 19/06 | **Valor:** 3 pontos
+**Prazo:** Sexta, 19/06
 
 Arquivo `.github/workflows/deploy.yml` no repositório. O pipeline deve **disparar automaticamente** quando alguém fizer push para a branch `main`.
 
@@ -181,18 +161,12 @@ Arquivo `.github/workflows/deploy.yml` no repositório. O pipeline deve **dispar
 1. Fazer o build ou validar o código
 2. Fazer o deploy da aplicação na AWS automaticamente
 
-**Evidência obrigatória:** screenshot ou link para um run bem-sucedido do pipeline.
-
-| O que será avaliado | Pontos |
-|---|---|
-| Pipeline dispara e conclui com sucesso no push para `main` | 1,5 |
-| Deploy reflete a última versão da aplicação na nuvem | 1,0 |
-| Credenciais configuradas como secrets no GitHub (não no YAML) | 0,5 |
+**Evidência obrigatória:** screenshot ou link para um run bem-sucedido do pipeline documentado no README.
 
 ---
 
 #### Etapa 5 — Segurança e FinOps
-**Prazo:** Sexta, 19/06 | **Valor:** 3 pontos
+**Prazo:** Sexta, 19/06
 
 Seção `## Segurança e Custos` no `README.md` principal do repositório.
 
@@ -201,20 +175,13 @@ Seção `## Segurança e Custos` no `README.md` principal do repositório.
 - Security Groups expondo apenas as portas necessárias (ex: só 443 e 80 para fora)
 - **Zero credenciais expostas** no código ou no histórico do git (sim, o professor vai checar o histórico)
 - Print do Cost Explorer ou do AWS Pricing Calculator mostrando o custo do projeto
-- Pelo menos 1 decisão de FinOps documentada — ex: *"usamos t2.micro porque cabe no Free Tier"*, *"usamos Lambda para evitar pagar por servidor ocioso"*
-
-| O que será avaliado | Pontos |
-|---|---|
-| IAM correto e security groups com portas mínimas | 1,0 |
-| Zero credenciais expostas (código + histórico git) | 1,0 |
-| Análise de custo documentada com decisão FinOps | 1,0 |
+- Pelo menos 1 decisão de FinOps documentada — ex: *"usamos t2.micro porque cabe no Free Tier"*
 
 ---
 
 #### Etapa 6 — Apresentação Final
 **Data:** Sexta, 19/06 (grupos 1–3) e Quarta, 24/06 (grupos 4–6)
 **Duração:** 10 minutos de apresentação + 5 minutos de perguntas
-**Valor:** 2 pontos
 
 Apresentem com slides (máximo 8) e façam uma **demo ao vivo** da aplicação funcionando.
 
@@ -231,11 +198,16 @@ Apresentem com slides (máximo 8) e façam uma **demo ao vivo** da aplicação f
 | 7 | Segurança e custos: decisões que tomaram |
 | 8 | O que aprenderam e o que foi difícil |
 
-| O que será avaliado | Pontos |
-|---|---|
-| Demo ao vivo funciona (app respondendo, banco conectado) | 1,0 |
-| Apresentação clara, cada integrante explica sua parte | 0,5 |
-| Respostas às perguntas demonstram entendimento técnico | 0,5 |
+---
+
+### 📊 Como os 20 pontos serão avaliados
+
+A avaliação não dará pontos isolados por etapa. A nota de **20 pontos** será atribuída de forma unificada considerando o pacote final:
+
+| Componente | Critérios | Pontos |
+|---|---|---|
+| **Parte Escrita / Código (Repositório)** | Arquitetura documentada, Terraform provisionando tudo sem erros (`terraform apply`), aplicação funcionando no IP/URL público, pipeline de CI/CD automatizado, segurança (sem senhas expostas, portas corretas) e custos documentados. | **15 pts** |
+| **Apresentação e Arguição** | Demonstração ao vivo funcionando perfeitamente, slides claros, domínio técnico do grupo ao responder às perguntas do professor sobre a arquitetura e o código. | **5 pts** |
 
 ---
 

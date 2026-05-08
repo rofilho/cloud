@@ -111,16 +111,17 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 ## 📦 Resumo de Entregas por Data
 
-| Data | Etapa | Descrição | Pontos |
-|---|---|---|---|
-| Qua 10/06 | Etapa 0 | Proposta do grupo no GitHub | — |
-| Sex 12/06 | Etapa 1 | Documento de Arquitetura | 3 pts |
-| Qua 17/06 | Etapa 2 | Terraform completo | 5 pts |
-| Qua 17/06 | Etapa 3 | Aplicação rodando na URL pública | 4 pts |
-| Sex 19/06 | Etapa 4 | CI/CD pipeline funcionando | 3 pts |
-| Sex 19/06 | Etapa 5 | Segurança e FinOps documentados | 3 pts |
-| Sex 19/06 e Qua 24/06 | Etapa 6 | Apresentação + Demo ao vivo | 2 pts |
-| | | **TOTAL TRABALHO** | **20 pts** |
+| Data | Etapa | Descrição |
+|---|---|---|
+| Qua 10/06 | Etapa 0 | Proposta do grupo no GitHub |
+| Sex 12/06 | Etapa 1 | Documento de Arquitetura |
+| Qua 17/06 | Etapa 2 | Terraform completo |
+| Qua 17/06 | Etapa 3 | Aplicação rodando na URL pública |
+| Sex 19/06 | Etapa 4 | CI/CD pipeline funcionando |
+| Sex 19/06 | Etapa 5 | Segurança e FinOps documentados |
+| Sex 19/06 e Qua 24/06 | Etapa 6 | Apresentação + Demo ao vivo |
+
+> ⚠️ **Atenção:** As etapas acima são entregas de acompanhamento do projeto. A nota final (20 pontos) não é dividida por etapa, sendo avaliada de forma unificada na **Entrega Final (Repositório + Código)** e na **Apresentação ao Vivo**.
 
 ---
 
