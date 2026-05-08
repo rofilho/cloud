@@ -139,7 +139,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 - [[avaliacoes/Projeto_Final]] — Especificação completa do projeto (etapas, rubricas, regras)
 - [[avaliacoes/N2_Questoes]] — Banco de questões para a prova (aulas 08–15)
-- [[Cloud_Computing]] — MOC central da disciplina
+- [[MOC - Cloud Computing]] — MOC central da disciplina
 
 ---
 
