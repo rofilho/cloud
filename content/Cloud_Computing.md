@@ -65,10 +65,18 @@ aliases:
 
 ---
 
+## 🗓️ Planejamento
+
+- [[Plano_Final_Semestre]] — Semanas 12–18: calendário, orientações e entregas do projeto
+
+---
+
 ## 📝 Avaliações
 
 - [[avaliacoes/N1_Questoes]]
 - [[avaliacoes/N2_Questoes]]
+- [[avaliacoes/Trabalho_Final_Enunciado]] — Enunciado para os alunos (publicado)
+- [[avaliacoes/Projeto_Final]] — Rubrica completa do professor (20 pts trabalho + 15 pts prova)
 
 ---
 
