@@ -27,26 +27,7 @@ export default ((opts?: Options) => {
 
     return (
       <footer class={`${displayClass ?? ""}`}>
-        {currentIndex !== -1 && (
-          <div class="prev-next-nav">
-            <div class="nav-prev">
-              {prevPage && (
-                <a href={`/${prevPage.slug}`}>
-                  <span class="nav-label">← Anterior</span>
-                  <span class="nav-title">{prevPage.frontmatter?.title ?? prevPage.slug}</span>
-                </a>
-              )}
-            </div>
-            <div class="nav-next">
-              {nextPage && (
-                <a href={`/${nextPage.slug}`}>
-                  <span class="nav-label">Próxima →</span>
-                  <span class="nav-title">{nextPage.frontmatter?.title ?? nextPage.slug}</span>
-                </a>
-              )}
-            </div>
-          </div>
-        )}
+
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "1rem" }}>
           <img src="https://uniube.br/img/landing/logo_azul.svg" alt="Uniube" class="logo-light" style={{ height: "25px", width: "auto" }} />
           <img src="https://uniube.br/img/landing/logo_branca.svg" alt="Uniube" class="logo-dark" style={{ height: "25px", width: "auto" }} />
