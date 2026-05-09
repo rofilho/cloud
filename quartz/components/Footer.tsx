@@ -14,8 +14,12 @@ export default ((opts?: Options) => {
     
     // Auto Prev/Next Navigation
     const lessonFiles = allFiles
-      .filter(f => f.slug !== "index" && f.title)
-      .sort((a, b) => a.title!.localeCompare(b.title!))
+      .filter(f => f.slug !== "index" && (f.frontmatter?.title || f.slug))
+      .sort((a, b) => {
+        const titleA = a.frontmatter?.title ?? a.slug ?? ""
+        const titleB = b.frontmatter?.title ?? b.slug ?? ""
+        return titleA.localeCompare(titleB)
+      })
     
     const currentIndex = lessonFiles.findIndex(f => f.slug === fileData.slug)
     const prevPage = currentIndex > 0 ? lessonFiles[currentIndex - 1] : null
@@ -29,7 +33,7 @@ export default ((opts?: Options) => {
               {prevPage && (
                 <a href={`/${prevPage.slug}`}>
                   <span class="nav-label">← Anterior</span>
-                  <span class="nav-title">{prevPage.title}</span>
+                  <span class="nav-title">{prevPage.frontmatter?.title ?? prevPage.slug}</span>
                 </a>
               )}
             </div>
@@ -37,7 +41,7 @@ export default ((opts?: Options) => {
               {nextPage && (
                 <a href={`/${nextPage.slug}`}>
                   <span class="nav-label">Próxima →</span>
-                  <span class="nav-title">{nextPage.title}</span>
+                  <span class="nav-title">{nextPage.frontmatter?.title ?? nextPage.slug}</span>
                 </a>
               )}
             </div>
