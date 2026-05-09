@@ -1,3 +1,197 @@
 @use "./base.scss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap');
 
-// put your custom CSS here!
+/* ==========================================
+   PREMIUM EDUCATION DESIGN - LESSON PAGES
+   ========================================== */
+
+article {
+  /* Improve line height and spacing for better readability */
+  line-height: 1.7;
+  font-size: 1.05rem;
+  
+  /* Smooth fade-in animation for page load */
+  animation: fadeSlideUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Beautiful Headings */
+article h1, article h2, article h3, article h4 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+article h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--secondary), var(--tertiary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+article h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--secondary) 20%, transparent);
+}
+
+article h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-top: 2rem;
+}
+
+/* Enhanced Callouts (Admonitions) */
+.callout {
+  border-radius: 12px !important;
+  border: 1px solid color-mix(in srgb, var(--secondary) 20%, transparent) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 1.2rem !important;
+  margin: 1.5rem 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.callout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.callout-title {
+  font-size: 1.1rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Elegant Blockquotes */
+article blockquote {
+  border-left: 4px solid var(--secondary);
+  background: color-mix(in srgb, var(--secondary) 5%, transparent);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--darkgray);
+}
+:root[saved-theme="dark"] article blockquote {
+  color: #cbd5e1;
+}
+
+/* Code Blocks macOS style */
+figure[data-rehype-pretty-code-figure] {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin: 2rem 0 !important;
+  position: relative;
+  padding-top: 2.5rem !important;
+  background-color: var(--darkgray) !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+figure[data-rehype-pretty-code-figure]::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+  z-index: 10;
+}
+
+figure[data-rehype-pretty-code-figure] pre {
+  margin: 0 !important;
+  padding: 1rem 1.5rem !important;
+  background-color: transparent !important;
+}
+
+article code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
+  color: var(--secondary);
+}
+
+/* Images and Media */
+article img {
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  margin: 1.5rem 0;
+}
+article img:hover {
+  transform: scale(1.02);
+}
+
+/* Lists and checkmarks */
+article ul, article ol {
+  padding-left: 1.5rem;
+}
+article li {
+  margin-bottom: 0.5rem;
+}
+article li::marker {
+  color: var(--secondary);
+  font-weight: bold;
+}
+
+/* Fancy Links */
+article a.internal, article a.external {
+  position: relative;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+article a.internal::after, article a.external::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--secondary);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+article a.internal:hover::after, article a.external:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Table Design */
+article table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+article th {
+  background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
+  padding: 1rem;
+  font-weight: 600;
+  text-align: left;
+}
+article td {
+  padding: 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--gray) 20%, transparent);
+}
