@@ -1,16 +1,74 @@
 @use "./base.scss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap');
 
 /* ==========================================
-   PREMIUM EDUCATION DESIGN - LESSON PAGES
+   UNIUBE DESIGN SYSTEM - CLOUD COMPUTING
+   ========================================== */
+
+:root {
+  /* 1. Cores Institucionais (Uniube) */
+  --uniube-blue-dark: #003366; /* Azul profundo (headers e forte contraste) */
+  --uniube-blue-core: #004B87; /* Azul principal da marca */
+  --uniube-blue-light: #2D6A9F; /* Azul suave para fundos/bordas */
+  --uniube-accent: #f97316; /* Laranja vibrante para pequenas ênfases (botões, links) */
+
+  /* 2. Escala Tipográfica (Major Third - 1.250) */
+  --text-xs: 0.8rem;
+  --text-sm: 0.9rem;
+  --text-base: 1.05rem; /* Tamanho ótimo para leitura prolongada */
+  --text-lg: 1.25rem;
+  --text-xl: 1.563rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+
+  /* 3. Ritmo Vertical (Line Height) */
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.7; /* Recomendação W3C para blocos de texto longos */
+
+  /* 4. Espaçamento (Base 8px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+
+  /* 5. Medida Ideal de Leitura (Comprimento da linha) */
+  --optimal-measure: 70ch; /* 60 a 75 caracteres por linha é o ideal para o olho humano */
+}
+
+/* Modo Claro e Escuro - Ajustes no Tema Padrão do Quartz */
+:root[saved-theme="light"] {
+  --secondary: var(--uniube-blue-core);
+  --tertiary: var(--uniube-blue-light);
+  --text-color: #2c3e50; /* Cinza super escuro, evita o cansaço do preto puro */
+}
+
+:root[saved-theme="dark"] {
+  --secondary: #60a5fa; /* Azul claro para contraste no escuro */
+  --tertiary: #93c5fd;
+  --text-color: #cbd5e1;
+}
+
+/* ==========================================
+   FUNDAÇÕES DE LEITURA (READABILITY)
    ========================================== */
 
 article {
-  /* Improve line height and spacing for better readability */
-  line-height: 1.7;
-  font-size: 1.05rem;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-color);
+  max-width: var(--optimal-measure) !important;
+  margin: 0 auto; /* Centraliza o texto na tela */
   
   /* Smooth fade-in animation for page load */
   animation: fadeSlideUp 0.6s ease-out forwards;
+}
+
+article p {
+  margin-bottom: var(--space-6);
 }
 
 @keyframes fadeSlideUp {
@@ -18,83 +76,95 @@ article {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Beautiful Headings */
+/* ==========================================
+   CABEÇALHOS (HIERARQUIA E ESPAÇAMENTO)
+   ========================================== */
+   
 article h1, article h2, article h3, article h4 {
   font-family: 'Outfit', 'Inter', sans-serif;
   letter-spacing: -0.02em;
+  line-height: var(--leading-tight);
 }
 
+/* H1 - Título da Página */
 article h1 {
-  font-size: 2.2rem;
+  font-size: var(--text-3xl);
   font-weight: 800;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--secondary), var(--tertiary));
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-6);
+  background: linear-gradient(135deg, var(--secondary), var(--uniube-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
 
+/* H2 - Tópicos Principais */
 article h2 {
-  font-size: 1.6rem;
+  font-size: var(--text-2xl);
   font-weight: 700;
-  margin-top: 2.5rem;
-  padding-bottom: 0.5rem;
+  margin-top: var(--space-12); /* Mais espaço em cima para respiro */
+  margin-bottom: var(--space-4); /* Menos espaço embaixo para agrupar com o texto */
+  padding-bottom: var(--space-2);
   border-bottom: 2px solid color-mix(in srgb, var(--secondary) 20%, transparent);
 }
 
+/* H3 - Subtópicos */
 article h3 {
-  font-size: 1.3rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   color: var(--secondary);
-  margin-top: 2rem;
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
 }
+
+/* ==========================================
+   COMPONENTES PREMIUM
+   ========================================== */
 
 /* Enhanced Callouts (Admonitions) */
 .callout {
   border-radius: 12px !important;
   border: 1px solid color-mix(in srgb, var(--secondary) 20%, transparent) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   backdrop-filter: blur(10px);
-  padding: 1.2rem !important;
-  margin: 1.5rem 0;
+  padding: var(--space-6) !important;
+  margin: var(--space-8) 0;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .callout:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
 .callout-title {
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   font-family: 'Outfit', sans-serif;
   font-weight: 700 !important;
-  margin-bottom: 0.5rem !important;
+  margin-bottom: var(--space-2) !important;
 }
 
 /* Elegant Blockquotes */
 article blockquote {
-  border-left: 4px solid var(--secondary);
-  background: color-mix(in srgb, var(--secondary) 5%, transparent);
-  padding: 1rem 1.5rem;
-  margin: 1.5rem 0;
+  border-left: 4px solid var(--uniube-accent); /* Destaque laranja */
+  background: color-mix(in srgb, var(--uniube-accent) 5%, transparent);
+  padding: var(--space-4) var(--space-6);
+  margin: var(--space-8) 0;
   border-radius: 0 8px 8px 0;
   font-style: italic;
-  color: var(--darkgray);
-}
-:root[saved-theme="dark"] article blockquote {
-  color: #cbd5e1;
+  font-size: var(--text-lg);
+  color: var(--text-color);
+  opacity: 0.9;
 }
 
 /* Code Blocks macOS style */
 figure[data-rehype-pretty-code-figure] {
   border-radius: 12px !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  margin: 2rem 0 !important;
+  margin: var(--space-8) 0 !important;
   position: relative;
   padding-top: 2.5rem !important;
-  background-color: var(--darkgray) !important;
+  background-color: #1e293b !important; /* Fundo sempre escuro para o código */
   overflow: hidden !important;
   border: 1px solid rgba(255,255,255,0.05);
 }
@@ -114,13 +184,13 @@ figure[data-rehype-pretty-code-figure]::before {
 
 figure[data-rehype-pretty-code-figure] pre {
   margin: 0 !important;
-  padding: 1rem 1.5rem !important;
+  padding: var(--space-4) var(--space-6) !important;
   background-color: transparent !important;
 }
 
 article code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.9em;
+  font-size: var(--text-sm);
   padding: 0.2em 0.4em;
   border-radius: 6px;
   background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
@@ -130,20 +200,22 @@ article code {
 /* Images and Media */
 article img {
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  margin: 1.5rem 0;
+  margin: var(--space-8) 0;
+  max-width: 100%;
 }
 article img:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 /* Lists and checkmarks */
 article ul, article ol {
-  padding-left: 1.5rem;
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-6);
 }
 article li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
 }
 article li::marker {
   color: var(--secondary);
@@ -154,7 +226,8 @@ article li::marker {
 article a.internal, article a.external {
   position: relative;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--secondary);
   transition: color 0.2s;
 }
 article a.internal::after, article a.external::after {
@@ -179,18 +252,18 @@ article table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin: 2rem 0;
+  margin: var(--space-8) 0;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 article th {
   background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
-  padding: 1rem;
+  padding: var(--space-4);
   font-weight: 600;
   text-align: left;
 }
 article td {
-  padding: 1rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--gray) 20%, transparent);
+  padding: var(--space-4);
+  border-bottom: 1px solid color-mix(in srgb, var(--text-color) 10%, transparent);
 }
