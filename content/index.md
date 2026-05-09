@@ -5,9 +5,24 @@ cssclasses:
 ---
 
 <style>
-.sidebar.left, .sidebar.right, .page-header, .article-title, .content-meta, footer { display: none !important; }
-.center, .page .center { max-width: 100% !important; margin: 0 !important; padding: 1rem 3% !important; }
-.dashboard-container { font-family: 'Outfit', sans-serif; color: var(--dark); margin-top: 0; }
+/* Hide sidebars and default elements */
+.sidebar, .page-header, .article-title, .content-meta, footer { display: none !important; }
+
+/* Force absolute 100% width on ALL Quartz wrappers */
+html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article { 
+    display: block !important; 
+    max-width: 100% !important; 
+    width: 100% !important; 
+    margin: 0 !important; 
+    padding: 0 !important; 
+    overflow-x: hidden;
+}
+
+/* Dashboard container spacing */
+.dashboard-container { font-family: 'Outfit', sans-serif; color: var(--light); background-color: #0f172a; padding: 2rem 5%; min-height: 100vh; margin-top: 0; box-sizing: border-box; width: 100% !important; max-width: 100% !important; overflow-x: hidden; }
+:root[saved-theme="light"] .dashboard-container { background-color: #f8fafc; color: var(--dark); }
+
+
 :root[saved-theme="dark"] .dashboard-container { color: var(--light); }
 .hero { position: relative; height: 350px; display: flex; align-items: center; padding: 2rem 3rem; background-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%), url('assets/cloud_hero.png'); background-size: cover; background-position: center; border-radius: 16px; margin-bottom: 3rem; overflow: hidden; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 .tag { display: inline-block; padding: 4px 12px; background: rgba(59, 130, 246, 0.3); border: 1px solid #3b82f6; border-radius: 20px; font-size: 12px; font-weight: 600; color: #93c5fd; margin-bottom: 12px; }
