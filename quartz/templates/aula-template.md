@@ -9,8 +9,9 @@ title: "☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos Essenciai
   1. Edite o `title` no frontmatter acima
      Formato: [EMOJI] Aula [NN] – [Título]: [Subtítulo]
   2. Substitua TODO O CONTEÚDO abaixo pelo conteúdo da aula
-  3. Use os padrões de seção documentados abaixo
-  4. Salve como: "Aula NN - Titulo Curto.md" (sem acentos no nome do arquivo)
+  3. Use a ferramenta `generate_image` para criar uma arte premium exclusiva para a aula (sem texto) e insira no conteúdo (ex: `![Capa](assets/aula01-capa.webp)`)
+  4. Use os padrões de seção documentados abaixo
+  5. Salve como: "Aula NN - Titulo Curto.md" (sem acentos no nome do arquivo)
   
   EMOJIS PADRÃO:
   ☁️ Cloud · 🌐 Redes · 🔐 Segurança · ⚡ Serverless · 🗄️ BD · 🛠️ Lab
