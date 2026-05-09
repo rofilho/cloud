@@ -85,6 +85,16 @@ Formato: `[EMOJI] Aula [NN] – [Título]: [Subtítulo]`
 
 ---
 
+## ETAPA 4.5 — GERAR IMAGENS DE CAPA (HERO E AULAS)
+
+Para garantir o padrão "Netflix-style", a IA atuando na disciplina DEVE gerar as imagens temáticas:
+
+1.  **Imagem do Hero (`assets/hero.png`):** Use a ferramenta `generate_image` para criar um banner widescreen (aspect ratio 16:9) que represente o tema principal da disciplina. O estilo deve ser premium, vibrante, com dark mode e glassmorphism se aplicável, sem textos genéricos.
+2.  **Imagens das Aulas:** Se o layout de cards exigir thumbnails individuais em vez de emojis, ou se a aula precisar de uma capa interna, use `generate_image` para ilustrar o conceito exato de cada aula.
+3.  **Atenção:** Nunca use imagens de *placeholder*. Crie imagens exclusivas, salve-as na pasta `content/assets/` e atualize o CSS ou frontmatter para apontar para o novo arquivo gerado.
+
+---
+
 ## ETAPA 5 — VERIFICAR OS COMPONENTES
 
 Os 3 componentes abaixo são idênticos para todas as disciplinas.
