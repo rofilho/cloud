@@ -24,28 +24,32 @@ export default ((opts?: Options) => {
     return (
       <footer class={`${displayClass ?? ""}`}>
         {currentIndex !== -1 && (
-          <div class="prev-next-nav" style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem", paddingTop: "1rem", borderTop: "1px solid rgba(150,150,150,0.2)" }}>
-            <div>
+          <div class="prev-next-nav">
+            <div class="nav-prev">
               {prevPage && (
-                <a href={`/${prevPage.slug}`} style={{ textDecoration: "none" }}>
-                  <span style={{ fontSize: "0.8rem", color: "var(--gray)", display: "block" }}>← Anterior</span>
-                  <span style={{ fontWeight: "600", color: "var(--secondary)" }}>{prevPage.title}</span>
+                <a href={`/${prevPage.slug}`}>
+                  <span class="nav-label">← Anterior</span>
+                  <span class="nav-title">{prevPage.title}</span>
                 </a>
               )}
             </div>
-            <div style={{ textAlign: "right" }}>
+            <div class="nav-next">
               {nextPage && (
-                <a href={`/${nextPage.slug}`} style={{ textDecoration: "none" }}>
-                  <span style={{ fontSize: "0.8rem", color: "var(--gray)", display: "block" }}>Próxima →</span>
-                  <span style={{ fontWeight: "600", color: "var(--secondary)" }}>{nextPage.title}</span>
+                <a href={`/${nextPage.slug}`}>
+                  <span class="nav-label">Próxima →</span>
+                  <span class="nav-title">{nextPage.title}</span>
                 </a>
               )}
             </div>
           </div>
         )}
-        <p>
-          Prof. Romualdo Filho | <a href="mailto:romualdo.filho@uniube.br">romualdo.filho@uniube.br</a>
-        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "1rem" }}>
+          <img src="https://uniube.br/img/landing/logo_azul.svg" alt="Uniube" class="logo-light" style={{ height: "25px", width: "auto" }} />
+          <img src="https://uniube.br/img/landing/logo_branca.svg" alt="Uniube" class="logo-dark" style={{ height: "25px", width: "auto" }} />
+          <p style={{ margin: 0 }}>
+            Prof. Romualdo Filho | <a href="mailto:romualdo.filho@uniube.br">romualdo.filho@uniube.br</a>
+          </p>
+        </div>
         <ul>
           {Object.entries(links).map(([text, link]) => (
             <li>
@@ -57,6 +61,11 @@ export default ((opts?: Options) => {
     )
   }
 
-  Footer.css = style
+  Footer.css = style + `
+  :root[saved-theme="light"] .logo-dark { display: none; }
+  :root[saved-theme="light"] .logo-light { display: block; }
+  :root[saved-theme="dark"] .logo-light { display: none; }
+  :root[saved-theme="dark"] .logo-dark { display: block; }
+  `
   return Footer
 }) satisfies QuartzComponentConstructor

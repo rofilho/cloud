@@ -55,7 +55,7 @@
 /* ==========================================
    OVERRIDE GRID (FIM DOS ESPAÇOS LATERAIS)
    ========================================== */
-.page {
+.page > #quartz-body {
   /* Como removemos os menus, matamos as colunas invisíveis de 320px */
   @media (min-width: 1200px) {
     grid-template-columns: 1fr !important;
@@ -63,6 +63,12 @@
       "grid-header"
       "grid-center"
       "grid-footer" !important;
+  }
+}
+
+.page {
+  @media (min-width: 1200px) {
+    max-width: 1400px; /* Estica a página toda */
     padding: 0 4rem;
   }
 }
@@ -285,4 +291,80 @@ article th {
 article td {
   padding: var(--space-4);
   border-bottom: 1px solid color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+
+/* ==========================================
+   NAVEGAÇÃO FLUTUANTE (PREV / NEXT)
+   ========================================== */
+.prev-next-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(150, 150, 150, 0.2);
+
+  a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    transition: transform 0.2s, opacity 0.2s;
+
+    &:hover {
+      transform: scale(1.02);
+      opacity: 0.8;
+    }
+  }
+
+  .nav-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .nav-title {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 1.1rem;
+  }
+
+  .nav-next {
+    text-align: right;
+  }
+
+  /* No desktop gigante, joga para as laterais flutuantes! */
+  @media (min-width: 1400px) {
+    border-top: none;
+    padding-top: 0;
+    margin-bottom: 0;
+    
+    .nav-prev, .nav-next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 250px;
+      z-index: 100;
+    }
+
+    .nav-prev {
+      left: 2rem;
+      text-align: left;
+    }
+
+    .nav-next {
+      right: 2rem;
+      text-align: right;
+    }
+
+    a {
+      background: var(--light);
+      border: 1px solid var(--lightgray);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--light) 90%, transparent);
+    }
+  }
 }

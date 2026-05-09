@@ -7,7 +7,9 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title
   const baseDir = pathToRoot(fileData.slug!)
   return (
-    <h2 class={classNames(displayClass, "page-title")}>
+    <h2 class={classNames(displayClass, "page-title")} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <img src="https://uniube.br/img/landing/logo_azul.svg" alt="Uniube" class="logo-light" style={{ height: "30px", width: "auto" }} />
+      <img src="https://uniube.br/img/landing/logo_branca.svg" alt="Uniube" class="logo-dark" style={{ height: "30px", width: "auto" }} />
       <a href={baseDir}>{title}</a>
     </h2>
   )
@@ -19,6 +21,10 @@ PageTitle.css = `
   margin: 0;
   font-family: var(--titleFont);
 }
+:root[saved-theme="light"] .logo-dark { display: none; }
+:root[saved-theme="light"] .logo-light { display: block; }
+:root[saved-theme="dark"] .logo-light { display: none; }
+:root[saved-theme="dark"] .logo-dark { display: block; }
 `
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor
