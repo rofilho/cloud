@@ -32,10 +32,11 @@ const LessonNavigation: QuartzComponent = ({ fileData, allFiles, displayClass }:
 
   const renderCard = (page: any, isNext: boolean) => {
     const rawTitle = page.frontmatter?.title ?? page.slug
-    const { emoji, lessonNumber, title } = parseLessonTitle(rawTitle)
+    const { emoji, title } = parseLessonTitle(rawTitle)
+    const cardClass = isNext ? "nav-lesson-card next-card" : "nav-lesson-card prev-card"
     
     return (
-      <a href={`/${page.slug}`} class="nav-lesson-card" data-spa>
+      <a href={`/${page.slug}`} class={cardClass} data-spa>
         <div class="nav-lesson-thumb">
           {emoji}
           <div class="nav-lesson-overlay"></div>
@@ -43,11 +44,6 @@ const LessonNavigation: QuartzComponent = ({ fileData, allFiles, displayClass }:
         <div class="nav-lesson-content">
           <div class="nav-lesson-label">{isNext ? "Próxima Aula →" : "← Aula Anterior"}</div>
           <div class="nav-lesson-title">{title}</div>
-          {lessonNumber && (
-             <div class="nav-lesson-meta">
-               <span>{lessonNumber}</span>
-             </div>
-          )}
         </div>
       </a>
     )
@@ -55,8 +51,8 @@ const LessonNavigation: QuartzComponent = ({ fileData, allFiles, displayClass }:
 
   return (
     <div class={classNames(displayClass, "lesson-nav-top")}>
-      {prevPage ? renderCard(prevPage, false) : <div class="nav-lesson-spacer"></div>}
-      {nextPage ? renderCard(nextPage, true) : <div class="nav-lesson-spacer"></div>}
+      {prevPage ? renderCard(prevPage, false) : <div></div>}
+      {nextPage ? renderCard(nextPage, true) : <div></div>}
     </div>
   )
 }
@@ -64,45 +60,60 @@ const LessonNavigation: QuartzComponent = ({ fileData, allFiles, displayClass }:
 LessonNavigation.css = `
 .lesson-nav-top {
   display: flex;
-  gap: 1.5rem;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 2.5rem;
   margin-top: 1rem;
 }
 
-.nav-lesson-spacer {
-  flex: 1;
-}
-
 .nav-lesson-card {
-  flex: 1;
   display: flex;
-  flex-direction: column;
-  background: var(--lightgray);
+  flex-direction: row;
+  align-items: stretch;
+  background: color-mix(in srgb, var(--lightgray) 40%, transparent);
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid var(--gray);
-  min-width: 0; /* Prevent flex overflow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  border: 1px solid color-mix(in srgb, var(--gray) 30%, transparent);
+  width: 48%; /* Keep them from taking full screen */
+  max-width: 400px; /* Sensible maximum */
+}
+
+.nav-lesson-card.prev-card {
+  flex-direction: row;
+}
+
+.nav-lesson-card.next-card {
+  flex-direction: row-reverse;
+  text-align: right;
+  margin-left: auto;
 }
 
 :root[saved-theme="dark"] .nav-lesson-card {
-  background: var(--darkgray);
-  border-color: rgba(255,255,255,0.05);
+  background: color-mix(in srgb, var(--darkgray) 40%, transparent);
+  border-color: rgba(255,255,255,0.08);
 }
 
 .nav-lesson-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  background: color-mix(in srgb, var(--lightgray) 80%, transparent);
+}
+
+:root[saved-theme="dark"] .nav-lesson-card:hover {
+  background: var(--darkgray);
 }
 
 .nav-lesson-thumb {
-  height: 90px;
+  width: 65px;
+  min-width: 65px;
+  min-height: 65px;
   background: #1e293b;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 24px;
   position: relative;
   overflow: hidden;
 }
@@ -115,23 +126,24 @@ LessonNavigation.css = `
 }
 
 .nav-lesson-content {
-  padding: 12px 15px;
+  padding: 10px 15px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   flex: 1;
 }
 
 .nav-lesson-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--tertiary);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   letter-spacing: 0.05em;
 }
 
 .nav-lesson-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--dark);
   line-height: 1.3;
@@ -139,22 +151,21 @@ LessonNavigation.css = `
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 :root[saved-theme="dark"] .nav-lesson-title {
   color: var(--light);
 }
 
-.nav-lesson-meta {
-  font-size: 0.75rem;
-  color: var(--gray);
-  margin-top: auto;
-}
-
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .lesson-nav-top {
     flex-direction: column;
+    gap: 0.8rem;
+  }
+  .nav-lesson-card {
+    width: 100%;
+    max-width: 100%;
   }
 }
 `
