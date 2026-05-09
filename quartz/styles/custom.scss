@@ -36,7 +36,7 @@
   --space-12: 3rem;
 
   /* 5. Medida Ideal de Leitura (Comprimento da linha) */
-  --optimal-measure: 70ch; /* 60 a 75 caracteres por linha é o ideal para o olho humano */
+  --optimal-measure: 1200px; /* Aumentado a pedido para preencher mais a tela */
 }
 
 /* Modo Claro e Escuro - Ajustes no Tema Padrão do Quartz */
@@ -50,6 +50,25 @@
   --secondary: #60a5fa; /* Azul claro para contraste no escuro */
   --tertiary: #93c5fd;
   --text-color: #cbd5e1;
+}
+
+/* ==========================================
+   OVERRIDE GRID (FIM DOS ESPAÇOS LATERAIS)
+   ========================================== */
+.page {
+  /* Como removemos os menus, matamos as colunas invisíveis de 320px */
+  @media (min-width: 1200px) {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "grid-header"
+      "grid-center"
+      "grid-footer" !important;
+    padding: 0 4rem;
+  }
+}
+
+.sidebar.left, .sidebar.right {
+  display: none !important;
 }
 
 /* ==========================================
