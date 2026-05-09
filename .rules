@@ -1,0 +1,136 @@
+# 📐 Rules — Portal Acadêmico Uniube (Quartz 4)
+# Prof. Romualdo Filho | romualdo.filho@uniube.br
+# Criado: 2026-05-09 | Versão: 2.0
+
+## CONTEXTO
+Stack: Quartz 4.5.2 (Node.js/TypeScript/TSX)
+Repositórios: github.com/rofilho/[disciplina]
+Branch de deploy: v4
+Build local: `npx quartz build`
+Servidor dev: `npx quartz build --serve` → http://localhost:8080
+GitHub Actions publica automaticamente após `git push`
+
+## ARQUITETURA DE ARQUIVOS CRÍTICOS
+
+quartz/components/LessonNavigation.tsx   ← Navegação Anterior/Próxima
+quartz/components/Footer.tsx             ← Rodapé Uniube
+quartz/components/PageTitle.tsx          ← Cabeçalho Uniube
+quartz/components/index.ts               ← Exporta todos os componentes
+quartz/styles/custom.scss                ← Design system completo
+quartz.layout.ts                         ← Layout das páginas
+
+## DESIGN TOKENS OBRIGATÓRIOS
+
+Cores Uniube:
+  --uniube-blue-dark:  #003366
+  --uniube-blue-core:  #004B87
+  --uniube-blue-light: #2D6A9F
+  --uniube-accent:     #f97316
+
+Logos (CDN oficial):
+  Light mode: https://uniube.br/img/landing/logo_azul.svg
+  Dark mode:  https://uniube.br/img/landing/logo_branca.svg
+
+Fontes:
+  Texto: 'Outfit', 'Inter', sans-serif
+  Código: 'JetBrains Mono', monospace
+  Tamanho base: 1.05rem
+  Line-height: 1.72
+
+## REGRAS CRÍTICAS (bugs já encontrados)
+
+RULE 1 - FRONTMATTER:
+  SEMPRE usar f.frontmatter?.title
+  NUNCA usar f.title (não existe no Quartz 4 vfile.ts)
+
+RULE 2 - SCSS IMPORTS:
+  NUNCA usar @import de fontes externas no custom.scss
+  Fontes vão em quartz.config.ts (cdnCaching, googleFonts ou cssStyleSheets)
+
+RULE 3 - H1 GRADIENTE:
+  NUNCA usar display: inline-block no H1 com gradiente (quebra títulos longos)
+  Usar background-clip: text sem restrição de display
+
+RULE 4 - LOGOS SEM FLASH:
+  Ambas as logos com display: none por padrão
+  Trocar via CSS: :root:not([saved-theme="dark"]) .logo--light { display: block }
+  NUNCA usar JavaScript para trocar logos
+
+RULE 5 - GRID LAYOUT:
+  .page > #quartz-body { grid-template-columns: 1fr !important }
+  .sidebar.left, .sidebar.right { display: none !important }
+
+RULE 6 - COMPONENTES:
+  LessonNavigation: ordenar por número da aula (regex /Aula\s*(\d+)/i)
+  LessonNavigation: não renderizar em slug === "index"
+  Footer: NUNCA calcular prev/next (responsabilidade do LessonNavigation)
+
+## PADRÃO DE FRONTMATTER (toda aula)
+
+---
+title: "☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos"
+---
+
+Formato: [EMOJI] Aula [NN] – [Título]: [Subtítulo opcional]
+
+Emojis padrão por tema:
+  ☁️  Cloud/Nuvem
+  🌐  Redes/Internet
+  🔐  Segurança/IAM/Autenticação
+  ⚡  Serverless/Lambda/Performance
+  🗄️  Banco de Dados
+  🛠️  Prática/Lab/Hands-on
+  📋  Ementa/Objetivos/Plano
+  🎓  Introdução/Academy
+  🏗️  IaC/Terraform/Infraestrutura
+  💰  FinOps/Custos/Billing
+  🖥️  SO/Virtualização/Hyper-V
+  🐧  Linux/Ubuntu Server
+  🔒  VPN/VPC/Redes privadas
+  📊  Monitoramento/Observabilidade
+  💾  Armazenamento/Backup/S3
+  🌍  DNS/CDN/Route 53
+  🐳  Docker/Containers
+  🤖  IA/ML/SageMaker
+
+## COMPONENTES PRONTOS (copiar do repo cloud)
+
+Os 3 componentes abaixo são idênticos para TODAS as disciplinas:
+  - quartz/components/LessonNavigation.tsx
+  - quartz/components/Footer.tsx
+  - quartz/components/PageTitle.tsx
+
+O custom.scss tem a base igual, só muda o --optimal-measure e cores de acento.
+
+## QUARTZ.LAYOUT.TS PADRÃO
+
+beforeBody para aulas:
+  1. ConditionalRender(Breadcrumbs) — só fora do index
+  2. LessonNavigation()             ← ANTES do título
+  3. ArticleTitle()
+  4. ContentMeta()
+  5. TagList()
+
+left: []   ← sem sidebar esquerda
+right: []  ← sem sidebar direita
+
+## PROCESS DE CRIAR NOVA DISCIPLINA
+
+1. Clone o repo cloud: git clone github.com/rofilho/cloud [novo-repo]
+2. Mude o remote: git remote set-url origin [novo-url]
+3. Edite quartz.config.ts: mude pageTitle e description
+4. Substitua todo content/ pelos arquivos da nova disciplina
+5. Atualize index.md com os cards das novas aulas
+6. Rode: npx quartz build para validar
+7. Push para publicar
+
+## CHECKLIST DE PUBLICAÇÃO
+
+[ ] npx quartz build → Exit code: 0 (sem erros)
+[ ] Todas as aulas têm frontmatter title preenchido
+[ ] index.md tem links corretos para todos os arquivos
+[ ] Logos Uniube aparecem no header e footer
+[ ] Navegação anterior/próxima funciona nas aulas internas
+[ ] index.md NÃO exibe navegação anterior/próxima
+[ ] Mobile: pills de navegação empilham verticalmente (< 640px)
+[ ] Nenhum arquivo privado (provas, gabaritos) na pasta content/
