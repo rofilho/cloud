@@ -5,9 +5,9 @@ cssclasses:
 ---
 
 <style>
-.dashboard-layout .page-header, 
-.dashboard-layout .page-title { display: none; }
-.dashboard-container { font-family: 'Outfit', sans-serif; color: var(--dark); margin-top: -2rem; }
+.sidebar.left, .sidebar.right, .page-header, .article-title, .content-meta, footer { display: none !important; }
+.center, .page .center { max-width: 100% !important; margin: 0 !important; padding: 1rem 3% !important; }
+.dashboard-container { font-family: 'Outfit', sans-serif; color: var(--dark); margin-top: 0; }
 :root[saved-theme="dark"] .dashboard-container { color: var(--light); }
 .hero { position: relative; height: 350px; display: flex; align-items: center; padding: 2rem 3rem; background-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%), url('assets/cloud_hero.png'); background-size: cover; background-position: center; border-radius: 16px; margin-bottom: 3rem; overflow: hidden; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 .tag { display: inline-block; padding: 4px 12px; background: rgba(59, 130, 246, 0.3); border: 1px solid #3b82f6; border-radius: 20px; font-size: 12px; font-weight: 600; color: #93c5fd; margin-bottom: 12px; }
