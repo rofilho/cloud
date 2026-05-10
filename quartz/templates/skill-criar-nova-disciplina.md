@@ -74,14 +74,16 @@ Para cada aula, copie o template e edite:
 Copy-Item quartz\templates\aula-template.md "content\Aula 02 - Titulo da Aula.md"
 ```
 
-**Padrão de frontmatter obrigatório:**
+**Padrão de frontmatter e H1 obrigatório:**
 ```yaml
 ---
-title: "🌐 Aula 02 – Introdução às Redes: Conceitos Fundamentais"
+title: "🌐 Aula - 02: Introdução às Redes e Conceitos Fundamentais"
 ---
+
+# 🌐 Aula - 02: Introdução às Redes e Conceitos Fundamentais
 ```
 
-Formato: `[EMOJI] Aula [NN] – [Título]: [Subtítulo]`
+Formato Obrigatório: `[EMOJI] Aula - [NN]: [Conteúdo]`
 
 ---
 

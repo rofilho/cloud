@@ -1,5 +1,5 @@
 ---
-title: "☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos Essenciais"
+title: "☁️ Aula - 01: Fundamentos de Cloud e Conceitos Essenciais"
 ---
 
 <!-- 
@@ -7,7 +7,7 @@ title: "☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos Essenciai
   ─────────────────────────────────────────────
   INSTRUÇÕES:
   1. Edite o `title` no frontmatter acima
-     Formato: [EMOJI] Aula [NN] – [Título]: [Subtítulo]
+     Formato Obrigatório: [EMOJI] Aula - [NN]: [Título ou Conteúdo]
   2. Substitua TODO O CONTEÚDO abaixo pelo conteúdo da aula
   3. Use a ferramenta `generate_image` para criar uma capa para a aula (sem texto) e salve na pasta `assets/`. **NUNCA INSERIR A IMAGEM NO CORPO DESTE MARKDOWN.** Ela deve ser injetada apenas como background do card no arquivo `index.md` (dashboard Netflix-style).
   4. Use os padrões de seção documentados abaixo
@@ -18,7 +18,7 @@ title: "☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos Essenciai
   📋 Ementa · 🎓 Intro · 🏗️ IaC · 💰 FinOps · 🖥️ SO/VM · 🐧 Linux
 -->
 
-# ☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos Essenciais
+# ☁️ Aula - 01: Fundamentos de Cloud e Conceitos Essenciais
 
 ## 🎯 Objetivos da Aula
 
