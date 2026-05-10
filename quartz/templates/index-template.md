@@ -174,7 +174,9 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
   <div class="row">
 
     <a href="./Aula-01---Ementa-e-Objetivos" class="card" data-spa>
-      <div class="card-thumb">📋<div class="card-progress-bar"><div class="card-progress" style="width: 100%"></div></div></div>
+      <div class="card-thumb" style="background-image: url('assets/capa_aula01.png'); background-size: cover; background-position: center;">
+        <div class="card-progress-bar"><div class="card-progress" style="width: 100%"></div></div>
+      </div>
       <div class="card-content">
         <div class="card-title">Ementa e Objetivos</div>
         <div class="card-meta"><span>Aula 01</span><span>✅ Concluído</span></div>
@@ -182,7 +184,9 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
     </a>
 
     <a href="./Aula-02---Titulo" class="card" data-spa>
-      <div class="card-thumb">🎓<div class="card-progress-bar"><div class="card-progress" style="width: 100%"></div></div></div>
+      <div class="card-thumb" style="background-image: url('assets/capa_aula02.png'); background-size: cover; background-position: center;">
+        <div class="card-progress-bar"><div class="card-progress" style="width: 100%"></div></div>
+      </div>
       <div class="card-content">
         <div class="card-title">Nome da Aula 02</div>
         <div class="card-meta"><span>Aula 02</span><span>✅ Concluído</span></div>
@@ -200,7 +204,9 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
   <div class="row">
 
     <a href="./Aula-03---Titulo" class="card" data-spa>
-      <div class="card-thumb">🛠️<div class="card-progress-bar"><div class="card-progress" style="width: 50%"></div></div></div>
+      <div class="card-thumb" style="background-image: url('assets/capa_aula03.png'); background-size: cover; background-position: center;">
+        <div class="card-progress-bar"><div class="card-progress" style="width: 50%"></div></div>
+      </div>
       <div class="card-content">
         <div class="card-title">Nome da Aula 03</div>
         <div class="card-meta"><span>Aula 03</span><span>⏳ Em Andamento</span></div>

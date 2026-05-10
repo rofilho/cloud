@@ -9,7 +9,7 @@ title: "☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos Essenciai
   1. Edite o `title` no frontmatter acima
      Formato: [EMOJI] Aula [NN] – [Título]: [Subtítulo]
   2. Substitua TODO O CONTEÚDO abaixo pelo conteúdo da aula
-  3. Use a ferramenta `generate_image` para criar uma arte premium exclusiva para a aula (sem texto) e insira no conteúdo (ex: `![Capa](assets/aula01-capa.webp)`)
+  3. Use a ferramenta `generate_image` para criar uma capa para a aula (sem texto) e salve na pasta `assets/`. **NUNCA INSERIR A IMAGEM NO CORPO DESTE MARKDOWN.** Ela deve ser injetada apenas como background do card no arquivo `index.md` (dashboard Netflix-style).
   4. Use os padrões de seção documentados abaixo
   5. Salve como: "Aula NN - Titulo Curto.md" (sem acentos no nome do arquivo)
   
