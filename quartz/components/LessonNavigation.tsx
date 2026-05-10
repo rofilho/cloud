@@ -1,5 +1,6 @@
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+﻿import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
+import { resolveRelative } from "../util/path"
 
 // Extrai emoji, número da aula e título limpo de strings como:
 // "☁️ Aula 01 – Fundamentos de Cloud: ..."
@@ -53,7 +54,7 @@ const LessonNavigation: QuartzComponent = ({ fileData, allFiles, displayClass }:
     const label = isNext ? "Próxima →" : "← Anterior"
 
     return (
-      <a href={`/${page.slug}`} class={`nav-pill ${isNext ? "nav-pill--next" : "nav-pill--prev"}`} data-spa>
+      <a href={resolveRelative(fileData.slug!, page.slug!)} class={`nav-pill ${isNext ? "nav-pill--next" : "nav-pill--prev"}`} data-spa>
         <div class="nav-pill__icon">{emoji}</div>
         <div class="nav-pill__body">
           <span class="nav-pill__label">{label}</span>
@@ -218,3 +219,4 @@ LessonNavigation.css = `
 `
 
 export default (() => LessonNavigation) satisfies QuartzComponentConstructor
+
