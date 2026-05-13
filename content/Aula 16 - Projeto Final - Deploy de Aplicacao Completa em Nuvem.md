@@ -204,10 +204,21 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 
 | Item | Detalhe |
 |---|---|
-| **Prazo máximo** | **12/06/2026 até 23h59** |
+| **Prazo máximo** | **10/06/2026 até 23h59** |
 | **Onde entregar** | AVA — seção **Estudos Autônomos** |
 | **Formato** | Um **único arquivo PDF** contendo o relatório técnico completo |
+| **Vídeo (Máx 5 min)** | Inclua no PDF o link para o vídeo demonstrativo com console aberto |
 | **Apresentação** | Haverá uma **apresentação única** em sala de aula para avaliação oral |
+
+---
+
+### 🎤 Sobre a Apresentação ao Vivo
+
+Durante a apresentação em sala, o professor poderá:
+- ✅ Pedir para o grupo **executar o `terraform apply`** ao vivo (se usou Terraform)
+- ✅ Pedir para **acionar o pipeline CI/CD** via git push (se implementou)
+- ✅ Solicitar **demonstração prática** de qualquer parte da infraestrutura
+- ✅ Fazer **perguntas individuais** a qualquer integrante sobre o projeto
 
 ### Sobre os grupos
 
@@ -219,7 +230,7 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 
 ### ⚠️ Atenção ao Prazo — Sem Exceções
 
-> **O prazo de entrega é fixo: 12/06/2026 às 23h59.**
+> **O prazo de entrega é fixo: 10/06/2026 às 23h59.**
 >
 > A seção de Estudos Autônomos no AVA fecha automaticamente nesse horário. Após o fechamento, **não é possível enviar o arquivo**, independentemente do motivo. Não há entrega tardia, não há exceção.
 >
