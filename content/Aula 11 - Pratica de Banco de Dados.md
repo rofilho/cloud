@@ -1,4 +1,5 @@
----
+﻿---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 disciplina: Cloud Computing
 codigo: "14189"
 aula: 11
@@ -17,8 +18,9 @@ tags:
   - mysql
 publicar: true
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
-# 🟢 Aula 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)
+# 🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube
@@ -28,10 +30,12 @@ publicar: true
 **Tópicos:** Terraform, Amazon RDS, MySQL, IaC, Security Groups, `terraform init`, `plan`, `apply`, `destroy`
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 > 💬 *"Na aula passada, aprendemos sobre RDS, Multi-AZ e Read Replicas no console. Hoje, vamos criar tudo isso com código — porque no mercado, ninguém clica botão para criar banco de dados em produção."*
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 🎯 Objetivo da Aula
 
@@ -44,6 +48,7 @@ Ao final desta aula, os alunos serão capazes de:
 - Destruir toda a infraestrutura com um único comando (`terraform destroy`).
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 🔄 Revisão Rápida (5 min)
 
@@ -57,6 +62,7 @@ Ao final desta aula, os alunos serão capazes de:
 > 💡 **O salto de hoje:** Na Aula 10, exploramos o RDS pelo console. Hoje, **o código cria o banco, configura o firewall e exibe a string de conexão** — tudo automatizado e versionável no Git.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 1. Estrutura do Projeto
 
@@ -77,6 +83,7 @@ terraform-rds/
 ```
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 2. `provider.tf` — Conectando ao AWS
 
@@ -98,6 +105,7 @@ provider "aws" {
 > 💡 **Mesmo provider da Aula 12.** Se você já tem esse arquivo de outro projeto, pode reutilizar.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 3. `variables.tf` — Variáveis do Projeto
 
@@ -135,6 +143,7 @@ variable "db_instance_class" {
 > ⚠️ **Sobre a senha no código:** Em produção, a senha seria armazenada no AWS Secrets Manager ou passada via variável de ambiente (`TF_VAR_db_password`). Para fins didáticos do Academy, usamos um default, mas o atributo `sensitive = true` garante que o Terraform **nunca exibe a senha** nos logs.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 4. `main.tf` — Security Group + Instância RDS
 
@@ -208,6 +217,7 @@ resource "aws_db_instance" "banco_aula11" {
 > - O `publicly_accessible = true` é necessário para acessar o banco de fora da VPC — em produção, seria `false` com acesso apenas via VPN ou bastion host.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 5. `outputs.tf` — Exibindo a String de Conexão
 
@@ -234,6 +244,7 @@ output "nome_banco" {
 ```
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 6. O Ciclo Terraform: Criando o Banco
 
@@ -246,6 +257,7 @@ terraform init
 > ✅ **Checkpoint:** `Terraform has been successfully initialized!`
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Passo 2: `terraform plan`
 
@@ -262,6 +274,7 @@ Plan: 2 to add, 0 to change, 0 to destroy.
 **2 recursos:** o Security Group e a instância RDS.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Passo 3: `terraform apply`
 
@@ -292,6 +305,7 @@ nome_banco    = "aula11db"
 ```
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 7. Conectando ao Banco de Dados
 
@@ -352,6 +366,7 @@ Resultado esperado:
 > ✅ **Se você viu esta tabela, seu banco de dados na nuvem está funcionando — provisionado 100% por código!**
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 8. Comparação: Console vs Terraform para RDS
 
@@ -365,6 +380,7 @@ Resultado esperado:
 | Habilitar Multi-AZ | Checkbox no console | `multi_az = true` (1 linha) |
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 9. `terraform destroy` — Limpeza Obrigatória
 
@@ -382,6 +398,7 @@ Do you really want to destroy all resources?
 > 🏁 **OBRIGATÓRIO:** O RDS custa mais que o Lightsail. Execute o `destroy` ao final da aula para não consumir a cota do AWS Academy.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📋 Resumo Estrutural
 
@@ -397,6 +414,7 @@ Do you really want to destroy all resources?
 | `endpoint` | URL de conexão do banco gerada pela AWS (host + porta) |
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## ❓ Banco de Questões
 
@@ -414,6 +432,7 @@ Do you really want to destroy all resources?
 **Justificativa:** O atributo `sensitive = true` é uma proteção do Terraform que impede que o valor da variável apareça na saída dos comandos `plan`, `apply` e `output`. Não afeta a criptografia do banco em si — isso é responsabilidade do RDS (via `storage_encrypted`).
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Questão 2: Teórica — Dissertativa (Nível Intermediário)
 
@@ -422,6 +441,7 @@ Do you really want to destroy all resources?
 **Resposta esperada:** (1) **Documentação automática:** O código `.tf` documenta exatamente o que foi criado, diferente de prints de tela. (2) **Reprodutibilidade:** O mesmo código cria ambientes idênticos em qualquer conta ou região AWS, sem risco de esquecer uma configuração. (3) **Versionamento:** Com Git, cada mudança na infraestrutura fica rastreada no histórico, permitindo auditoria e rollback. Bônus: (4) Destruição simplificada com `terraform destroy` e (5) habilitação de Multi-AZ com uma única linha de código.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Questão 3: Prática — Múltipla Escolha (Nível Intermediário)
 
@@ -435,6 +455,7 @@ Do you really want to destroy all resources?
 **Justificativa:** O princípio do menor privilégio exige que o acesso ao banco seja restrito ao menor número possível de origens. Em produção, o `cidr_blocks` deve conter apenas o IP ou range da aplicação que precisa acessar o banco. Expor a porta 3306 para toda a internet (`0.0.0.0/0`) é aceitável apenas em laboratórios didáticos.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 🏋️ Atividade Prática — Entrega no Moodle
 
@@ -450,6 +471,7 @@ Execute o roteiro da aula completo e documente com evidências:
 > 🏁 **Certifique-se de executar o `terraform destroy` ao final!** O RDS consome significativamente mais cota que o Lightsail.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📄 Artigo de Aprofundamento
 
@@ -460,6 +482,7 @@ Execute o roteiro da aula completo e documente com evidências:
   > *Documentação oficial da AWS para o Amazon RDS. Útil para entender as configurações que o Terraform automatiza.*
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📚 Referências Bibliográficas
 
@@ -469,5 +492,6 @@ Execute o roteiro da aula completo e documente com evidências:
 - Brikman, Y. *Terraform: Up & Running*. O'Reilly Media, 3ª ed., 2022.
 
 ---
+title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 *Última atualização: 2026-04-29 | Status: publicado*

@@ -1,4 +1,8 @@
-# Aula 08: Lançando Instâncias EC2 — AWS CLI e Terraform
+﻿---
+title: "☁️ Aula - 08: Lançando Instâncias EC2 — AWS CLI e Terraform"
+---
+
+# ☁️ Aula - 08: Lançando Instâncias EC2 — AWS CLI e Terraform
 
 **Disciplina:** Cloud Computing (Cód. 14189) **Curso:** Inteligência Artificial e Ciência de Dados, Uniube **Semana 4** | Quarta-feira, 15/04/2026 | Prof. Romualdo Mathias Filho **Tipo:** 🔬 Prática (Quarta-feira) **Base Teórica:** Aula 07 — Computação em Nuvem: EC2, Lambda e Serverless
 

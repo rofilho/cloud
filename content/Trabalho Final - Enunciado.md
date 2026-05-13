@@ -1,4 +1,5 @@
----
+﻿---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 disciplina: Cloud Computing
 codigo: "14189"
 titulo: "Enunciado do Trabalho Final e Prova N2"
@@ -13,6 +14,7 @@ tags:
   - prova
 publicar: true
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 # 📋 Trabalho Final e Prova N2 — Cloud Computing
 
@@ -22,10 +24,12 @@ publicar: true
 **Publicado em:** 08/05/2026
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 > 💬 *"Durante o semestre vocês aprenderam os blocos de montar da nuvem — EC2, Lambda, RDS, VPC, Terraform, CI/CD, IAM. Agora é hora de juntar tudo e construir algo real. O mercado não contrata quem sabe a teoria: contrata quem já colocou algo no ar."*
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## 🧮 Como a Nota é Formada
 
@@ -38,6 +42,7 @@ A nota desta segunda parte do semestre vale **35 pontos**, distribuídos assim:
 | **Total** | **35 pts** |
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## 🏗️ Parte 1 — Trabalho Final em Grupo
 
@@ -52,6 +57,7 @@ Vocês vão **construir, documentar e apresentar uma aplicação real hospedada 
 - Grupos formados e confirmados até **quarta-feira, 10/06**
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### O que a aplicação precisa ter
 
@@ -68,6 +74,7 @@ Independente do tema escolhido, **toda aplicação deve ter obrigatoriamente**:
 | 🎤 Apresentação ao vivo | Demo funcionando na data marcada |
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### Temas possíveis
 
@@ -84,12 +91,14 @@ Escolham **um** dos temas abaixo ou proponham o próprio (com aprovação do pro
 > 💡 **Dica para quem é de IA/Ciência de Dados:** o Tema A é o mais alinhado com a carreira de vocês. Treinar um modelo simples localmente e expô-lo como API na AWS é exatamente o que engenheiros de ML fazem no mercado.
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### As 6 Etapas de Entrega
 
 O trabalho é desenvolvido e acompanhado em partes. **Cada etapa tem um prazo para garantir o ritmo do projeto.**
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 0 — Proposta do Grupo
 **Prazo:** Quarta, 10/06
@@ -105,6 +114,7 @@ Antes de começar a codar, o grupo precisa ter um plano. Entreguem um documento 
 > ⚠️ Grupo que não entregar a Etapa 0 **não poderá apresentar** o trabalho.
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 1 — Documento de Arquitetura
 **Prazo:** Sexta, 12/06
@@ -118,6 +128,7 @@ Arquivo `docs/arquitetura.md` dentro do repositório GitHub, contendo:
 - **Pelo menos uma decisão de arquitetura explicada** — ex: *"escolhemos Lambda em vez de EC2 porque nossa aplicação tem picos de uso curtos e o Lambda é mais barato nesse cenário"*
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 2 — Infraestrutura como Código
 **Prazo:** Quarta, 17/06
@@ -139,6 +150,7 @@ infra/
 > ⚠️ **Atenção:** O professor vai rodar `terraform apply` durante a avaliação. Se não funcionar, a nota da parte escrita cai.
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 3 — Aplicação Rodando na Nuvem
 **Prazo:** Quarta, 17/06
@@ -151,6 +163,7 @@ Código da aplicação no diretório `app/` do repositório, com a aplicação *
 - `app/README.md` com instruções para rodar localmente e variáveis de ambiente necessárias
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 4 — Pipeline CI/CD
 **Prazo:** Sexta, 19/06
@@ -164,6 +177,7 @@ Arquivo `.github/workflows/deploy.yml` no repositório. O pipeline deve **dispar
 **Evidência obrigatória:** screenshot ou link para um run bem-sucedido do pipeline documentado no README.
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 5 — Segurança e FinOps
 **Prazo:** Sexta, 19/06
@@ -178,6 +192,7 @@ Seção `## Segurança e Custos` no `README.md` principal do repositório.
 - Pelo menos 1 decisão de FinOps documentada — ex: *"usamos t2.micro porque cabe no Free Tier"*
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 6 — Apresentação Final
 **Data:** Sexta, 19/06 (grupos 1–3) e Quarta, 24/06 (grupos 4–6)
@@ -199,6 +214,7 @@ Apresentem com slides (máximo 8) e façam uma **demo ao vivo** da aplicação f
 | 8 | O que aprenderam e o que foi difícil |
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### 📊 Como os 20 pontos serão avaliados
 
@@ -210,6 +226,7 @@ A avaliação não dará pontos isolados por etapa. A nota de **20 pontos** ser�
 | **Apresentação e Arguição** | Demonstração ao vivo funcionando perfeitamente, slides claros, domínio técnico do grupo ao responder às perguntas do professor sobre a arquitetura e o código. | **5 pts** |
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### Estrutura esperada do repositório
 
@@ -240,6 +257,7 @@ meu-projeto-cloud/          ← repositório público no GitHub
 ```
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### Calendário de Entregas
 
@@ -253,6 +271,7 @@ meu-projeto-cloud/          ← repositório público no GitHub
 | Qua, 24/06 | Etapa 6 — Apresentação (grupos 4–6) |
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### Regras importantes
 
@@ -283,6 +302,7 @@ Pode e é incentivado. Mas:
 - Declarem no README quais partes foram assistidas por IA
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## 📝 Parte 2 — Prova N2 (Individual)
 
@@ -325,6 +345,7 @@ A prova cobre as **aulas 08 a 15** — a segunda metade do semestre:
 > 💡 **Dica:** Quem faz o projeto com atenção normalmente vai bem na prova — os conceitos se fixam na prática.
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## ❓ Dúvidas Frequentes
 
@@ -344,6 +365,7 @@ Esse integrante recebe zero na Etapa 6. O restante do grupo não é penalizado.
 No **Diário de Bordo do AVA**.
 
 ---
+title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 *Qualquer dúvida, procure o professor antes das datas de entrega — não depois.*
 

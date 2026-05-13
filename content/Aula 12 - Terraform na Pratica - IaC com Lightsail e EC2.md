@@ -1,4 +1,5 @@
----
+﻿---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 disciplina: Cloud Computing
 codigo: "14189"
 aula: 12
@@ -16,8 +17,9 @@ tags:
   - devops
 publicar: true
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
-# 🟢 Aula 12: Terraform na Prática — IaC com Lightsail e EC2
+# 🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube
@@ -27,10 +29,12 @@ publicar: true
 **Tópicos:** Terraform, IaC, AWS Lightsail, AWS EC2, `terraform init`, `plan`, `apply`, `destroy`
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 > 💬 *"Hoje não vamos clicar em nada no console da AWS. Vamos escrever código, e o código vai construir a nuvem por nós."*
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 🎯 Objetivo da Aula
 
@@ -44,6 +48,7 @@ Ao final desta aula, os alunos serão capazes de:
 - Comparar provisionar um servidor via Lightsail vs EC2 diretamente no Terraform.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 🔄 Revisão Rápida (5 min)
 
@@ -59,6 +64,7 @@ Ao final desta aula, os alunos serão capazes de:
 > - **Terraform:** "Eu quero que *este* estado de infraestrutura exista. Resolva." *(declarativo)*
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📌 1. Por que o Terraform Mudou o Mercado?
 
@@ -87,6 +93,7 @@ O Terraform transforma sua infraestrutura em **arquivos de texto versionáveis n
 > 💡 **Analogia:** Pense na diferença entre um chef que cozinha de memória e um que tem todas as receitas escritas com gramas precisas. O segundo consegue treinar outras pessoas, replicar pratos e saber exatamente o que mudou na receita da semana passada.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📌 2. Instalação do Ambiente
 
@@ -123,6 +130,7 @@ terraform -version
 > ✅ **Checkpoint:** O terminal deve responder com algo como `Terraform v1.8.x`. Se aparecer, a instalação funcionou.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### 2.2 Configurando as Credenciais AWS
 
@@ -150,6 +158,7 @@ aws_session_token=xxxx...
 > ⚠️ **Lembrete Academy:** As credenciais do AWS Academy expiram com a sessão do Learner Lab. Se o `terraform apply` retornar erro de autenticação, renove as credenciais repetindo o processo acima.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📌 3. Projeto 1 — Provisionando um Lightsail com Terraform
 
@@ -173,6 +182,7 @@ terraform-lightsail/
 ```
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### 3.2 `provider.tf` — Conectando ao AWS
 
@@ -194,6 +204,7 @@ provider "aws" {
 > 💡 **O que este arquivo faz?** Declara que vamos usar o provider `aws` da HashiCorp (versão 5.x) e que todos os recursos serão criados na região `us-east-1` (Norte da Virgínia — a mais barata e com mais serviços disponíveis).
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### 3.3 `main.tf` — A Instância Lightsail
 
@@ -262,6 +273,7 @@ resource "aws_lightsail_instance_public_ports" "portas" {
 > 💡 **Repare na referência entre recursos:** O `aws_lightsail_static_ip_attachment` referencia `aws_lightsail_instance.meu_servidor.name` — isso é o Terraform construindo o **grafo de dependência** automaticamente. Ele sabe que precisa criar a instância *antes* de vincular o IP.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### 3.4 `outputs.tf` — Exibindo os Resultados
 
@@ -288,6 +300,7 @@ output "comando_ssh" {
 ```
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📌 4. O Ciclo Terraform: `init` → `plan` → `apply` → `destroy`
 
@@ -305,6 +318,7 @@ O que acontece:
 > ✅ **Checkpoint:** Você deve ver a mensagem `Terraform has been successfully initialized!`
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### Passo 2: `terraform plan` — A Maquete (Simulação)
 
@@ -324,6 +338,7 @@ Isso significa: 4 recursos novos serão criados (instância, IP estático, attac
 > ⚠️ **Regra de ouro:** Nunca execute `terraform apply` sem antes ler o `plan`. É o seu "você tem certeza?" com detalhes técnicos.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### Passo 3: `terraform apply` — Construindo a Nuvem
 
@@ -364,6 +379,7 @@ comando_ssh         = "ssh -i ~/.ssh/SuaChave.pem ubuntu@3.x.x.x"
 > ✅ **Validação:** Abra a `url_acesso` no navegador. A página com a mensagem do Nginx deve carregar (pode demorar até 1 minuto enquanto o `user_data` roda).
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### Passo 4: O Arquivo de Estado (`.tfstate`)
 
@@ -382,6 +398,7 @@ Este arquivo JSON mapeia cada recurso do seu código para o recurso real na AWS 
 > ⚠️ **Nunca delete o `.tfstate` manualmente!** Sem ele, o Terraform "esquece" que criou aqueles recursos e não consegue gerenciá-los mais.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### Passo 5: `terraform destroy` — Faxina Completa
 
@@ -399,6 +416,7 @@ Do you really want to destroy all resources?
 > 💡 **O poder do destroy:** Diferente da CLI, onde você teria que lembrar o ID de cada recurso e destruí-los um a um (na ordem certa!), o Terraform sabe a ordem correta de destruição automaticamente. O IP só pode ser desvinculado *depois* de encerrar a instância — o Terraform resolve isso sozinho.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📌 5. Projeto 2 — Comparação: Lightsail vs EC2 no Terraform
 
@@ -419,6 +437,7 @@ Para aprofundar, veja a diferença de complexidade entre provisionar um servidor
 - **EC2 via Terraform** → Sistemas complexos, microsserviços, infraestrutura que precisa escalar automaticamente.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📌 6. Boas Práticas de Terraform no Mercado
 
@@ -490,6 +509,7 @@ resource "aws_lightsail_instance" "server" {
 ```
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📋 Resumo Estrutural
 
@@ -507,6 +527,7 @@ resource "aws_lightsail_instance" "server" {
 | **Grafo de dependência** | O Terraform sabe a ordem de criação e destruição automaticamente. |
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## ❓ Banco de Questões
 
@@ -524,6 +545,7 @@ resource "aws_lightsail_instance" "server" {
 **Justificativa:** O `terraform plan` é o comando de previsão. Ele compara o código declarado com o estado atual (`.tfstate` + nuvem) e exibe exatamente o que seria criado, modificado ou destruído, sem executar nada. É essencial para validar mudanças antes de aplicá-las.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### Questão 2: Teórica — Dissertativa (Nível Intermediário)
 
@@ -532,6 +554,7 @@ resource "aws_lightsail_instance" "server" {
 **Resposta esperada:** O `.tfstate` é o arquivo de estado do Terraform — um JSON que mapeia cada recurso declarado no código ao recurso real criado na nuvem (com seus IDs, IPs, ARNs etc.). Ele é o "cérebro" do Terraform: sem ele, a ferramenta não sabe o que já existe na nuvem. Se deletado manualmente, o Terraform "esquece" que criou aqueles recursos. Na próxima execução, tentará criá-los de novo (causando duplicação ou erros de conflito de nomes) e nunca conseguirá destruí-los com `terraform destroy`. Em projetos de time, o estado é armazenado remotamente (ex: AWS S3) para evitar esse risco.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ### Questão 3: Prática — Múltipla Escolha (Nível Intermediário)
 
@@ -545,6 +568,7 @@ resource "aws_lightsail_instance" "server" {
 **Justificativa:** Quando um recurso referencia atributos de outro (ex: `.name`), o Terraform constrói um grafo de dependência e garante a ordem de execução correta automaticamente. O `depends_on` explícito só é necessário quando a dependência não pode ser inferida pelo código.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 🏋️ Atividade Prática — Entrega no Moodle
 
@@ -560,6 +584,7 @@ Execute o roteiro da aula completo e documente com evidências:
 > 🏁 **Certifique-se de executar o `terraform destroy` ao final!** Instâncias rodando consomem a cota da disciplina no AWS Academy.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📄 Artigo de Aprofundamento
 
@@ -570,6 +595,7 @@ Execute o roteiro da aula completo e documente com evidências:
   > *Documentação oficial do recurso `aws_lightsail_instance`. Útil para explorar todos os parâmetros disponíveis (blueprints, bundles, etc.).*
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 ## 📚 Referências Bibliográficas
 
@@ -579,5 +605,6 @@ Execute o roteiro da aula completo e documente com evidências:
 - Brikman, Y. *Terraform: Up & Running*. O'Reilly Media, 3ª ed., 2022.
 
 ---
+title: "🟢 Aula - 12: Terraform na Prática — IaC com Lightsail e EC2"
 
 *Última atualização: 2026-04-29 | Status: publicado*

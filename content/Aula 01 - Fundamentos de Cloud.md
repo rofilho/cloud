@@ -1,4 +1,8 @@
-# ☁️ Aula 01 – Fundamentos de Cloud: História e Conceitos Essenciais
+﻿---
+title: "☁️ Aula - 01: Fundamentos de Cloud – História e Conceitos Essenciais"
+---
+
+# ☁️ Aula - 01: Fundamentos de Cloud – História e Conceitos Essenciais
 
 ## 🎯 Objetivos da Aula
 

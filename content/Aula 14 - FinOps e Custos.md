@@ -1,4 +1,8 @@
-# 🟢 Aula 14: FinOps e Otimização de Custos
+﻿---
+title: "🟢 Aula - 14: FinOps e Otimização de Custos"
+---
+
+# 🟢 Aula - 14: FinOps e Otimização de Custos
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube

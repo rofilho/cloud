@@ -102,9 +102,10 @@ O professor fornece **4 prompts prontos e estruturados**. O grupo cola cada prom
 | Security Groups | SG do banco aceita conexões **apenas** do SG do backend (EC2) |
 | Acesso público | A EC2 do backend tem IP público |
 
-**Como fazer (duas opções válidas):**
-- **Opção A — Terraform (recomendado):** usar os arquivos `.tf` da Aula 11 como base.
-- **Opção B — Console AWS (aceito):** criar manualmente pelo painel, documentando cada tela com screenshots numerados.
+**Como fazer (ambas as opções valem a mesma nota):**
+- **Opção A — Console da AWS (Interface Visual):** Criação manual clicando no painel da AWS. É a opção mais recomendada para esta etapa do curso, mas requer documentar o passo a passo com screenshots no relatório.
+- **Opção B — Terraform (Opcional):** Para quem quer o desafio de automatizar via código (IaC).
+> *Nota: O uso de GitHub Actions (CI/CD) para deploy automatizado também é totalmente opcional.*
 
 **Evidência obrigatória:** Screenshots mostrando os recursos criados (EC2 com status "Running", RDS com status "Available", Security Groups configurados).
 
@@ -203,8 +204,8 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 |---|---|
 | **Prazo máximo** | **12/06/2026 até 23h59** |
 | **Onde entregar** | AVA — seção **Estudos Autônomos** |
-| **Formato** | Um único arquivo **PDF** |
-| **O que incluir** | Relatório técnico completo com evidências incorporadas |
+| **Formato** | Um **único arquivo PDF** contendo o relatório técnico completo |
+| **Apresentação** | Haverá uma **apresentação única** em sala de aula para avaliação oral |
 
 ### Sobre os grupos
 

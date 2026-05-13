@@ -1,3 +1,7 @@
+﻿---
+title: "🎯 Aula - 01: Ementa e Objetivos"
+---
+
 # 🎯 Aula - 01: Ementa e Objetivos
 
 ---

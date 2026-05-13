@@ -1,4 +1,5 @@
----
+﻿---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 disciplina: Cloud Computing
 codigo: "14189"
 aula: 10
@@ -16,8 +17,9 @@ tags:
   - nosql
 publicar: true
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
-# 🟢 Aula 10: Banco de Dados na Nuvem (Relacionais e NoSQL)
+# 🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube
@@ -27,6 +29,7 @@ publicar: true
 **Tópicos:** RDS, Aurora, DynamoDB, Multi-AZ, Read Replicas, SQL vs NoSQL
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## 🎯 Objetivo da Aula
 
@@ -37,6 +40,7 @@ Ao final desta aula, os alunos serão capazes de:
 - Identificar casos de uso para o **Amazon DynamoDB** (NoSQL Serverless).
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## 🔄 Revisão Rápida (5 min)
 
@@ -47,6 +51,7 @@ Ao final desta aula, os alunos serão capazes de:
 | **Auto Scaling** | Escalamos aplicações web antes; agora veremos como "escalar" um banco de dados. |
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## 🗃️ 1. Bancos de Dados Relacionais vs Não-Relacionais
 
@@ -65,6 +70,7 @@ Antes de escolher um produto AWS, entendemos a estratégia:
 > 💡 **Exemplo brasileiro:** O **Nubank** usa bancos relacionais para transações financeiras. O **iFood** usa NoSQL para o catálogo de restaurantes e pedidos em tempo real.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## 🐘 2. Amazon RDS (Relational Database Service)
 
@@ -92,6 +98,7 @@ O **Amazon RDS** é um serviço PaaS que facilita configurar, operar e escalar b
 | **Amazon Aurora** | ⭐ Motor proprietário AWS — até 5x mais rápido que MySQL |
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## 🛡️ 3. Escalabilidade e Alta Disponibilidade no RDS
 
@@ -111,6 +118,7 @@ Como evitar que o banco caia ou fique lento?
 > 💡 **Resumo:** Multi-AZ = **Segurança**. Read Replica = **Velocidade**.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## ⚡ 4. Amazon DynamoDB (Banco NoSQL Serverless)
 
@@ -127,6 +135,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 > 💡 **Caso de uso real:** O sistema de entregas do **Rappi** usa DynamoDB para rastrear a localização de milhões de entregadores em tempo real com latência mínima.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## 📋 Resumo Estrutural
 
@@ -139,6 +148,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 | **Amazon DynamoDB** | Banco NoSQL Serverless com latência abaixo de 10ms em qualquer escala. |
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## ❓ Banco de Questões
 
@@ -155,6 +165,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 **Justificativa:** O RDS (Relational Database Service) é o serviço PaaS da AWS para bancos relacionais. Diferente do EC2 onde você instala e gerencia o banco, o RDS automatiza backups, patches e alta disponibilidade.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ### Questão 2 (Múltipla Escolha — Nível: Básico)
 **Enunciado:** Uma empresa precisa garantir que seu banco de dados no RDS continue funcionando mesmo que o datacenter principal da AWS sofra uma falha física. Qual funcionalidade deve ser habilitada?
@@ -167,6 +178,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 **Justificativa:** Multi-AZ cria uma réplica sincronizada em outra Zona de Disponibilidade (outro datacenter físico). Em caso de falha, o DNS é redirecionado automaticamente.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ### Questão 3 (Múltipla Escolha — Nível: Intermediário)
 **Enunciado:** Uma aplicação de e-commerce registra que 95% das operações são consultas (SELECT) de catálogo de produtos e apenas 5% são gravações. Qual estratégia de banco de dados reduz a carga no servidor principal?
@@ -179,6 +191,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 **Justificativa:** Read Replicas são cópias do banco exclusivas para leitura. Ao direcionar as consultas para réplicas, o banco principal fica focado apenas nas gravações.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ### Questão 4 (Dissertativa — Nível: Intermediário)
 **Enunciado:** Explique a diferença entre um banco de dados instalado em uma instância EC2 e o serviço Amazon RDS. Quais são as vantagens e desvantagens de cada abordagem?
@@ -188,6 +201,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 - **RDS (PaaS):** A AWS gerencia toda a infraestrutura subjacente. Backups automáticos, patches, Multi-AZ e monitoramento inclusos. Menos flexibilidade para configurações muito específicas, mas muito menor esforço operacional. Ideal para equipes pequenas.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ### Questão 5 (Situação-Problema — Nível: Avançado)
 **Enunciado:** Uma startup de delivery precisa armazenar o status de pedidos em tempo real para milhões de usuários simultâneos. O acesso é feito por `pedido_id` e a latência máxima aceitável é de 5ms. Qual serviço AWS você recomendaria e por quê?
@@ -196,6 +210,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 **Amazon DynamoDB.** Por ser um banco NoSQL de chave-valor Serverless, o DynamoDB oferece latência abaixo de 10ms em qualquer escala sem necessidade de provisionar servidores. O acesso por `pedido_id` é o padrão ideal para chave-valor. Escala automaticamente para milhões de requisições/segundo, sem configuração manual.
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 
 ## 📚 Leituras Recomendadas
 
@@ -204,4 +219,5 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 - [ ] Leitura opcional: [O que é Amazon DynamoDB? (AWS Docs)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 
 ---
+title: "🟢 Aula - 10: Banco de Dados na Nuvem (Relacionais e NoSQL)"
 *Última atualização: 2026-04-19 | Status: publicado*
