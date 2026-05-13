@@ -1,20 +1,6 @@
-﻿---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
-disciplina: Cloud Computing
-codigo: "14189"
-titulo: "Enunciado do Trabalho Final e Prova N2"
-tipo: avaliacao
-semana: 12
-data: 2026-05-08
-status: publicado
-tags:
-  - cloud
-  - avaliacao
-  - projeto-final
-  - prova
-publicar: true
 ---
 title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
+---
 
 # 📋 Trabalho Final e Prova N2 — Cloud Computing
 
@@ -24,12 +10,10 @@ title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 **Publicado em:** 08/05/2026
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 > 💬 *"Durante o semestre vocês aprenderam os blocos de montar da nuvem — EC2, Lambda, RDS, VPC, Terraform, CI/CD, IAM. Agora é hora de juntar tudo e construir algo real. O mercado não contrata quem sabe a teoria: contrata quem já colocou algo no ar."*
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## 🧮 Como a Nota é Formada
 
@@ -42,39 +26,38 @@ A nota desta segunda parte do semestre vale **35 pontos**, distribuídos assim:
 | **Total** | **35 pts** |
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## 🏗️ Parte 1 — Trabalho Final em Grupo
 
 ### O que é
 
-Vocês vão **construir, documentar e apresentar uma aplicação real hospedada na AWS**. Não é um relatório sobre cloud computing — é uma aplicação que qualquer pessoa pode acessar pela internet, provisionada com código, com deploy automático e com segurança aplicada.
+Vocês vão **construir, documentar e apresentar uma aplicação real hospedada na AWS**. Não é um relatório sobre cloud computing — é uma aplicação que qualquer pessoa pode acessar pela internet, com infraestrutura configurada, segurança aplicada e documentação completa.
 
 ### Grupos
 
 - **2 a 4 integrantes**
-- Cada integrante deve ter commits no repositório
 - Grupos formados e confirmados até **quarta-feira, 10/06**
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### O que a aplicação precisa ter
 
 Independente do tema escolhido, **toda aplicação deve ter obrigatoriamente**:
 
-| Requisito | Descrição |
-|---|---|
-| ☁️ Hospedada na AWS | Rodando em EC2, Lambda ou equivalente |
-| 🔧 Infraestrutura como Código | 100% provisionado com Terraform (VPC, compute, banco) |
-| 🗄️ Banco de dados integrado | RDS ou DynamoDB conectado à aplicação |
-| 🔄 CI/CD automático | Push no GitHub → deploy acontece sozinho |
-| 🔐 Segurança aplicada | IAM Role correto, sem senha no código, portas mínimas abertas |
-| 📄 Documentação | README com diagrama de arquitetura e custo estimado |
-| 🎤 Apresentação ao vivo | Demo funcionando na data marcada |
+| Requisito | Descrição | Obrigatório? |
+|---|---|---|
+| ☁️ Hospedada na AWS | Rodando em EC2, Lambda ou equivalente | ✅ Sim |
+| 🗄️ Banco de dados integrado | RDS ou DynamoDB conectado à aplicação | ✅ Sim |
+| 🔐 Segurança aplicada | IAM correto, sem senha no código, portas mínimas abertas | ✅ Sim |
+| 📄 Documentação | README com diagrama de arquitetura e custo estimado | ✅ Sim |
+| 🎤 Apresentação ao vivo | Demo funcionando na data marcada | ✅ Sim |
+| 🎥 Vídeo do projeto | Máximo 5 minutos explicando o projeto com a AWS aberta | ✅ Sim |
+| 🔧 Infraestrutura como Código | Provisionado com Terraform (VPC, compute, banco) | ⭐ Fortemente aconselhado |
+| 🔄 CI/CD automático | Push no GitHub → deploy acontece sozinho | ⭐ Aconselhado |
+
+> 💡 **Terraform e CI/CD não são obrigatórios**, mas **são fortemente recomendados** e agregam pontos na avaliação. O professor pode pedir uma demonstração prática durante a apresentação.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### Temas possíveis
 
@@ -82,7 +65,7 @@ Escolham **um** dos temas abaixo ou proponham o próprio (com aprovação do pro
 
 | Opção | Tema | Ideia |
 |---|---|---|
-| **A** | API de Machine Learning | FastAPI ou Flask com um modelo sklearn simples (previsão de preço, classificação de texto, detecção de spam…) |
+| **A** | API de Machine Learning | FastAPI ou Flask com um modelo sklearn simples (previsão de preço, classificação de texto…) |
 | **B** | API CRUD com Banco | Backend com criação, leitura, atualização e exclusão de registros em RDS ou DynamoDB |
 | **C** | Pipeline de Dados Serverless | Arquivo CSV/JSON enviado ao S3 → Lambda processa → resultado salvo no DynamoDB |
 | **D** | Aplicação Web Completa | Frontend estático (S3) + API (Lambda ou EC2) + banco de dados |
@@ -90,18 +73,18 @@ Escolham **um** dos temas abaixo ou proponham o próprio (com aprovação do pro
 
 > 💡 **Dica para quem é de IA/Ciência de Dados:** o Tema A é o mais alinhado com a carreira de vocês. Treinar um modelo simples localmente e expô-lo como API na AWS é exatamente o que engenheiros de ML fazem no mercado.
 
----
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
-
-### As 6 Etapas de Entrega
-
-O trabalho é desenvolvido e acompanhado em partes. **Cada etapa tem um prazo para garantir o ritmo do projeto.**
+> 🤖 **Sobre geração de código com IA:** O código da aplicação pode ser gerado com auxílio de IA (ChatGPT, Claude, Gemini). O professor disponibiliza [Prompts prontos para gerar banco, backend e frontend](./Prompts-IA-Projeto-Final). **O que será avaliado é a infraestrutura, a segurança, a documentação e a capacidade de explicar o projeto.**
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
+
+### As Etapas de Entrega
+
+O trabalho é desenvolvido e acompanhado em partes.
+
+---
 
 #### Etapa 0 — Proposta do Grupo
-**Prazo:** Quarta, 10/06
+**Prazo: Quarta, 10/06**
 
 Antes de começar a codar, o grupo precisa ter um plano. Entreguem um documento (`.md` ou Google Docs) com:
 
@@ -114,10 +97,9 @@ Antes de começar a codar, o grupo precisa ter um plano. Entreguem um documento 
 > ⚠️ Grupo que não entregar a Etapa 0 **não poderá apresentar** o trabalho.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 1 — Documento de Arquitetura
-**Prazo:** Sexta, 12/06
+**Prazo:** Junto com a entrega final
 
 Arquivo `docs/arquitetura.md` dentro do repositório GitHub, contendo:
 
@@ -128,45 +110,38 @@ Arquivo `docs/arquitetura.md` dentro do repositório GitHub, contendo:
 - **Pelo menos uma decisão de arquitetura explicada** — ex: *"escolhemos Lambda em vez de EC2 porque nossa aplicação tem picos de uso curtos e o Lambda é mais barato nesse cenário"*
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
-#### Etapa 2 — Infraestrutura como Código
-**Prazo:** Quarta, 17/06
+#### Etapa 2 — Infraestrutura
+**Prazo:** Junto com a entrega final
 
-Diretório `infra/` no repositório com todos os arquivos Terraform. A infraestrutura **deve subir do zero** com um único comando: `terraform apply`.
+A infraestrutura pode ser criada de **duas formas** (ambas valem a mesma nota base):
 
-**Arquivos obrigatórios:**
+**Opção A — Console da AWS (Interface Visual):**
+- Criação manual clicando no painel da AWS
+- **Obrigatório:** documentar o passo a passo com screenshots no relatório/README
 
-```
-infra/
-├── main.tf        ← EC2, Lambda ou recurso principal
-├── network.tf     ← VPC, subnets, security groups
-├── database.tf    ← RDS ou DynamoDB
-├── variables.tf   ← sem senhas ou chaves hardcoded
-├── outputs.tf     ← URL ou IP da aplicação como output
-└── README.md      ← como rodar (terraform init → plan → apply)
-```
+**Opção B — Terraform (Fortemente Aconselhado):**
+- Diretório `infra/` no repositório com os arquivos `.tf`
+- A infraestrutura deve subir do zero com `terraform apply`
+- **Agrega pontos extras na avaliação**
 
-> ⚠️ **Atenção:** O professor vai rodar `terraform apply` durante a avaliação. Se não funcionar, a nota da parte escrita cai.
+> 💡 **Importante:** Caso o grupo use Terraform, o professor **poderá rodar `terraform apply` durante a apresentação** para validar o funcionamento.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 3 — Aplicação Rodando na Nuvem
-**Prazo:** Quarta, 17/06
+**Prazo:** Junto com a entrega final
 
-Código da aplicação no diretório `app/` do repositório, com a aplicação **acessível publicamente via URL** no momento da apresentação.
+Código da aplicação no repositório, com a aplicação **acessível publicamente via URL** no momento da apresentação.
 
 **Itens obrigatórios:**
 - Endpoint `/health` que retorna `{"status": "ok"}` — é o sinal de vida da aplicação
 - Pelo menos 1 endpoint que leia ou escreva no banco de dados
-- `app/README.md` com instruções para rodar localmente e variáveis de ambiente necessárias
+- README com instruções para rodar localmente e variáveis de ambiente necessárias
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
-#### Etapa 4 — Pipeline CI/CD
-**Prazo:** Sexta, 19/06
+#### Etapa 4 — Pipeline CI/CD (Não obrigatória, mas aconselhada)
 
 Arquivo `.github/workflows/deploy.yml` no repositório. O pipeline deve **disparar automaticamente** quando alguém fizer push para a branch `main`.
 
@@ -174,125 +149,74 @@ Arquivo `.github/workflows/deploy.yml` no repositório. O pipeline deve **dispar
 1. Fazer o build ou validar o código
 2. Fazer o deploy da aplicação na AWS automaticamente
 
-**Evidência obrigatória:** screenshot ou link para um run bem-sucedido do pipeline documentado no README.
+> 💡 **Esta etapa é opcional**, mas agrega pontos significativos na avaliação. Se implementar, documente com screenshot ou link para um run bem-sucedido no README.
+
+> 💡 **Durante a apresentação**, o professor pode pedir para o grupo acionar o pipeline do Git para demonstrar o deploy automático.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 #### Etapa 5 — Segurança e FinOps
-**Prazo:** Sexta, 19/06
+**Prazo:** Junto com a entrega final
 
 Seção `## Segurança e Custos` no `README.md` principal do repositório.
 
 **Itens obrigatórios:**
-- IAM Role com permissões mínimas — só o que a aplicação realmente precisa
 - Security Groups expondo apenas as portas necessárias (ex: só 443 e 80 para fora)
-- **Zero credenciais expostas** no código ou no histórico do git (sim, o professor vai checar o histórico)
+- **Zero credenciais expostas** no código ou no histórico do git
 - Print do Cost Explorer ou do AWS Pricing Calculator mostrando o custo do projeto
 - Pelo menos 1 decisão de FinOps documentada — ex: *"usamos t2.micro porque cabe no Free Tier"*
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
-#### Etapa 6 — Apresentação Final
-**Data:** Sexta, 19/06 (grupos 1–3) e Quarta, 24/06 (grupos 4–6)
-**Duração:** 10 minutos de apresentação + 5 minutos de perguntas
+### 📦 O que entregar e como
 
-Apresentem com slides (máximo 8) e façam uma **demo ao vivo** da aplicação funcionando.
+A entrega é composta de **três partes obrigatórias**:
 
-**Estrutura sugerida:**
+| # | Entregável | Formato | Prazo |
+|---|---|---|---|
+| 📝 **1** | **Parte escrita completa** — Relatório/README com arquitetura, screenshots, segurança, custos e todo o código no GitHub | Repositório GitHub + PDF no AVA | **10/06/2026 às 23h59** |
+| 🎤 **2** | **Apresentação ao vivo** — Demonstração da aplicação funcionando para o professor | Presencial em sala | Data a definir |
+| 🎥 **3** | **Vídeo de no máximo 5 minutos** — Explicando o projeto com a AWS aberta, mostrando a aplicação funcionando | Link no README (YouTube, Google Drive) | **10/06/2026 às 23h59** |
 
-| Slide | O que colocar |
-|---|---|
-| 1 | Nome do projeto, grupo, integrantes |
-| 2 | O que a aplicação faz (problema que resolve) |
-| 3 | Diagrama da arquitetura |
-| 4 | Demo ao vivo — não precisa de slide, abram o navegador |
-| 5 | Terraform: o que foi provisionado |
-| 6 | CI/CD: mostrem o pipeline rodando |
-| 7 | Segurança e custos: decisões que tomaram |
-| 8 | O que aprenderam e o que foi difícil |
+> ⚠️ **O prazo de entrega da parte escrita e do vídeo é fixo: 10/06/2026 às 23h59.** A seção de Estudos Autônomos no AVA fecha automaticamente nesse horário. Após o fechamento, **não é possível enviar o arquivo**.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
+
+### 🎤 Sobre a Apresentação ao Vivo
+
+Durante a apresentação, o professor poderá:
+
+- ✅ Pedir para o grupo **executar o `terraform apply`** ao vivo (se usou Terraform)
+- ✅ Pedir para **acionar o pipeline CI/CD** via git push (se implementou)
+- ✅ Solicitar **demonstração prática** de qualquer parte da infraestrutura
+- ✅ Fazer **perguntas individuais** a qualquer integrante sobre o projeto
+
+> ⚠️ Todos os integrantes devem estar preparados para responder perguntas. Não basta ter feito o trabalho — é preciso saber explicar.
+
+---
 
 ### 📊 Como os 20 pontos serão avaliados
 
-A avaliação não dará pontos isolados por etapa. A nota de **20 pontos** será atribuída de forma unificada considerando o pacote final:
-
 | Componente | Critérios | Pontos |
 |---|---|---|
-| **Parte Escrita / Código (Repositório)** | Arquitetura documentada, Terraform provisionando tudo sem erros (`terraform apply`), aplicação funcionando no IP/URL público, pipeline de CI/CD automatizado, segurança (sem senhas expostas, portas corretas) e custos documentados. | **15 pts** |
-| **Apresentação e Arguição** | Demonstração ao vivo funcionando perfeitamente, slides claros, domínio técnico do grupo ao responder às perguntas do professor sobre a arquitetura e o código. | **5 pts** |
+| **Parte Escrita e Repositório** | Arquitetura documentada, aplicação funcionando na URL pública, segurança aplicada (sem senhas expostas, portas corretas), custos documentados, código organizado | **10 pts** |
+| **Apresentação, Arguição e Vídeo** | Demo ao vivo funcionando, vídeo explicativo, domínio técnico ao responder perguntas do professor | **5 pts** |
+| **Diferenciais (Terraform + CI/CD)** | Terraform provisionando a infraestrutura sem erros, pipeline CI/CD automatizado e funcional | **5 pts** |
+
+> 💡 Grupos que usarem apenas o Console da AWS (sem Terraform/CI/CD) podem alcançar até **15 pontos**. Para os 20 completos, é necessário implementar pelo menos um dos diferenciais.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
-
-### Estrutura esperada do repositório
-
-```
-meu-projeto-cloud/          ← repositório público no GitHub
-│
-├── infra/                  ← Etapa 2: Terraform
-│   ├── main.tf
-│   ├── network.tf
-│   ├── database.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   └── README.md
-│
-├── app/                    ← Etapa 3: código da aplicação
-│   ├── main.py (ou index.js, etc.)
-│   ├── requirements.txt
-│   └── README.md
-│
-├── docs/                   ← Etapa 1: documentação
-│   └── arquitetura.md
-│
-├── .github/
-│   └── workflows/
-│       └── deploy.yml      ← Etapa 4: pipeline CI/CD
-│
-└── README.md               ← Etapa 5: segurança, custos, como usar
-```
-
----
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
-
-### Calendário de Entregas
-
-| Data | O que entregar |
-|---|---|
-| Qua, 10/06 | Etapa 0 — Proposta do grupo (obrigatória) |
-| Sex, 12/06 | Etapa 1 — Documento de Arquitetura no GitHub |
-| Qua, 17/06 | Etapas 2 e 3 — Terraform + Aplicação rodando |
-| Sex, 19/06 | Etapas 4 e 5 — CI/CD + Segurança/FinOps |
-| Sex, 19/06 | Etapa 6 — Apresentação (grupos 1–3) |
-| Qua, 24/06 | Etapa 6 — Apresentação (grupos 4–6) |
-
----
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ### Regras importantes
 
 **Sobre o repositório:**
 - Deve ser **público** no GitHub
-- O histórico de commits será avaliado — grupos com 1 commit só no dia da entrega perdem pontos
-- Cada integrante deve ter **pelo menos 1 commit** no repositório
+- O histórico de commits será observado
 - Código copiado de outro grupo = **zero na etapa para os dois grupos**
 
 **Sobre a infraestrutura:**
 - Usem o **AWS Academy (Learner Lab)** ou o **Free Tier** da própria conta
-- Após a apresentação, rodem `terraform destroy` para não consumir créditos
-
-**Sobre atrasos:**
-
-| Situação | Penalidade |
-|---|---|
-| Até 48h de atraso | -20% dos pontos da etapa |
-| Entre 48h e 1 semana | -50% dos pontos da etapa |
-| Mais de 1 semana ou não entregue | Zero na etapa |
-| Etapa 0 não entregue | Grupo impedido de apresentar |
+- Após a apresentação, **destruam os recursos** para não consumir créditos
 
 **Sobre uso de IA (ChatGPT, Claude, Copilot):**
 
@@ -302,7 +226,6 @@ Pode e é incentivado. Mas:
 - Declarem no README quais partes foram assistidas por IA
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## 📝 Parte 2 — Prova N2 (Individual)
 
@@ -345,7 +268,6 @@ A prova cobre as **aulas 08 a 15** — a segunda metade do semestre:
 > 💡 **Dica:** Quem faz o projeto com atenção normalmente vai bem na prova — os conceitos se fixam na prática.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 ## ❓ Dúvidas Frequentes
 
@@ -353,19 +275,24 @@ title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 Não. O projeto usa AWS para alinhar com o AWS Academy e com o conteúdo da disciplina.
 
 **E se minha aplicação cair no dia da apresentação?**
-Um vídeo gravado de até 5 minutos serve como backup para as Etapas 3 e 6. O grupo perde 0,5 pt da demonstração ao vivo, mas não zera.
+O vídeo de 5 minutos serve como backup. O grupo perde pontos da demonstração ao vivo, mas não zera.
+
+**Preciso usar Terraform obrigatoriamente?**
+Não. Terraform é fortemente aconselhado e vale pontos extras, mas o Console da AWS é aceito desde que documentado com screenshots.
+
+**Preciso implementar CI/CD?**
+Não é obrigatório, mas é aconselhado e vale pontos extras.
 
 **Preciso usar todos os serviços que aprendi no semestre?**
 Não todos, mas no mínimo **3 serviços AWS diferentes** integrados entre si.
 
 **O que acontece se um integrante não aparecer na apresentação?**
-Esse integrante recebe zero na Etapa 6. O restante do grupo não é penalizado.
+Esse integrante recebe zero na apresentação. O restante do grupo não é penalizado.
 
 **Onde entrego a Etapa 0?**
-No **Diário de Bordo do AVA**.
+No **AVA — Estudos Autônomos**.
 
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
 
 *Qualquer dúvida, procure o professor antes das datas de entrega — não depois.*
 
