@@ -215,13 +215,13 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 | Participação | Todos devem ter contribuição documentada |
 | Uso de IA | **Permitido e incentivado** — desde que o grupo saiba explicar o que foi gerado |
 
-### Penalidades por atraso
+### ⚠️ Atenção ao Prazo — Sem Exceções
 
-| Situação | Penalidade |
-|---|---|
-| Até 48h após o prazo | -20% dos pontos |
-| Entre 48h e 1 semana | -50% dos pontos |
-| Não entregue ou após 1 semana | Zero na atividade |
+> **O prazo de entrega é fixo: 12/06/2026 às 23h59.**
+>
+> A seção de Estudos Autônomos no AVA fecha automaticamente nesse horário. Após o fechamento, **não é possível enviar o arquivo**, independentemente do motivo. Não há entrega tardia, não há exceção.
+>
+> **Entregue antes do prazo. Não deixe para o último dia.**
 
 ---
 
