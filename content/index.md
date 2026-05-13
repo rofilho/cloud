@@ -188,6 +188,13 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="row-wrapper">
 <div class="row-title">Informações e Trabalhos Finais</div>
 <div class="row">
+<a href="./Prompts-IA-Projeto-Final" class="card" data-spa>
+<div class="card-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">🤖<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+<div class="card-content">
+<div class="card-title">Prompts de IA — Projeto Final</div>
+<div class="card-meta"><span>4 Prompts</span><span>🆕 Novo</span></div>
+</div>
+</a>
 <a href="./Plano-Final-do-Semestre" class="card" data-spa>
 <div class="card-thumb" style="background: #0f172a;">📅</div>
 <div class="card-content">

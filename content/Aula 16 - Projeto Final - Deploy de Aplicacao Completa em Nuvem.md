@@ -75,10 +75,12 @@ O professor fornece **4 prompts prontos e estruturados**. O grupo cola cada prom
 
 | # | Prompt | O que gera | Entrada necessária |
 |---|---|---|---|
-| 📋 **1** | [Banco de Dados](./assets/prompts/Prompt_1_Banco_de_Dados) | Schema SQL completo (`CREATE TABLE` + `INSERT`) | Tema da aplicação |
-| ⚙️ **2** | [Backend](./assets/prompts/Prompt_2_Backend) | API Flask com todos os endpoints | Tema + SQL do Prompt 1 |
-| 🖥️ **3** | [Frontend](./assets/prompts/Prompt_3_Frontend) | Interface HTML/CSS/JS completa | Tema + código do Prompt 2 |
-| 🚀 **4** | [Deploy na EC2](./assets/prompts/Prompt_4_Deploy_EC2) | Guia de deploy com Nginx | — |
+| 📋 **1** | [Banco de Dados](./Prompts-IA-Projeto-Final#-prompt-1--banco-de-dados-schema-sql) | Schema SQL completo (`CREATE TABLE` + `INSERT`) | Tema da aplicação |
+| ⚙️ **2** | [Backend](./Prompts-IA-Projeto-Final#%EF%B8%8F-prompt-2--backend-api-python--flask) | API Flask com todos os endpoints | Tema + SQL do Prompt 1 |
+| 🖥️ **3** | [Frontend](./Prompts-IA-Projeto-Final#%EF%B8%8F-prompt-3--frontend-interface-web) | Interface HTML/CSS/JS completa | Tema + código do Prompt 2 |
+| 🚀 **4** | [Deploy na EC2](./Prompts-IA-Projeto-Final#-prompt-4--deploy-com-nginx-na-ec2) | Guia de deploy com Nginx | — |
+
+> 📌 **Todos os prompts estão na página [Prompts de IA →](./Prompts-IA-Projeto-Final)** — abra e deixe ao lado enquanto trabalha.
 
 > 💡 **Os prompts são encadeados:** cada um recebe como entrada o resultado do anterior. Isso garante que o banco, o backend e o frontend sejam 100% compatíveis entre si.
 
