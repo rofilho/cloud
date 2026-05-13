@@ -8,7 +8,50 @@ title: "🤖 Prompts de IA – Projeto Final Cloud Computing"
 
 ---
 
+## 🖥️ Prompt 0 — Infraestrutura na AWS (EC2 + RDS)
+
+> **Instruções:** Use este prompt **antes de qualquer código**. Ele gera um guia passo a passo para criar toda a infraestrutura necessária direto no Console da AWS.
+
+```
+Você é um arquiteto de soluções AWS especializado em ensinar estudantes de Cloud Computing.
+
+<contexto>
+Sou aluno de segundo período de IA e Ciência de Dados. Preciso criar a infraestrutura para um projeto final na AWS. Nunca fiz isso antes. Vou usar o console visual da AWS (não Terraform). Preciso de um guia passo a passo completo, com prints de onde clicar em cada tela.
+</contexto>
+
+<o_que_preciso_criar>
+1. Uma instância EC2 (Amazon Linux 2023, t2.micro) para hospedar minha aplicação Flask.
+2. Um banco de dados RDS MySQL (db.t3.micro, Free Tier) que seja PRIVADO — não acessível pela internet.
+3. Security Groups configurados corretamente:
+   - SG da EC2: aceita SSH (porta 22) apenas do meu IP, e HTTP (porta 80) de qualquer lugar.
+   - SG do RDS: aceita conexões MySQL (porta 3306) APENAS do Security Group da EC2.
+4. Um par de chaves (Key Pair) para acessar a EC2 via SSH.
+</o_que_preciso_criar>
+
+<requisitos_do_guia>
+- Mostre os cliques em ordem: menu → botão → campo → valor.
+- Destaque os valores EXATOS que devo digitar ou selecionar em cada campo.
+- Ao final, me diga quais informações preciso guardar (endpoint do RDS, IP da EC2, nome do banco, usuário, senha).
+- Avise sobre armadilhas comuns (ex: "não marque Publicly Accessible no RDS", "selecione a mesma VPC para EC2 e RDS").
+</requisitos_do_guia>
+
+<formato_de_saida>
+Guia numerado, com títulos para cada recurso criado (EC2, Key Pair, Security Groups, RDS).
+Use emojis para facilitar a leitura (✅ para confirmações, ⚠️ para atenção, 📝 para o que anotar).
+</formato_de_saida>
+```
+
+> 📝 **Ao final do guia, anote:**
+> - **Endpoint do RDS** (ex: `cloudprojeto.xxxxxxx.us-east-1.rds.amazonaws.com`)
+> - **IP público da EC2** (ex: `54.123.45.67`)
+> - **Usuário e senha do banco** que você definiu
+>
+> Você vai precisar dessas informações para os Prompts 1, 2 e 4.
+
+---
+
 ## 📋 Prompt 1 — Banco de Dados (Schema SQL)
+
 
 > **Instruções:** Copie o texto abaixo e cole no ChatGPT, Claude ou Gemini.
 > Substitua apenas o que está entre `[colchetes]` pelo tema do seu grupo.
