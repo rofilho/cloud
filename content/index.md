@@ -176,6 +176,13 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="card-meta"><span>Aula 15</span></div>
 </div>
 </a>
+<a href="./Aula-16---Projeto-Final---Deploy-de-Aplicacao-Completa-em-Nuvem" class="card" data-spa>
+<div class="card-thumb" style="background: linear-gradient(135deg, #1e3a5f, #0f172a);">🚀<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+<div class="card-content">
+<div class="card-title">Projeto Final: Deploy Completo</div>
+<div class="card-meta"><span>Aula 16</span><span>🆕 Novo</span></div>
+</div>
+</a>
 </div>
 </div>
 <div class="row-wrapper">
