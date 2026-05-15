@@ -61,18 +61,51 @@ No início desta aula, fizemos uma demonstração ao vivo de como acessar um ban
 - O **Endpoint** gerado pelo RDS funciona como o "endereço" do banco — qualquer ferramenta compatível com MySQL pode usá-lo para conectar
 - A AWS cuida de backups automáticos, patches e replicação — isso é o **DBaaS** (Database as a Service) na prática
 
-### Script SQL utilizado na demonstração
+### 1. Preparação (Oculta nos bastidores)
+Antes de executar a demonstração, a estrutura do banco precisou ser criada. Este é o comando de infraestrutura de dados (DDL) executado pelo professor via DBeaver para preparar o ambiente:
 
 ```sql
--- Verificar dados existentes
+-- Criar a base e usar
+CREATE DATABASE IF NOT EXISTS tech_academy;
+USE tech_academy;
+
+-- Criar as tabelas
+CREATE TABLE IF NOT EXISTS cursos (
+    id_curso INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    carga_horaria INT
+);
+
+CREATE TABLE IF NOT EXISTS alunos (
+    id_aluno INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    data_cadastro DATE
+);
+
+-- Inserir massa de dados inicial
+INSERT INTO cursos (nome, carga_horaria) VALUES 
+('Cloud Computing AWS', 80), 
+('Inteligência Artificial', 120);
+
+INSERT INTO alunos (nome, email, data_cadastro) VALUES 
+('João Silva', 'joao.silva@uniube.br', '2026-05-01'),
+('Maria Souza', 'maria.souza@uniube.br', '2026-05-10');
+```
+
+### 2. Demonstração ao Vivo (O que foi feito em sala)
+Com o banco populado e rodando remotamente na nuvem, estes foram os comandos executados para testar a comunicação em tempo real da sala de aula com os servidores da AWS em São Paulo:
+
+```sql
+-- Verificar os dados existentes remotamente
 SELECT * FROM tech_academy.cursos;
 SELECT * FROM tech_academy.alunos;
 
--- Inserir um novo registro
+-- Inserir um novo registro ao vivo
 INSERT INTO tech_academy.alunos (nome, email, data_cadastro)
 VALUES ('Novo Aluno', 'aluno@uniube.br', CURDATE());
 
--- Confirmar que o registro persiste
+-- Confirmar que o registro persiste na nuvem
 SELECT * FROM tech_academy.alunos ORDER BY id_aluno DESC LIMIT 5;
 ```
 
