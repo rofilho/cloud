@@ -1,10 +1,6 @@
-﻿---
-title: "🌐 Aula - 02: Introdução à Computação em Nuvem – IaaS, PaaS e SaaS e Modelos de Implantação"
----
+# 🌐 Aula 02: Introdução à Computação em Nuvem – IaaS, PaaS e SaaS e Modelos de Implantação
 
-# 🌐 Aula - 02: Introdução à Computação em Nuvem – IaaS, PaaS e SaaS e Modelos de Implantação
-
-## 🎯 Objetivos da Aula
+# 🎯 Objetivos da Aula
 
 ---
 
@@ -27,6 +23,13 @@ Surgiu com força a partir dos anos 2000 e revolucionou o mercado ao reduzir cus
 - Não é literalmente uma "nuvem" física, mas um grande conjunto de servidores remotos distribuídos em datacenters.
 - É acessível por diversos dispositivos (PC, notebook, smartphone, tablet) em qualquer lugar com conexão à internet.
 - Recursos (computação, armazenamento, rede, bancos de dados, IA, etc.) são consumidos sob demanda.
+
+![[assets/image 1.png]]
+
+![[assets/image 2.png]]
+
+![[assets/image 3.png]]
+
 ## 🔹 Importância atual
 
 - Empresas economizam em infraestrutura física, espaço, energia e manutenção.
@@ -148,6 +151,11 @@ A organização tem controle total sobre políticas, segurança e configuração
     - Alto investimento inicial em hardware, energia, espaço e equipe.
     - Escalabilidade limitada pela capacidade física instalada.
     - Ciclos de atualização tecnológica mais lentos.
+
+![[assets/image 4.png]]
+
+![[assets/image 5.png]]
+
 ---
 
 ## 🔗 Nuvem Híbrida

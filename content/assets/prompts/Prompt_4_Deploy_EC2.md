@@ -1,7 +1,3 @@
----
-title: "🚀 Prompt 4 – Deploy na EC2 e Configuração do Nginx"
----
-
 # 🚀 Prompt 4 — Deploy na EC2 e Configuração do Nginx
 
 > **Instruções:** Use este prompt caso tenha dificuldade em configurar o Nginx como proxy reverso.  

@@ -1,5 +1,4 @@
-﻿---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
+---
 disciplina: Cloud Computing
 codigo: "14189"
 aula: 11.5
@@ -17,9 +16,8 @@ tags:
   - observabilidade
 publicar: true
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
-# 🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana
+# 🟢 Aula 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube
@@ -29,12 +27,10 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 **Tópicos:** GitOps, CI/CD, Docker, Traefik, Portainer, Observabilidade, GCP
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 > 💬 *"Hoje vamos mergulhar profundamente na infraestrutura real de um sistema em produção, entendendo como ele roda na nuvem (GCP), como monitoramos tudo com Observabilidade, e como fazemos deploy contínuo sem derrubar nenhum usuário."*
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 🎯 Objetivo da Aula (Competências)
 
@@ -46,7 +42,6 @@ Ao final desta aula, os alunos serão capazes de:
 - Compreender o conceito de **Observabilidade** e como ferramentas como Grafana, Prometheus e Loki nos ajudam a monitorar a saúde da aplicação em tempo real.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 🔄 Revisão Rápida (5 min)
 
@@ -57,7 +52,6 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 | EC2 / Instâncias e Containers (Aula 6/8) | Como VMs em provedores Cloud hospedam as Stacks Docker do sistema. |
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📌 1. Visão Geral: O Ecossistema Sana na Nuvem (GCP)
 
@@ -121,7 +115,6 @@ graph TD
 > *Legenda: Setas sólidas representam tráfego de dados. Setas pontilhadas representam validação de autenticação.*
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📌 2. Organização com Portainer e Separação de Stacks
 
@@ -158,7 +151,6 @@ Protege os certificados TLS"]
 > ⚠️ **Por que separar as Stacks?** Se o Traefik fosse recriado junto com a aplicação a cada deploy, todos os certificados TLS do Let's Encrypt seriam perdidos, causando erros de HTTPS para os usuários. A separação protege a infraestrutura da volatilidade da aplicação.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📌 3. O Conceito de Lab → Produção
 
@@ -193,7 +185,6 @@ graph LR
 > 💡 **Imutabilidade de Imagem:** A imagem que funciona no Lab é *exatamente* a mesma que vai para Produção. Não há recompilação — isso elimina o clássico "na minha máquina funciona".
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📌 4. O Pipeline de Deploy (GitOps V3)
 
@@ -227,7 +218,6 @@ sequenceDiagram
 ```
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ### Passo 1: Git — O Fluxo de Código
 
@@ -238,7 +228,6 @@ Trabalhamos com **Trunk Based Development** (GitHub Flow). A branch `main` é pr
 - O deploy para Produção é disparado quando uma **Release** é publicada com uma Tag semântica (ex: `v0.27.0`).
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ### Passo 2: GitHub Actions — Build Paralelo
 
@@ -267,7 +256,6 @@ build-backends:
 > 💡 **O que é Matrix Strategy?** Em vez de construir as imagens uma por uma, o GitHub Actions constrói **todas ao mesmo tempo** em paralelo. O que levaria 20 minutos leva 4!
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ### Passo 3: Migrations — Banco de Dados Zero Touch
 
@@ -281,7 +269,6 @@ docker exec app-core php artisan migrate --force
 > ⚠️ **Por que rodar no container ANTIGO?** O banco precisa ser compatível tanto com o código antigo (ainda rodando) quanto com o novo. Rodando a migration antes, garantimos compatibilidade total.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ### Passo 4: Zero Downtime com Traefik e Healthcheck
 
@@ -306,7 +293,6 @@ api-gateway:
 4. Para o usuário: **zero interrupção**.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📌 5. Observabilidade — Monitorando Tudo em Tempo Real
 
@@ -347,7 +333,6 @@ graph TD
 > 💡 **Na prática:** Quando fazemos um deploy, abrimos o Grafana lado a lado. Se as métricas de erro subirem ou a latência aumentar, sabemos imediatamente que algo deu errado e podemos fazer rollback antes que os usuários percebam.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📌 6. O Futuro: IA Interna, Bancos Vetoriais e Custos de Nuvem
 
@@ -366,7 +351,6 @@ Para que isso seja possível sem criar um banco de dados novo do zero, a arquite
 **Conceito Prático:** Quando projetamos para IA, o custo da infraestrutura (FinOps) deve ser a primeira variável a ser calculada antes de escrever qualquer linha de código.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📋 Resumo Estrutural — Conceitos Chave
 
@@ -380,7 +364,6 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 | **Portainer** | Interface visual para gerenciar containers sem terminal. |
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## ❓ Banco de Questões
 
@@ -398,7 +381,6 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 **Justificativa:** O Traefik monitora o status do Healthcheck de cada container. Enquanto o novo container não responder `HTTP 200` no endpoint `/up`, o Traefik mantém o tráfego no container antigo. Quando o Healthcheck passa, o tráfego é chaveado — sem interrupção perceptível ao usuário.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ### Questão 2: Teórica — Dissertativa (Nível Avançado)
 
@@ -407,7 +389,6 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 **Resposta esperada:** O fluxo Lab → Produção é a prática de validar toda mudança em um ambiente de homologação (Lab) antes de aplicá-la em produção. A imagem Docker construída pelo CI é a mesma nos dois ambientes (imutabilidade). No Lab, a equipe valida funcionalidades, verifica logs no Grafana e confirma que as migrations de banco rodaram sem erros. Somente após essa validação, uma Tag de Release é criada, disparando o deploy automático em produção com a mesma imagem já testada. Isso elimina o risco de "na minha máquina funciona" e garante deploys previsíveis.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ### Questão 3: Prática — Múltipla Escolha (Nível Intermediário)
 
@@ -421,7 +402,6 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 **Justificativa:** Traces (rastreamento distribuído) permitem acompanhar o percurso completo de uma requisição através de múltiplos serviços, identificando gargalos e pontos de falha na cadeia.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📄 Artigo de Aprofundamento
 
@@ -429,7 +409,6 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 - [Grafana — Getting Started](https://grafana.com/docs/grafana/latest/getting-started/) — Introdução ao Grafana para monitoramento e dashboards.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 ## 📚 Referências Bibliográficas
 
@@ -440,6 +419,5 @@ title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso 
 - Grafana Labs. *Grafana, Prometheus, Loki Documentation*. grafana.com, 2025.
 
 ---
-title: "🟢 Aula - 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana"
 
 *Última atualização: 2026-04-24 | Status: publicado*

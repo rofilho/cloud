@@ -1,7 +1,3 @@
----
-title: "🗄️ Prompt 1 – Banco de Dados (Schema SQL)"
----
-
 # 🗄️ Prompt 1 — Banco de Dados (Schema SQL)
 
 > **Instruções:** Copie o texto abaixo e cole no ChatGPT, Claude ou Gemini.  

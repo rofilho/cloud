@@ -1,5 +1,17 @@
 ---
-title: "📋 Trabalho Final e Prova N2 — Cloud Computing"
+disciplina: Cloud Computing
+codigo: "14189"
+titulo: "Enunciado do Trabalho Final e Prova N2"
+tipo: avaliacao
+semana: 12
+data: 2026-05-08
+status: publicado
+tags:
+  - cloud
+  - avaliacao
+  - projeto-final
+  - prova
+publicar: true
 ---
 
 # 📋 Trabalho Final e Prova N2 — Cloud Computing
@@ -31,116 +43,244 @@ A nota desta segunda parte do semestre vale **35 pontos**, distribuídos assim:
 
 ### O que é
 
-Vocês vão **construir, documentar e apresentar uma aplicação real hospedada em nuvem**. Não é um relatório — é uma aplicação que qualquer pessoa pode acessar pela internet, com infraestrutura configurada, segurança aplicada e documentação completa.
+Vocês vão **construir, documentar e apresentar uma aplicação real hospedada na AWS**. Não é um relatório sobre cloud computing — é uma aplicação que qualquer pessoa pode acessar pela internet, provisionada com código, com deploy automático e com segurança aplicada.
 
 ### Grupos
 
 - **2 a 4 integrantes**
-- Grupos formados e confirmados com o professor até **quarta-feira, 20/05**
-- A apresentação dos projetos começa a partir de **10/06**
+- Cada integrante deve ter commits no repositório
+- Grupos formados e confirmados até **quarta-feira, 10/06**
 
 ---
 
 ### O que a aplicação precisa ter
 
-#### ✅ Requisitos Obrigatórios
+Independente do tema escolhido, **toda aplicação deve ter obrigatoriamente**:
 
 | Requisito | Descrição |
 |---|---|
-| ☁️ Hospedada em nuvem | Rodando em EC2, Lambda ou equivalente |
+| ☁️ Hospedada na AWS | Rodando em EC2, Lambda ou equivalente |
+| 🔧 Infraestrutura como Código | 100% provisionado com Terraform (VPC, compute, banco) |
 | 🗄️ Banco de dados integrado | RDS ou DynamoDB conectado à aplicação |
-| 🔐 Segurança aplicada | Sem senha no código, portas mínimas abertas |
-| 📄 Relatório técnico (ABNT) | Com diagrama de arquitetura, screenshots e custo estimado |
+| 🔄 CI/CD automático | Push no GitHub → deploy acontece sozinho |
+| 🔐 Segurança aplicada | IAM Role correto, sem senha no código, portas mínimas abertas |
+| 📄 Documentação | README com diagrama de arquitetura e custo estimado |
 | 🎤 Apresentação ao vivo | Demo funcionando na data marcada |
-| 🎥 Vídeo do projeto (máx. 5 min) | Explicando o projeto com a AWS aberta — link incluído no PDF |
-
-#### ⭐ Diferenciais (Não obrigatórios — o professor incentiva, mas não impõe)
-
-| Diferencial | Descrição |
-|---|---|
-| 🔧 Terraform | Infraestrutura provisionada via código (IaC) |
-| 🔄 CI/CD | Push no GitHub → deploy acontece automaticamente |
-
-> 💡 Grupos que usarem **Terraform** e/ou **CI/CD** demonstram maior domínio técnico. Isso é valorizado positivamente pelo professor, especialmente nas perguntas da arguição ao vivo.
 
 ---
 
 ### Temas possíveis
 
-Escolham **um** dos temas abaixo ou proponham o próprio (com aprovação do professor até 20/05):
+Escolham **um** dos temas abaixo ou proponham o próprio (com aprovação do professor até 10/06):
 
 | Opção | Tema | Ideia |
 |---|---|---|
-| **A** | API de Machine Learning | FastAPI ou Flask com um modelo sklearn simples |
-| **B** | API CRUD com Banco | Backend com criar, ler, atualizar e deletar registros em banco de dados |
-| **C** | Pipeline de Dados Serverless | CSV/JSON enviado ao S3 → Lambda processa → resultado salvo no DynamoDB |
-| **D** | Aplicação Web Completa | Frontend + API + banco de dados |
-| **E** | Tema Livre | Qualquer ideia, desde que use pelo menos 3 serviços de nuvem |
+| **A** | API de Machine Learning | FastAPI ou Flask com um modelo sklearn simples (previsão de preço, classificação de texto, detecção de spam…) |
+| **B** | API CRUD com Banco | Backend com criação, leitura, atualização e exclusão de registros em RDS ou DynamoDB |
+| **C** | Pipeline de Dados Serverless | Arquivo CSV/JSON enviado ao S3 → Lambda processa → resultado salvo no DynamoDB |
+| **D** | Aplicação Web Completa | Frontend estático (S3) + API (Lambda ou EC2) + banco de dados |
+| **E** | Tema Livre | Qualquer ideia, desde que use pelo menos 3 serviços AWS e todos os requisitos acima |
 
-> 🤖 **Sobre uso de IA:** O código da aplicação pode ser gerado com auxílio de IA (ChatGPT, Claude, Gemini). O professor disponibiliza [Prompts prontos](./Prompts-IA-Projeto-Final). **O que será avaliado é a infraestrutura, a segurança e a capacidade de explicar o projeto.**
-
----
-
-### O que entregar
-
-A entrega é composta por **três partes**:
-
-| # | Entregável | Formato |
-|---|---|---|
-| 📝 **1** | **Relatório técnico completo** (ABNT) com screenshots, arquitetura e custos | PDF no AVA |
-| 🎥 **2** | **Link do vídeo** (máx. 5 min) incluído dentro do PDF | YouTube ou Google Drive |
-| 🎤 **3** | **Apresentação ao vivo** em sala, com demonstração da aplicação funcionando | Presencial |
-
-**Formato do arquivo:** `nome_do_grupo.pdf`
-
-> ⚠️ Arquivos nomeados incorretamente ou em formato diferente de PDF terão desconto de **2 pontos**.
+> 💡 **Dica para quem é de IA/Ciência de Dados:** o Tema A é o mais alinhado com a carreira de vocês. Treinar um modelo simples localmente e expô-lo como API na AWS é exatamente o que engenheiros de ML fazem no mercado.
 
 ---
 
-### ⚠️ Atenção ao Prazo — Sem Exceções
+### As 6 Etapas de Entrega
 
-> **O prazo de entrega do PDF é fixo: 10/06/2026 às 23h59.**
->
-> A seção de Estudos Autônomos no AVA fecha automaticamente nesse horário. Após o fechamento, **não é possível enviar o arquivo**, independentemente do motivo. Não há entrega tardia, não há exceção.
->
-> **Entregue antes do prazo. Não deixe para o último dia.**
+O trabalho é desenvolvido e acompanhado em partes. **Cada etapa tem um prazo para garantir o ritmo do projeto.**
 
 ---
 
-### 🎤 Sobre a Apresentação ao Vivo
+#### Etapa 0 — Proposta do Grupo
+**Prazo:** Quarta, 10/06
 
-A apresentação começa a partir de **10/06**. Durante a apresentação, o professor poderá:
+Antes de começar a codar, o grupo precisa ter um plano. Entreguem um documento (`.md` ou Google Docs) com:
 
-- ✅ Pedir para o grupo **executar o `terraform apply`** ao vivo (se usou Terraform)
-- ✅ Pedir para **acionar o pipeline CI/CD** via git push (se implementou)
-- ✅ Solicitar **demonstração prática** de qualquer parte da infraestrutura
-- ✅ Fazer **perguntas individuais** a qualquer integrante sobre o projeto
+- Nome completo e matrícula de cada integrante
+- Tema escolhido e o que a aplicação vai fazer (5 a 10 linhas)
+- Rascunho da arquitetura (desenho, foto de papel, Excalidraw — qualquer coisa)
+- Lista dos serviços AWS que pretendem usar
+- Link do repositório GitHub já criado (pode estar vazio)
 
-> ⚠️ Todos os integrantes devem estar preparados para responder perguntas.
+> ⚠️ Grupo que não entregar a Etapa 0 **não poderá apresentar** o trabalho.
+
+---
+
+#### Etapa 1 — Documento de Arquitetura
+**Prazo:** Sexta, 12/06
+
+Arquivo `docs/arquitetura.md` dentro do repositório GitHub, contendo:
+
+- **Diagrama da arquitetura** — pode ser draw.io, Lucidchart, Mermaid ou até uma foto bem feita de um papel
+- **Descrição de cada serviço AWS** e por que o grupo escolheu aquele serviço
+- **Fluxo dos dados** — como a informação entra, é processada e armazenada
+- **Estimativa de custo mensal** usando o [AWS Pricing Calculator](https://calculator.aws)
+- **Pelo menos uma decisão de arquitetura explicada** — ex: *"escolhemos Lambda em vez de EC2 porque nossa aplicação tem picos de uso curtos e o Lambda é mais barato nesse cenário"*
+
+---
+
+#### Etapa 2 — Infraestrutura como Código
+**Prazo:** Quarta, 17/06
+
+Diretório `infra/` no repositório com todos os arquivos Terraform. A infraestrutura **deve subir do zero** com um único comando: `terraform apply`.
+
+**Arquivos obrigatórios:**
+
+```
+infra/
+├── main.tf        ← EC2, Lambda ou recurso principal
+├── network.tf     ← VPC, subnets, security groups
+├── database.tf    ← RDS ou DynamoDB
+├── variables.tf   ← sem senhas ou chaves hardcoded
+├── outputs.tf     ← URL ou IP da aplicação como output
+└── README.md      ← como rodar (terraform init → plan → apply)
+```
+
+> ⚠️ **Atenção:** O professor vai rodar `terraform apply` durante a avaliação. Se não funcionar, a nota da parte escrita cai.
+
+---
+
+#### Etapa 3 — Aplicação Rodando na Nuvem
+**Prazo:** Quarta, 17/06
+
+Código da aplicação no diretório `app/` do repositório, com a aplicação **acessível publicamente via URL** no momento da apresentação.
+
+**Itens obrigatórios:**
+- Endpoint `/health` que retorna `{"status": "ok"}` — é o sinal de vida da aplicação
+- Pelo menos 1 endpoint que leia ou escreva no banco de dados
+- `app/README.md` com instruções para rodar localmente e variáveis de ambiente necessárias
+
+---
+
+#### Etapa 4 — Pipeline CI/CD
+**Prazo:** Sexta, 19/06
+
+Arquivo `.github/workflows/deploy.yml` no repositório. O pipeline deve **disparar automaticamente** quando alguém fizer push para a branch `main`.
+
+**O que o pipeline deve fazer (no mínimo):**
+1. Fazer o build ou validar o código
+2. Fazer o deploy da aplicação na AWS automaticamente
+
+**Evidência obrigatória:** screenshot ou link para um run bem-sucedido do pipeline documentado no README.
+
+---
+
+#### Etapa 5 — Segurança e FinOps
+**Prazo:** Sexta, 19/06
+
+Seção `## Segurança e Custos` no `README.md` principal do repositório.
+
+**Itens obrigatórios:**
+- IAM Role com permissões mínimas — só o que a aplicação realmente precisa
+- Security Groups expondo apenas as portas necessárias (ex: só 443 e 80 para fora)
+- **Zero credenciais expostas** no código ou no histórico do git (sim, o professor vai checar o histórico)
+- Print do Cost Explorer ou do AWS Pricing Calculator mostrando o custo do projeto
+- Pelo menos 1 decisão de FinOps documentada — ex: *"usamos t2.micro porque cabe no Free Tier"*
+
+---
+
+#### Etapa 6 — Apresentação Final
+**Data:** Sexta, 19/06 (grupos 1–3) e Quarta, 24/06 (grupos 4–6)
+**Duração:** 10 minutos de apresentação + 5 minutos de perguntas
+
+Apresentem com slides (máximo 8) e façam uma **demo ao vivo** da aplicação funcionando.
+
+**Estrutura sugerida:**
+
+| Slide | O que colocar |
+|---|---|
+| 1 | Nome do projeto, grupo, integrantes |
+| 2 | O que a aplicação faz (problema que resolve) |
+| 3 | Diagrama da arquitetura |
+| 4 | Demo ao vivo — não precisa de slide, abram o navegador |
+| 5 | Terraform: o que foi provisionado |
+| 6 | CI/CD: mostrem o pipeline rodando |
+| 7 | Segurança e custos: decisões que tomaram |
+| 8 | O que aprenderam e o que foi difícil |
 
 ---
 
 ### 📊 Como os 20 pontos serão avaliados
 
+A avaliação não dará pontos isolados por etapa. A nota de **20 pontos** será atribuída de forma unificada considerando o pacote final:
+
 | Componente | Critérios | Pontos |
 |---|---|---|
-| **Parte Escrita + Vídeo** | Arquitetura documentada, aplicação funcionando na URL pública, segurança aplicada, custos documentados, vídeo explicativo | **13 pts** |
-| **Apresentação e Arguição** | Demo ao vivo funcionando, domínio técnico ao responder perguntas do professor | **7 pts** |
+| **Parte Escrita / Código (Repositório)** | Arquitetura documentada, Terraform provisionando tudo sem erros (`terraform apply`), aplicação funcionando no IP/URL público, pipeline de CI/CD automatizado, segurança (sem senhas expostas, portas corretas) e custos documentados. | **15 pts** |
+| **Apresentação e Arguição** | Demonstração ao vivo funcionando perfeitamente, slides claros, domínio técnico do grupo ao responder às perguntas do professor sobre a arquitetura e o código. | **5 pts** |
 
-> 💡 Grupos que usarem **Terraform** e/ou **CI/CD** demonstram maior domínio técnico e isso é considerado positivamente pelo professor na avaliação geral, especialmente nas perguntas da arguição.
+---
+
+### Estrutura esperada do repositório
+
+```
+meu-projeto-cloud/          ← repositório público no GitHub
+│
+├── infra/                  ← Etapa 2: Terraform
+│   ├── main.tf
+│   ├── network.tf
+│   ├── database.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── README.md
+│
+├── app/                    ← Etapa 3: código da aplicação
+│   ├── main.py (ou index.js, etc.)
+│   ├── requirements.txt
+│   └── README.md
+│
+├── docs/                   ← Etapa 1: documentação
+│   └── arquitetura.md
+│
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      ← Etapa 4: pipeline CI/CD
+│
+└── README.md               ← Etapa 5: segurança, custos, como usar
+```
+
+---
+
+### Calendário de Entregas
+
+| Data | O que entregar |
+|---|---|
+| Qua, 10/06 | Etapa 0 — Proposta do grupo (obrigatória) |
+| Sex, 12/06 | Etapa 1 — Documento de Arquitetura no GitHub |
+| Qua, 17/06 | Etapas 2 e 3 — Terraform + Aplicação rodando |
+| Sex, 19/06 | Etapas 4 e 5 — CI/CD + Segurança/FinOps |
+| Sex, 19/06 | Etapa 6 — Apresentação (grupos 1–3) |
+| Qua, 24/06 | Etapa 6 — Apresentação (grupos 4–6) |
 
 ---
 
 ### Regras importantes
 
-**Sobre o código:**
-- Código copiado de outro grupo = **zero para os dois grupos**
-- Uso de IA é permitido e incentivado — mas o grupo precisa saber explicar o que foi gerado
-- **Zero credenciais expostas** no código
+**Sobre o repositório:**
+- Deve ser **público** no GitHub
+- O histórico de commits será avaliado — grupos com 1 commit só no dia da entrega perdem pontos
+- Cada integrante deve ter **pelo menos 1 commit** no repositório
+- Código copiado de outro grupo = **zero na etapa para os dois grupos**
 
 **Sobre a infraestrutura:**
 - Usem o **AWS Academy (Learner Lab)** ou o **Free Tier** da própria conta
-- Após a apresentação, destruam os recursos para não consumir créditos
+- Após a apresentação, rodem `terraform destroy` para não consumir créditos
+
+**Sobre atrasos:**
+
+| Situação | Penalidade |
+|---|---|
+| Até 48h de atraso | -20% dos pontos da etapa |
+| Entre 48h e 1 semana | -50% dos pontos da etapa |
+| Mais de 1 semana ou não entregue | Zero na etapa |
+| Etapa 0 não entregue | Grupo impedido de apresentar |
+
+**Sobre uso de IA (ChatGPT, Claude, Copilot):**
+
+Pode e é incentivado. Mas:
+- Vocês precisam **entender e explicar** qualquer código gerado por IA
+- Se o professor perguntar "por que fizeram assim?", a resposta *"a IA gerou"* não é aceitável sozinha
+- Declarem no README quais partes foram assistidas por IA
 
 ---
 
@@ -152,7 +292,7 @@ Prova **individual e sem consulta**, aplicada em data a confirmar pelo professor
 
 ### O que será cobrado
 
-A prova cobre as **aulas 08 a 15**:
+A prova cobre as **aulas 08 a 15** — a segunda metade do semestre:
 
 | Aula | Tópico |
 |---|---|
@@ -170,8 +310,17 @@ A prova cobre as **aulas 08 a 15**:
 
 | Tipo de questão | Quantidade | Pontos |
 |---|---|---|
-| Questões objetivas | 10 questões | 15 pts |
+| Múltipla escolha (4 alternativas) | 8 questões | 8 pts |
+| Verdadeiro ou Falso com justificativa | 4 questões | 4 pts |
+| Dissertativa curta (1 parágrafo) | 1 questão | 3 pts |
 | **Total** | | **15 pts** |
+
+### Como se preparar
+
+- Revise os **Resumos Estruturais** no final de cada aula (tabela Conceito → Definição)
+- Pratique os labs que fizemos nas quartas-feiras — as questões partem de situações práticas
+- As questões da prova vêm do **Banco de Questões** de cada aula
+- Entender o projeto do grupo ajuda: quem implementou entende a teoria muito melhor
 
 > 💡 **Dica:** Quem faz o projeto com atenção normalmente vai bem na prova — os conceitos se fixam na prática.
 
@@ -180,19 +329,19 @@ A prova cobre as **aulas 08 a 15**:
 ## ❓ Dúvidas Frequentes
 
 **Posso usar outro provedor (GCP, Azure)?**
-A disciplina é de **Cloud Computing** — não exclusivamente de AWS. Outros provedores são aceitos. Porém, o conteúdo, os labs e o suporte do professor são focados na AWS Academy, então recomendamos fortemente o uso da AWS.
-
-**Precisa ter repositório no GitHub?**
-Não é obrigatório. Se quiser usar GitHub (especialmente para CI/CD), é um diferencial valorizado.
+Não. O projeto usa AWS para alinhar com o AWS Academy e com o conteúdo da disciplina.
 
 **E se minha aplicação cair no dia da apresentação?**
-O vídeo de 5 minutos serve como backup. O grupo perde pontos da demonstração ao vivo, mas não zera.
+Um vídeo gravado de até 5 minutos serve como backup para as Etapas 3 e 6. O grupo perde 0,5 pt da demonstração ao vivo, mas não zera.
+
+**Preciso usar todos os serviços que aprendi no semestre?**
+Não todos, mas no mínimo **3 serviços AWS diferentes** integrados entre si.
 
 **O que acontece se um integrante não aparecer na apresentação?**
-Esse integrante recebe zero na apresentação. O restante do grupo não é penalizado.
+Esse integrante recebe zero na Etapa 6. O restante do grupo não é penalizado.
 
-**Onde entrego a parte escrita e o vídeo?**
-No **AVA — Estudos Autônomos**, em um único arquivo PDF contendo o relatório e o link do vídeo.
+**Onde entrego a Etapa 0?**
+No **Diário de Bordo do AVA**.
 
 ---
 

@@ -1,8 +1,4 @@
-﻿---
-title: "🟢 Aula - 07: Prática de Auto Scaling e Balanceamento de Carga"
----
-
-# 🟢 Aula - 07: Prática de Auto Scaling e Balanceamento de Carga
+# 🟢 Aula 07: Prática de Auto Scaling e Balanceamento de Carga
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 

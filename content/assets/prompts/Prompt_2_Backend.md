@@ -1,7 +1,3 @@
----
-title: "⚙️ Prompt 2 – Backend (API Python + Flask)"
----
-
 # ⚙️ Prompt 2 — Backend (API Python + Flask)
 
 > **Instruções:** Copie o texto abaixo e cole no ChatGPT, Claude ou Gemini.  

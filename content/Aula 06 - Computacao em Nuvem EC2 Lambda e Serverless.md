@@ -1,8 +1,4 @@
-﻿---
-title: "🔵 Aula - 06: Computação em Nuvem: EC2, Lambda e Serverless"
----
-
-# 🔵 Aula - 06: Computação em Nuvem: EC2, Lambda e Serverless
+# 🔵 Aula 06: Computação em Nuvem: EC2, Lambda e Serverless
 
 **Disciplina:** Cloud Computing (Cód. 14189)**Curso:** Inteligência Artificial e Ciência de Dados, Uniube**Semana 4** | Sexta-feira | Prof. Romualdo Mathias Filho**Tipo:** 📘 Teórica (Sexta-feira)
 

@@ -1,5 +1,4 @@
-﻿---
-title: "📅 Plano Final de Semestre — Cloud Computing"
+---
 disciplina: Cloud Computing
 codigo: "14189"
 titulo: "Plano Final de Semestre — Semanas 12 a 18"
@@ -14,7 +13,6 @@ tags:
   - projeto-final
 publicar: true
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 # 📅 Plano Final de Semestre — Cloud Computing
 
@@ -25,14 +23,12 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Modelo:** Sexta = Teórica | Quarta = Prática
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ## 🎯 Objetivo do Período
 
 Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **Projeto Final** e conduzir as apresentações. Os alunos saem com uma aplicação real rodando na nuvem.
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ## 🗓️ Calendário Detalhado
 
@@ -46,7 +42,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Objetivo da semana:** Aluno sai sabendo provisionar infraestrutura via código, sem clicar no console.
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ### Semana 13 — Redes e VPC
 
@@ -58,7 +53,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Objetivo da semana:** Aluno entende isolamento de rede e consegue criar uma VPC segura via IaC.
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ### Semana 14 — Segurança na Nuvem
 
@@ -70,7 +64,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Objetivo da semana:** Aluno aplica o princípio do menor privilégio e nunca mais coloca senha no código.
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ### Semana 15 — FinOps e Custos
 
@@ -82,7 +75,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Objetivo da semana:** Aluno sabe estimar, monitorar e reduzir custos de infra na nuvem.
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ### Semana 16 — Kick-off do Projeto Final
 
@@ -94,7 +86,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Entrega da semana:** Etapa 0 — Proposta (obrigatória, sem nota).
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ### Semana 17 — Desenvolvimento Assistido
 
@@ -106,7 +97,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Entregas da semana:** Etapa 1 (sexta) + Etapas 2 e 3 (quarta).
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ### Semana 18 — Apresentações Finais
 
@@ -118,7 +108,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 **Entregas da semana:** Etapas 4, 5 e 6 (apresentação ao vivo).
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ## 📦 Resumo de Entregas por Data
 
@@ -135,7 +124,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 > ⚠️ **Atenção:** As etapas acima são entregas de acompanhamento do projeto. A nota final (20 pontos) não é dividida por etapa, sendo avaliada de forma unificada na **Entrega Final (Repositório + Código)** e na **Apresentação ao Vivo**.
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ## 📚 Aulas que Precisam Ser Escritas
 
@@ -147,7 +135,6 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 | 14 | [[Aula 14 - FinOps e Custos]] | ❌ Placeholder | Média — 29/05 |
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 ## 🔗 Documentos Relacionados
 
@@ -156,6 +143,5 @@ title: "📅 Plano Final de Semestre — Cloud Computing"
 - [[MOC - Cloud Computing]] — MOC central da disciplina
 
 ---
-title: "📅 Plano Final de Semestre — Cloud Computing"
 
 *Plano elaborado em 08/05/2026 | Prof. Romualdo Mathias Filho*
