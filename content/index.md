@@ -126,7 +126,7 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="card-thumb">🏗️<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
 <div class="card-content">
 <div class="card-title">Terraform: IaC com Lightsail e EC2</div>
-<div class="card-meta"><span>Aula 12</span><span>Novo</span></div>
+<div class="card-meta"><span>Aula 12</span></div>
 </div>
 </a>
 </div>
