@@ -96,18 +96,69 @@ INSERT INTO alunos (nome, email, data_cadastro) VALUES
 ### 2. Demonstração ao Vivo (O que foi feito em sala)
 Com o banco populado e rodando remotamente na nuvem, estes foram os comandos executados para testar a comunicação em tempo real da sala de aula com os servidores da AWS em São Paulo:
 
+```
+
+### 3. 🛠️ Reproduzindo a Demonstração — Passo a Passo para os Alunos
+
+Para que você consiga repetir exatamente o que foi feito em sala, siga as etapas abaixo em ordem. O professor fornecerá os dados de conexão (endpoint, usuário e senha) durante a atividade.
+
+---
+
+**Etapa 1 — Instalar o DBeaver** *(se ainda não tiver)*
+
+Baixe e instale a versão Community (gratuita) em: **https://dbeaver.io/download/**
+
+---
+
+**Etapa 2 — Criar uma nova conexão no DBeaver**
+
+1. Abra o DBeaver e clique no ícone **"New Database Connection"** (tomada com `+`) no canto superior esquerdo.
+2. Na janela que abrir, selecione **MySQL** e clique em **Next**.
+3. Preencha os campos:
+
+| Campo | Valor |
+|---|---|
+| **Server Host** | *(endpoint fornecido pelo professor)* |
+| **Port** | `3306` |
+| **Database** | `tech_academy` |
+| **Username** | `admin` |
+| **Password** | *(senha fornecida pelo professor)* |
+
+4. Clique em **Test Connection**. Se for a primeira vez, o DBeaver pedirá para baixar os *drivers* do MySQL — clique em **Download** e aguarde.
+5. Ao ver a mensagem **"Connected"**, clique em **Finish**.
+
+---
+
+**Etapa 3 — Abrir o Editor SQL**
+
+1. No painel esquerdo, expanda a conexão recém-criada até ver o banco `tech_academy`.
+2. Clique com o botão direito sobre `tech_academy` e escolha **SQL Editor → New SQL Script**.
+3. Uma aba em branco se abrirá no centro da tela. É aqui que você vai executar os comandos.
+
+---
+
+**Etapa 4 — Executar as Queries da Aula**
+
+Cole o script abaixo no editor e execute **linha por linha** com **`Ctrl + Enter`** (o cursor deve estar na linha que você quer executar). Os resultados aparecerão na grade logo abaixo:
+
 ```sql
--- Verificar os dados existentes remotamente
+-- PASSO 1: Ver os cursos disponíveis no banco
 SELECT * FROM tech_academy.cursos;
+
+-- PASSO 2: Ver os alunos já cadastrados
 SELECT * FROM tech_academy.alunos;
 
--- Inserir um novo registro ao vivo
+-- PASSO 3: Inserir SEU nome no banco (troque os dados!)
 INSERT INTO tech_academy.alunos (nome, email, data_cadastro)
-VALUES ('Novo Aluno', 'aluno@uniube.br', CURDATE());
+VALUES ('Seu Nome Aqui', 'seuemail@uniube.br', CURDATE());
 
--- Confirmar que o registro persiste na nuvem
+-- PASSO 4: Confirmar que seu registro foi salvo na nuvem
 SELECT * FROM tech_academy.alunos ORDER BY id_aluno DESC LIMIT 5;
 ```
+
+> ✅ **Checkpoint:** Se você executou o Passo 4 e viu o seu nome na tabela de resultado, parabéns — você acabou de **ler e escrever dados em um banco de dados rodando na nuvem AWS** a partir do seu computador.
+
+---
 
 📌 **Reflexão importante:** Se 10.000 usuários acessassem esse banco ao mesmo tempo, o que aconteceria? Quem monitora a saúde do banco? Quem decide criar mais servidores? Quem distribui o tráfego entre eles? Essas são as perguntas que esta aula responde — com ELB, Auto Scaling e CloudWatch.
 
