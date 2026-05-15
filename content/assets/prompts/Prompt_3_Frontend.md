@@ -1,3 +1,7 @@
+---
+title: "🖥️ Prompt 3 – Frontend (HTML + CSS + JavaScript)"
+---
+
 # 🖥️ Prompt 3 — Frontend (HTML + CSS + JavaScript)
 
 > **Instruções:** Copie o texto abaixo e cole no ChatGPT, Claude ou Gemini.  
