@@ -96,6 +96,17 @@ INSERT INTO alunos (nome, email, data_cadastro) VALUES
 ### 2. Demonstração ao Vivo (O que foi feito em sala)
 Com o banco populado e rodando remotamente na nuvem, estes foram os comandos executados para testar a comunicação em tempo real da sala de aula com os servidores da AWS em São Paulo:
 
+```sql
+-- Verificar dados existentes
+SELECT * FROM tech_academy.cursos;
+SELECT * FROM tech_academy.alunos;
+
+-- Inserir um novo registro
+INSERT INTO tech_academy.alunos (nome, email, data_cadastro)
+VALUES ('Novo Aluno', 'aluno@uniube.br', CURDATE());
+
+-- Confirmar que o registro persiste
+SELECT * FROM tech_academy.alunos ORDER BY id_aluno DESC LIMIT 5;
 ```
 
 ### 3. 🛠️ Reproduzindo a Demonstração — Passo a Passo para os Alunos
@@ -177,11 +188,11 @@ SELECT * FROM tech_academy.alunos ORDER BY id_aluno DESC LIMIT 5;
 
 | Aula | Conceito | Definição |
 |---|---|---|
-| Aula 13 | DBaaS | Banco de dados gerenciado pelo provedor; você foca nos dados, não na infraestrutura |
-| Aula 13 | RDS | Amazon Relational Database Service — suporta MySQL, PostgreSQL, Aurora e outros |
-| Aula 13 | Multi-AZ | Réplica síncrona em outra zona de disponibilidade para failover automático |
-| Aula 14 | Security Group | Firewall de regras por recurso — controlamos quem pode se conectar ao banco |
-| Aula 14 | Endpoint | Endereço DNS gerado pelo RDS para que aplicações se conectem ao banco |
+| Aula 10 | DBaaS | Banco de dados gerenciado pelo provedor; você foca nos dados, não na infraestrutura |
+| Aula 10 | RDS | Amazon Relational Database Service — suporta MySQL, PostgreSQL, Aurora e outros |
+| Aula 10 | Multi-AZ | Réplica síncrona em outra zona de disponibilidade para failover automático |
+| Aula 13 | Security Group | Firewall de regras por recurso — controlamos quem pode se conectar ao banco |
+| Aula 13 | Endpoint | Endereço DNS gerado pelo RDS para que aplicações se conectem ao banco |
 
 🔗 **Conexão com a aula de hoje:** Na demonstração inicial, observamos que o CloudWatch já monitora o RDS automaticamente. Mas e quando a demanda aumenta? O banco aguenta? E a aplicação? É aqui que entram **Elasticidade, Auto Scaling e Alta Disponibilidade** — o tema central desta aula.
 
