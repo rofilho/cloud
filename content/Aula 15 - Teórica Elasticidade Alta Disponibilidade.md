@@ -127,6 +127,13 @@ Baixe e instale a versão Community (gratuita) em: **https://dbeaver.io/download
 4. Clique em **Test Connection**. Se for a primeira vez, o DBeaver pedirá para baixar os *drivers* do MySQL — clique em **Download** e aguarde.
 5. Ao ver a mensagem **"Connected"**, clique em **Finish**.
 
+> 🚨 **Solução de Problemas Comuns (Troubleshooting)**
+> Se a sua conexão falhar, não se desespere. Verifique os erros clássicos abaixo:
+> 
+> - ❌ **Erro "Connect timed out":** O firewall da AWS bloqueou você. Volte no console da AWS, clique no seu banco RDS, vá em **Security Groups**, acesse **Inbound rules** (Regras de entrada) e adicione uma regra do tipo **MySQL/Aurora** liberando para **My IP** (Seu IP). Confirme também se a instância RDS foi criada com **Acesso Público = Sim**.
+> - ❌ **Erro "Public Key Retrieval is not allowed":** Frescura de segurança do MySQL 8. Na janela de conexão do DBeaver, vá na aba **Propriedades do driver**, ache a propriedade `allowPublicKeyRetrieval` e mude seu valor de `false` para `true`.
+> - ❌ **Configuração Errada no DBeaver:** Na aba Principal do DBeaver, certifique-se de marcar "Conectar usando: **Host**" e não URL. O campo "Servidor" deve receber apenas o endereço limpo (ex: `aula-nuvem-db.xxx.rds.amazonaws.com`), sem o `:3306` no final.
+
 ---
 
 **Etapa 3 — Abrir o Editor SQL**
@@ -139,7 +146,9 @@ Baixe e instale a versão Community (gratuita) em: **https://dbeaver.io/download
 
 **Etapa 4 — Executar as Queries da Aula**
 
-Cole o script abaixo no editor e execute **linha por linha** com **`Ctrl + Enter`** (o cursor deve estar na linha que você quer executar). Os resultados aparecerão na grade logo abaixo:
+Cole o script abaixo no editor e execute **linha por linha** com **`Ctrl + Enter`** (o cursor deve estar na linha que você quer executar). Os resultados aparecerão na grade logo abaixo.
+
+> 💡 **Dica de Ouro (DBeaver):** Se você for rodar um script inteiro que cria várias coisas (como o script de preparação do banco que o professor usou), NUNCA selecione todo o texto em azul e aperte `Ctrl + Enter` (isso gera erro de sintaxe `SQL [1064]`). Em vez disso, clique em qualquer lugar do fundo da tela (sem selecionar nada) e aperte **`Alt + X`** (Executar Script).
 
 ```sql
 -- PASSO 1: Ver os cursos disponíveis no banco
