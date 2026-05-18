@@ -51,10 +51,10 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="dashboard-container">
 <div class="hero">
 <div style="position: relative; z-index: 10;">
-<span class="tag">▶ Continue Assistindo</span>
-<h1>Lançando Instâncias EC2</h1>
-<p>Retome a Aula 08. Aprenda a utilizar AWS CLI e Terraform para automatizar o lançamento e configuração de instâncias EC2.</p>
-<a href="./Aula-08---Lancando-Instancias-EC2-AWS-CLI-e-Terraform" class="btn btn-primary" data-spa>Retomar Aula</a>
+<span class="tag">▶ Aula de Hoje</span>
+<h1>Elasticidade e Alta Disponibilidade</h1>
+<p>Aula 15 de hoje: ELB, Auto Scaling e CloudWatch. Entenda como a AWS escala automaticamente para milhares de usuários.</p>
+<a href="./Aula-15---Te%C3%B3rica-Elasticidade-Alta-Disponibilidade" class="btn btn-primary" data-spa>Acessar Aula 15</a>
 </div>
 </div>
 <div class="row-wrapper">
@@ -125,7 +125,7 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="card-thumb">🏗️<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
 <div class="card-content">
 <div class="card-title">Terraform: IaC com Lightsail e EC2</div>
-<div class="card-meta"><span>Aula 12</span><span>Novo</span></div>
+<div class="card-meta"><span>Aula 12</span></div>
 </div>
 </a>
 </div>
@@ -168,11 +168,11 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="card-meta"><span>Aula 14</span></div>
 </div>
 </a>
-<a href="./Aula-15---Redes-e-VPC" class="card" data-spa>
-<div class="card-thumb">🔌</div>
+<a href="./Aula-15---Te%C3%B3rica-Elasticidade-Alta-Disponibilidade" class="card" data-spa>
+<div class="card-thumb">⚡</div>
 <div class="card-content">
-<div class="card-title">Redes e VPC</div>
-<div class="card-meta"><span>Aula 15</span></div>
+<div class="card-title">Elasticidade, ELB e Auto Scaling</div>
+<div class="card-meta"><span>Aula 15</span><span>🆕 Novo</span></div>
 </div>
 </a>
 <a href="./Aula-16---Projeto-Final---Deploy-de-Aplicacao-Completa-em-Nuvem" class="card" data-spa>

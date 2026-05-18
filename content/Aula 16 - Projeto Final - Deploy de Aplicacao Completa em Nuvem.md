@@ -1,5 +1,24 @@
 ---
-title: "🚀 Aula 16 – Projeto Final: Deploy de Aplicação Completa em Nuvem"
+disciplina: Cloud Computing
+codigo: "14189"
+aula: 16
+titulo: "Projeto Final — Deploy de Aplicação Completa em Nuvem"
+tipo: pratica
+semana: 16
+data: 2026-06-04
+status: publicado
+tags:
+  - cloud
+  - aws
+  - rds
+  - ec2
+  - frontend
+  - backend
+  - cloudflare
+  - dns
+  - projeto-final
+  - prompt-engineering
+publicar: true
 ---
 
 # 🚀 Aula 16: Projeto Final — Deploy de Aplicação Completa em Nuvem
@@ -9,6 +28,7 @@ title: "🚀 Aula 16 – Projeto Final: Deploy de Aplicação Completa em Nuvem"
 **Semana:** 16 | Quarta-feira
 **Professor:** Romualdo Mathias Filho
 **Tipo:** 🔬 Prática — Estudo Autônomo Avaliado
+**Tópicos:** EC2, RDS, DNS, Cloudflare, Backend, Frontend, IA Generativa, Infraestrutura em Nuvem
 
 ---
 
@@ -16,12 +36,12 @@ title: "🚀 Aula 16 – Projeto Final: Deploy de Aplicação Completa em Nuvem"
 
 ---
 
-## 🎯 Objetivo
+## 🎯 Objetivo da Aula
 
 Ao final desta atividade, os grupos serão capazes de:
 
 - Provisionar infraestrutura completa na AWS (EC2 + RDS) de forma funcional.
-- Utilizar **IA Generativa** para criar o código da aplicação usando **prompts estruturados**.
+- Utilizar **IA Generativa** (ChatGPT, Claude, Gemini) para criar o código da aplicação usando **prompts estruturados**.
 - Implantar um backend com conexão a banco de dados relacional em produção.
 - Implantar um frontend acessível pela internet com URL pública.
 - Configurar um domínio DNS via Cloudflare apontando para a aplicação na nuvem.
@@ -44,7 +64,9 @@ Ao final desta atividade, os grupos serão capazes de:
 
 ## 📋 Visão Geral do Trabalho
 
-O grupo vai construir e implantar uma **aplicação web funcional completa em nuvem**, acessível por um domínio real configurado via Cloudflare.
+O grupo vai construir e implantar uma **aplicação web funcional completa na AWS**, acessível por um domínio real configurado via Cloudflare.
+
+A aplicação precisa ser real — não é uma simulação, não é um print do console. É uma URL que qualquer pessoa pode abrir no navegador e usar.
 
 ```mermaid
 graph LR
@@ -59,95 +81,104 @@ graph LR
 
 > **O código da aplicação será gerado por Inteligência Artificial.**
 
-O grupo **não precisa saber programar** em Python, JavaScript ou SQL. O que precisa é:
+O grupo **não precisa saber programar** em Python, JavaScript ou SQL. O que o grupo precisa saber é:
 
-1. **Escolher o tema** da aplicação
-2. **Usar os prompts fornecidos** para que a IA gere o código
-3. **Fazer o deploy** — colocar tudo funcionando na nuvem
+1. **Escolher o tema** da aplicação (catálogo de filmes, agenda, cardápio, etc.)
+2. **Usar os prompts fornecidos** para que a IA gere o código do banco, backend e frontend
+3. **Fazer o deploy** — colocar tudo funcionando na AWS
 4. **Documentar** tudo no relatório
 
-### Os Prompts (Cadeia Sequencial)
+O professor fornece **4 prompts prontos e estruturados**. O grupo cola cada prompt na IA, personaliza com o tema escolhido, e recebe o código. O desafio é fazer funcionar na nuvem.
+
+### Os 4 Prompts (Cadeia Sequencial)
 
 | # | Prompt | O que gera | Entrada necessária |
 |---|---|---|---|
-| 🖥️ **0** | [Infraestrutura na AWS](./Prompts-IA-Projeto-Final#%EF%B8%8F-prompt-0--infraestrutura-na-aws-ec2--rds) | Guia passo a passo para criar EC2 + RDS + Security Groups no console da AWS | Nenhuma |
-| 📋 **1** | [Banco de Dados](./Prompts-IA-Projeto-Final#-prompt-1--banco-de-dados-schema-sql) | Schema SQL completo (`CREATE TABLE` + `INSERT`) | Tema da aplicação |
-| ⚙️ **2** | [Backend](./Prompts-IA-Projeto-Final#%EF%B8%8F-prompt-2--backend-api-python--flask) | API Flask com todos os endpoints | Tema + SQL do Prompt 1 |
-| 🖥️ **3** | [Frontend](./Prompts-IA-Projeto-Final#%EF%B8%8F-prompt-3--frontend-interface-web) | Interface HTML/CSS/JS completa | Tema + código do Prompt 2 |
-| 🚀 **4** | [Deploy na EC2](./Prompts-IA-Projeto-Final#-prompt-4--deploy-com-nginx-na-ec2) | Guia de deploy com Nginx | — |
+| 📋 **1** | [[assets/prompts/Prompt_1_Banco_de_Dados]] | Schema SQL completo (`CREATE TABLE` + `INSERT`) | Tema da aplicação |
+| ⚙️ **2** | [[assets/prompts/Prompt_2_Backend]] | API Flask com todos os endpoints | Tema + SQL do Prompt 1 |
+| 🖥️ **3** | [[assets/prompts/Prompt_3_Frontend]] | Interface HTML/CSS/JS completa | Tema + código do Prompt 2 |
+| 🚀 **4** | [[assets/prompts/Prompt_4_Deploy_EC2]] | Guia de deploy com Nginx | — |
 
-> 📌 **Todos os prompts estão na página [Prompts de IA →](./Prompts-IA-Projeto-Final)** — abra e deixe ao lado enquanto trabalha.
+> 💡 **Os prompts são encadeados:** cada um recebe como entrada o resultado do anterior. Isso garante que o banco, o backend e o frontend sejam 100% compatíveis entre si.
 
-> ⚠️ **Regra:** O grupo precisa **entender e saber explicar** o código gerado. Na avaliação, o professor poderá perguntar para qualquer integrante como funciona qualquer parte do sistema.
+> ⚠️ **Regra:** O grupo precisa **entender e saber explicar** o código gerado. Na avaliação, se o professor perguntar "como a API se conecta ao banco?", a resposta *"a IA gerou"* não é aceita sozinha. Leiam o código e entendam o fluxo.
 
 ---
 
-## ✅ O que a aplicação precisa ter
+## 🗂️ As 4 Etapas do Projeto
 
-### Requisitos Obrigatórios
+---
 
-| Requisito | Descrição |
+### Etapa 1 — Infraestrutura na AWS
+**O que fazer:** Provisionar toda a infraestrutura que sustentará a aplicação.
+
+**Itens obrigatórios:**
+
+| Item | Descrição |
 |---|---|
-| ☁️ Hospedada em nuvem | EC2 rodando o backend da aplicação |
-| 🗄️ Banco de dados privado | RDS MySQL — sem acesso direto pela internet |
-| 🔐 Security Groups corretos | SG do banco aceita conexões **apenas** da EC2 |
-| 🌐 DNS e HTTPS | Domínio configurado via Cloudflare, com cadeado HTTPS ativo |
-| 📄 Relatório técnico (ABNT) | Com diagrama, screenshots e custo estimado — mín. 5 páginas |
-| 🎥 Vídeo (máx. 5 min) | Demonstrando o projeto com o console da AWS aberto |
+| EC2 (Backend) | Instância t2.micro ou t3.micro rodando o servidor da aplicação |
+| RDS MySQL (ou outro) | Banco de dados relacional, **privado** (`publicly_accessible = false`) |
+| Security Groups | SG do banco aceita conexões **apenas** do SG do backend (EC2) |
+| Acesso público | A EC2 do backend tem IP público |
 
-### ⭐ Diferenciais (O professor incentiva — não são obrigatórios)
+**Como fazer (duas opções válidas):**
+- **Opção A — Terraform (recomendado):** usar os arquivos `.tf` da Aula 11 como base.
+- **Opção B — Console AWS (aceito):** criar manualmente pelo painel, documentando cada tela com screenshots numerados.
 
-| Diferencial | Descrição |
-|---|---|
-| 🔧 Terraform | Provisionar a infraestrutura via código |
-| 🔄 CI/CD | Push no GitHub → deploy automático |
+**Evidência obrigatória:** Screenshots mostrando os recursos criados (EC2 com status "Running", RDS com status "Available", Security Groups configurados).
 
 ---
 
-## 📦 O que entregar
+### Etapa 2 — Backend e Banco de Dados
+**O que fazer:** Usar os **Prompts 1 e 2** para gerar o banco e o backend, depois implantá-los na EC2.
 
-| # | Entregável | Como |
-|---|---|---|
-| 📝 **1** | Relatório técnico (ABNT) com todas as evidências incorporadas | PDF no AVA |
-| 🎥 **2** | Link do vídeo (máx. 5 min) com a AWS aberta | Incluído dentro do PDF |
-| 🎤 **3** | Apresentação ao vivo para o professor | Presencial, a partir de 10/06 |
+**Passo a passo:**
+1. Cole o **Prompt 1** na IA → receba o SQL → execute no banco via terminal da EC2
+2. Cole o **Prompt 2** na IA (incluindo o SQL gerado) → receba o código Flask
+3. Suba os arquivos para a EC2, configure o `.env` com o endpoint do RDS
+4. Instale as dependências e rode `python3 app.py`
 
-**Formato do arquivo:** `nome_do_grupo.pdf`
-
-### ⚠️ Prazo — Sem Exceções
-
-> **O prazo de entrega do PDF é fixo: 10/06/2026 às 23h59.**
->
-> A seção de Estudos Autônomos no AVA fecha automaticamente nesse horário. Após o fechamento, **não é possível enviar o arquivo**, independentemente do motivo.
->
-> **Entregue antes do prazo. Não deixe para o último dia.**
+**Evidência obrigatória:**
+- Screenshot do endpoint `/health` retornando `{"status": "ok", "database": "connected"}`
+- Screenshot de uma consulta real ao banco via endpoint da API
 
 ---
 
-## 🎤 Sobre a Apresentação ao Vivo
+### Etapa 3 — Frontend e DNS (Cloudflare)
+**O que fazer:** Usar o **Prompt 3** para gerar o frontend, configurar Nginx (**Prompt 4**) e apontar o domínio via Cloudflare.
 
-Durante a apresentação (a partir de 10/06), o professor poderá:
-- ✅ Pedir para executar o `terraform apply` ao vivo (se usou Terraform)
-- ✅ Pedir para acionar o CI/CD via git push (se implementou)
-- ✅ Solicitar demonstração prática de qualquer parte da infraestrutura
-- ✅ Fazer perguntas individuais a qualquer integrante
+**Passo a passo:**
+1. Cole o **Prompt 3** na IA (incluindo o código do backend) → receba o HTML
+2. Salve como `templates/index.html` na EC2
+3. Use o **Prompt 4** para configurar Nginx como proxy reverso (porta 80)
+4. Configure o domínio no Cloudflare (registro A → IP da EC2)
+5. Ative o proxy ☁️ para habilitar HTTPS automaticamente
+
+> 💡 **Sobre o domínio:** Converse com o professor caso haja dificuldade em obter um domínio. Alternativas: subdomínios gratuitos ou domínio compartilhado do professor.
+
+**Evidência obrigatória:**
+- Screenshot do painel Cloudflare com os registros DNS
+- Screenshot do navegador acessando a aplicação pelo domínio com cadeado HTTPS
 
 ---
 
-## 📄 Estrutura do Relatório Técnico (ABNT)
+### Etapa 4 — Relatório Técnico (ABNT)
+**O que fazer:** Documentar todo o processo em relatório técnico formal.
+
+**Estrutura obrigatória:**
 
 | Seção | O que deve conter |
 |---|---|
 | **Capa** | Nome do grupo, integrantes (nome + matrícula), disciplina, professor, data |
-| **Sumário** | Com as seções e páginas |
-| **Introdução** | Contexto do projeto, objetivo, tema escolhido |
-| **Arquitetura** | Diagrama obrigatório + descrição de cada serviço |
-| **Implementação** | Passo a passo com screenshots; incluir prompts usados e como foram adaptados |
-| **Testes e Evidências** | Screenshots organizados, legendados e referenciados no texto |
-| **Conclusão** | Aprendizados e dificuldades encontradas |
-| **Referências** | Fontes no formato ABNT |
+| **Sumário** | Gerado automaticamente com as seções e páginas |
+| **Introdução** | Contexto do projeto, objetivo, justificativa (1-2 páginas) |
+| **Arquitetura** | Diagrama da arquitetura (obrigatório) + descrição de cada serviço AWS |
+| **Etapas de Implementação** | Descrição detalhada: infraestrutura, deploy, DNS. Incluir os prompts utilizados e como foram adaptados |
+| **Testes e Evidências** | Screenshots de cada etapa — organizados, legendados e referenciados no texto |
+| **Conclusão** | Aprendizados, dificuldades e como foram resolvidas |
+| **Referências** | Fontes consultadas no formato ABNT |
 
-**Formatação ABNT:**
+**Formatação ABNT obrigatória:**
 
 | Elemento | Padrão |
 |---|---|
@@ -155,50 +186,145 @@ Durante a apresentação (a partir de 10/06), o professor poderá:
 | Espaçamento | 1,5 entrelinhas |
 | Margens | Superior e esquerda: 3 cm / Inferior e direita: 2 cm |
 | Parágrafo | Recuo de 1,25 cm na primeira linha |
-| Figuras | "Figura X — Descrição. Fonte: Autores, 2026." |
+| Numeração de páginas | Superior direito, a partir da Introdução |
+| Capa | Sem numeração, centralizada |
+| Figuras | Legendadas (Figura X — Descrição. Fonte: Autores, 2026.) |
 | Mínimo de páginas | **5 páginas de conteúdo** (excluindo capa e sumário) |
 
 ---
 
-## 📊 Rubrica de Avaliação — 20 pontos
+## 📊 Rubrica de Avaliação — 25 pontos
 
 | Critério | Muito Bom (A) | Bom (B/C) | Precisa Melhorar (D/F) | Pts |
 |---|---|---|---|---|
-| **Parte Escrita + Vídeo** | Arquitetura documentada, aplicação funcionando, segurança aplicada, custos documentados, vídeo explicativo | Relatório com seções faltando ou sem vídeo | Sem relatório ou sem evidências | **13 pts** |
-| **Apresentação e Arguição** | Demo ao vivo funcionando, respostas técnicas corretas de todos os integrantes | Apresentação com falhas ou respostas parciais | Não apresentou ou aplicação não funcionou | **7 pts** |
+| **Configuração da Infraestrutura** | EC2 + RDS + Security Groups corretamente configurados, banco privado, aplicação acessível pelo domínio | EC2 e RDS funcionando, mas com falhas de segurança (banco público, SGs permissivos) ou sem DNS | Infraestrutura incompleta ou não funcional | **10 pts** |
+| **Evidências Técnicas** | Screenshots organizados, legendados, cobrindo todas as 4 etapas, com URLs/IPs visíveis | Screenshots presentes mas incompletos, sem legendas ou mal organizados | Poucas ou nenhuma evidência visual | **5 pts** |
+| **Relatório Técnico** | Segue ABNT completo, todas as seções presentes, diagrama de arquitetura incluído, mínimo de 5 páginas | Relatório presente mas com seções faltando, formatação parcial ou sem diagrama | Sem relatório ou entregue sem formatação mínima | **7 pts** |
+| **Participação dos Integrantes** | Todos os integrantes identificados no relatório com suas contribuições descritas | Participação parcialmente documentada | Sem identificação individual | **3 pts** |
 
-> 💡 Grupos que usarem **Terraform** e/ou **CI/CD** demonstram maior domínio técnico — valorizado nas perguntas da arguição.
+---
+
+## ⚠️ Regras de Entrega
+
+### Nome do arquivo
+
+```
+nome_do_grupo.pdf
+```
+
+Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
+
+> ⚠️ **Atenção:** Arquivos nomeados incorretamente ou em formato diferente de PDF terão desconto de **2 pontos**.
+
+### Prazo e local de entrega
+
+| Item | Detalhe |
+|---|---|
+| **Prazo máximo** | **12/06/2026 até 23h59** |
+| **Onde entregar** | AVA — seção **Estudos Autônomos** |
+| **Formato** | Um único arquivo **PDF** |
+| **O que incluir** | Relatório técnico completo com evidências incorporadas |
+
+### Sobre os grupos
+
+| Item | Regra |
+|---|---|
+| Tamanho | **Máximo 4 integrantes** |
+| Participação | Todos devem ter contribuição documentada |
+| Uso de IA | **Permitido e incentivado** — desde que o grupo saiba explicar o que foi gerado |
+
+### Penalidades por atraso
+
+| Situação | Penalidade |
+|---|---|
+| Até 48h após o prazo | -20% dos pontos |
+| Entre 48h e 1 semana | -50% dos pontos |
+| Não entregue ou após 1 semana | Zero na atividade |
 
 ---
 
 ## 💡 Dicas para o Sucesso
 
 **Para a infraestrutura:**
-- Use o **Prompt 0** para obter o guia de criação da EC2 + RDS direto pelo console da AWS.
-- Lembre-se: banco de dados **sempre privado** — Security Group do RDS só aceita conexões da EC2.
-- Guarde o endpoint do RDS — você vai precisar colocar no arquivo `.env` do backend.
+- Use o `main.tf` da Aula 11 como ponto de partida — já tem EC2 + RDS + Security Groups interligados.
+- Lembre-se: `publicly_accessible = false` no RDS.
+- Guarde o endpoint do RDS — você vai colar no `.env` do backend.
 
 **Para os prompts de IA:**
-- Siga a ordem: **Prompt 1 → 2 → 3 → 4**. Cada um depende do anterior.
+- Siga a ordem: **Prompt 1 → 2 → 3 → 4**. Cada prompt depende do anterior.
+- Cole o resultado do prompt anterior dentro do próximo. Isso garante compatibilidade.
 - Se a IA gerar código com erro, cole o erro de volta na conversa e peça para corrigir.
 
 **Para o Cloudflare:**
 - Crie uma conta gratuita em cloudflare.com.
-- O proxy laranja ☁️ ativado habilita o HTTPS automaticamente.
+- O proxy laranja (☁️ ativado) ativa o HTTPS automaticamente.
 - Propagação DNS pode levar até 24h — configure com antecedência.
 
 **Para o relatório:**
 - Tirem screenshots desde o início — é mais fácil documentar enquanto fazem.
-- Numerem os screenshots: *"Conforme a Figura 3, a instância RDS está com status Available..."*
+- Numerem os screenshots e façam referência no texto: *"Conforme a Figura 3, a instância RDS está com status Available..."*
+- Incluam no relatório quais prompts foram utilizados e como foram adaptados ao tema.
 
 ---
 
-## 📚 Referências
+## 📋 Resumo Estrutural
+
+| **Conceito** | **Definição** |
+| --- | --- |
+| `publicly_accessible = false` | Banco inacessível pela internet — acesso apenas via EC2 |
+| Security Group Interligado | SG do RDS autoriza apenas tráfego do SG da EC2 |
+| DNS via Cloudflare | Registro A apontando para o IP da EC2, com proxy SSL ativado |
+| Prompt Encadeado | Técnica de engenharia de prompt onde o resultado de um prompt alimenta o próximo |
+| ABNT | Norma brasileira para formatação de documentos acadêmicos |
+
+---
+
+## ❓ Banco de Questões
+
+> 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
+
+### Questão 1: Prática — Múltipla Escolha (Nível Intermediário)
+
+**Enunciado:** O grupo usou os prompts encadeados para gerar a aplicação. O Prompt 2 (Backend) pede que o aluno cole o SQL do Prompt 1 dentro dele. Qual é o benefício técnico dessa abordagem?
+
+- [ ] A) Permite que a IA aprenda com os dados do banco de dados do aluno.
+- [x] B) Garante que os modelos SQLAlchemy do backend sejam 100% compatíveis com as tabelas criadas no banco, evitando erros de mapeamento. ✅
+- [ ] C) Faz com que a IA crie o banco de dados automaticamente na AWS.
+- [ ] D) Permite que o frontend funcione sem precisar de backend.
+
+**Justificativa:** Ao incluir o SQL como contexto no prompt do backend, a IA gera modelos ORM que espelham exatamente a estrutura das tabelas. Sem isso, haveria risco de o backend tentar acessar colunas inexistentes ou com nomes diferentes.
+
+---
+
+### Questão 2: Teórica — Dissertativa (Nível Avançado)
+
+**Enunciado:** Explique o papel do Cloudflare como intermediário DNS entre o usuário e a EC2. Quais benefícios de segurança e desempenho essa configuração oferece?
+
+**Resposta esperada:** O Cloudflare atua como proxy reverso e DNS autoritativo. A requisição do usuário chega primeiro ao Cloudflare (escondendo o IP real da EC2), depois é encaminhada para a instância. Benefícios: (1) SSL automático sem configurar certificado na EC2, (2) proteção DDoS pela rede Anycast, (3) cache de conteúdo estático, (4) IP real oculto.
+
+---
+
+## 📄 Artigo de Aprofundamento
+
+- [Cloudflare — How Cloudflare Works](https://www.cloudflare.com/learning/what-is-cloudflare/)
+  > *Funcionamento do proxy DNS, proteção DDoS e SSL automático.*
+
+- [AWS RDS — Connecting to a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_CommonTasks.Connect.html)
+  > *Guia oficial para conectar aplicações ao RDS.*
+
+- [OpenAI — Prompt Engineering Best Practices](https://platform.openai.com/docs/guides/prompt-engineering)
+  > *Fundamentos de engenharia de prompt aplicados na construção dos prompts desta aula.*
+
+---
+
+## 📚 Referências Bibliográficas
 
 - Amazon Web Services. *Amazon RDS User Guide*. aws.amazon.com, 2026.
 - Cloudflare, Inc. *Cloudflare Learning Center — DNS*. cloudflare.com, 2026.
-- Associação Brasileira de Normas Técnicas. *NBR 14724: Trabalhos acadêmicos — Apresentação*. ABNT, 2011.
+- HashiCorp. *Terraform AWS Provider Documentation*. registry.terraform.io, 2026.
+- OpenAI. *Prompt Engineering Guide*. platform.openai.com, 2025.
+- Associação Brasileira de Normas Técnicas. *NBR 14724: Trabalhos acadêmicos — Apresentação*. Rio de Janeiro: ABNT, 2011.
 
 ---
 
-*Última atualização: 2026-05-13 | Cloud Computing — Uniube 2026 | Prof. Romualdo Mathias Filho*
+*Última atualização: 2026-05-13 | Status: publicado*

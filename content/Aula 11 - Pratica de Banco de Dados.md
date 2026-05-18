@@ -1,5 +1,4 @@
-﻿---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
+---
 disciplina: Cloud Computing
 codigo: "14189"
 aula: 11
@@ -18,9 +17,8 @@ tags:
   - mysql
 publicar: true
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
-# 🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)
+# 🟢 Aula 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube
@@ -30,25 +28,22 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 **Tópicos:** Terraform, Amazon RDS, MySQL, IaC, Security Groups, `terraform init`, `plan`, `apply`, `destroy`
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 > 💬 *"Na aula passada, aprendemos sobre RDS, Multi-AZ e Read Replicas no console. Hoje, vamos criar tudo isso com código — porque no mercado, ninguém clica botão para criar banco de dados em produção."*
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 🎯 Objetivo da Aula
 
 Ao final desta aula, os alunos serão capazes de:
 
-- Provisionar uma instância **Amazon RDS MySQL** completa usando Terraform.
-- Configurar **Security Groups** para controlar o acesso ao banco de dados.
-- Utilizar **variáveis Terraform** para separar configuração de código (boas práticas).
-- Conectar ao banco criado via cliente MySQL e executar queries.
+- Provisionar uma instância **Amazon RDS MySQL** totalmente privada (padrão de produção) usando Terraform.
+- Provisionar uma **Instância EC2** para atuar como servidor de aplicação.
+- Configurar **Security Groups** interligados, onde o banco aceita conexões *apenas* da EC2.
+- Conectar à EC2 via AWS Console (Instance Connect) e testar a comunicação com o banco.
 - Destruir toda a infraestrutura com um único comando (`terraform destroy`).
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 🔄 Revisão Rápida (5 min)
 
@@ -59,10 +54,9 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 | Terraform Básico (se já viu Aula 12) | Aqui aplicamos o mesmo ciclo `init/plan/apply/destroy`, mas para banco de dados. |
 | Credenciais AWS (Aula 08) | As mesmas credenciais `~/.aws/credentials` do Academy continuam sendo usadas. |
 
-> 💡 **O salto de hoje:** Na Aula 10, exploramos o RDS pelo console. Hoje, **o código cria o banco, configura o firewall e exibe a string de conexão** — tudo automatizado e versionável no Git.
+> 💡 **O salto de hoje:** Na Aula 10, exploramos o RDS pelo console. Hoje, o código criará o banco **fechado para a internet** (padrão de mercado) e uma EC2 para acessá-lo. Isso é a base do **Projeto Final**!
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 1. Estrutura do Projeto
 
@@ -78,12 +72,11 @@ Criaremos 4 arquivos:
 terraform-rds/
 ├── provider.tf      ← Qual nuvem e região usar
 ├── variables.tf     ← Variáveis configuráveis (nome do banco, senha, etc.)
-├── main.tf          ← Recursos: Security Group + RDS
-└── outputs.tf       ← Mostra endpoint e comando de conexão após o apply
+├── main.tf          ← Recursos: EC2 + RDS + Security Groups
+└── outputs.tf       ← Mostra o endpoint do banco e IPs
 ```
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 2. `provider.tf` — Conectando ao AWS
 
@@ -105,7 +98,6 @@ provider "aws" {
 > 💡 **Mesmo provider da Aula 12.** Se você já tem esse arquivo de outro projeto, pode reutilizar.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 3. `variables.tf` — Variáveis do Projeto
 
@@ -143,39 +135,89 @@ variable "db_instance_class" {
 > ⚠️ **Sobre a senha no código:** Em produção, a senha seria armazenada no AWS Secrets Manager ou passada via variável de ambiente (`TF_VAR_db_password`). Para fins didáticos do Academy, usamos um default, mas o atributo `sensitive = true` garante que o Terraform **nunca exibe a senha** nos logs.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
-## 📌 4. `main.tf` — Security Group + Instância RDS
+## 📌 4. `main.tf` — Infraestrutura de Produção (EC2 + RDS)
+
+Vamos criar a infraestrutura seguindo o padrão de mercado: a aplicação roda em uma EC2 que tem acesso à internet, mas o banco de dados é **privado**, aceitando conexões *apenas* da EC2.
+
+Copie e cole o código abaixo no seu `main.tf`:
 
 ```hcl
 # ============================================================
-# SECURITY GROUP — Controla quem pode acessar o banco
+# SECURITY GROUP DA EC2 (Aplicação)
 # ============================================================
-resource "aws_security_group" "rds_sg" {
-  name        = "rds-sg-aula11"
-  description = "Permite acesso MySQL (porta 3306) de qualquer IP (lab apenas)"
+resource "aws_security_group" "ec2_sg" {
+  name        = "ec2-app-sg-aula11"
+  description = "Permite acesso SSH via Instance Connect e saida para a internet"
 
-  # Regra de entrada: permitir MySQL (porta 3306)
   ingress {
-    description = "MySQL"
-    from_port   = 3306
-    to_port     = 3306
+    description = "SSH para o EC2 Instance Connect"
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]   # Em produção, restringir ao IP da aplicação!
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Regra de saída: permitir tudo
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+# ============================================================
+# SECURITY GROUP DO RDS (Banco de Dados Privado)
+# ============================================================
+resource "aws_security_group" "rds_sg" {
+  name        = "rds-sg-aula11"
+  description = "Permite acesso MySQL APENAS vindo da EC2 da Aplicacao"
+
+  ingress {
+    description     = "MySQL originado da EC2"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    # A MÁGICA DE PRODUÇÃO: O banco só aceita tráfego do SG da EC2
+    security_groups = [aws_security_group.ec2_sg.id] 
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# ============================================================
+# INSTÂNCIA EC2 — Servidor de Aplicação / Bastion
+# ============================================================
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+}
+
+resource "aws_instance" "app_server" {
+  ami           = data.aws_ami.amazon_linux.id
+  instance_type = "t2.micro"
+
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+
+  # User Data: Instala o cliente MySQL automaticamente ao ligar
+  user_data = <<-EOF
+              #!/bin/bash
+              dnf update -y
+              dnf install mariadb105 -y
+              EOF
 
   tags = {
-    Name       = "rds-sg-aula11"
-    Disciplina = "Cloud Computing"
-    Aula       = "11"
+    Name = "EC2-App-Aula11"
   }
 }
 
@@ -187,64 +229,51 @@ resource "aws_db_instance" "banco_aula11" {
   engine         = "mysql"
   engine_version = "8.0"
 
-  instance_class    = var.db_instance_class    # db.t3.micro (Free Tier)
-  allocated_storage = 20                       # 20 GB de armazenamento
+  instance_class    = var.db_instance_class    
+  allocated_storage = 20                       
 
-  db_name  = var.db_name       # Nome do banco dentro da instância
-  username = var.db_username   # Usuário admin
-  password = var.db_password   # Senha (sensível)
+  db_name  = var.db_name       
+  username = var.db_username   
+  password = var.db_password   
 
-  # Configurações de rede e acesso:
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  publicly_accessible    = true    # Necessário para acessar de fora da VPC (lab)
-  skip_final_snapshot    = true    # Não criar snapshot ao destruir (economia no lab)
-
-  # Alta disponibilidade (descomente para habilitar):
-  # multi_az = true   # Cria réplica em outra AZ — custo dobra!
+  
+  # PRODUÇÃO: Banco fechado para a internet externa!
+  publicly_accessible    = false    
+  skip_final_snapshot    = true    
 
   tags = {
-    Name       = "banco-terraform-aula11"
-    Disciplina = "Cloud Computing"
-    Aula       = "11"
-    Professor  = "Romualdo"
+    Name = "RDS-Privado-Aula11"
   }
 }
 ```
 
-> 💡 **Repare nos conceitos da Aula 10 aplicados aqui:**
-> - O **Security Group** substitui o `port_info` do Lightsail — no EC2/RDS, você controla o firewall com este recurso dedicado.
-> - O `multi_az = true` (comentado) é exatamente o **Multi-AZ** que estudamos na teoria.
-> - O `publicly_accessible = true` é necessário para acessar o banco de fora da VPC — em produção, seria `false` com acesso apenas via VPN ou bastion host.
+> 💡 **Repare no conceito de Produção:**
+> - O `publicly_accessible` do banco agora é `false`. Ninguém consegue acessar o banco do próprio computador.
+> - A regra `ingress` do Security Group do RDS não usa um IP, usa o `security_groups = [aws_security_group.ec2_sg.id]`. Ou seja, se o acesso vier da nossa EC2, está liberado. Se vier de qualquer outro lugar, a AWS bloqueia silenciosamente.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 5. `outputs.tf` — Exibindo a String de Conexão
 
 ```hcl
+output "ec2_id" {
+  value       = aws_instance.app_server.id
+  description = "ID da EC2 (Servidor de Aplicação)"
+}
+
 output "rds_endpoint" {
-  value       = aws_db_instance.banco_aula11.endpoint
-  description = "Endpoint de conexão do banco RDS (host:porta)"
-}
-
-output "rds_host" {
   value       = aws_db_instance.banco_aula11.address
-  description = "Hostname do banco (sem a porta)"
+  description = "Hostname do banco (necessário para conectar pela EC2)"
 }
 
-output "comando_mysql" {
-  value       = "mysql -h ${aws_db_instance.banco_aula11.address} -P 3306 -u ${var.db_username} -p ${var.db_name}"
-  description = "Comando para conectar ao banco via cliente MySQL"
-}
-
-output "nome_banco" {
-  value       = var.db_name
-  description = "Nome do banco de dados criado"
+output "comando_conexao_ec2" {
+  value       = "mysql -h ${aws_db_instance.banco_aula11.address} -u ${var.db_username} -p ${var.db_name}"
+  description = "Comando que você executará DENTRO da EC2 para testar o banco"
 }
 ```
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 6. O Ciclo Terraform: Criando o Banco
 
@@ -257,7 +286,6 @@ terraform init
 > ✅ **Checkpoint:** `Terraform has been successfully initialized!`
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Passo 2: `terraform plan`
 
@@ -268,13 +296,12 @@ terraform plan
 Você verá algo como:
 
 ```
-Plan: 2 to add, 0 to change, 0 to destroy.
+Plan: 4 to add, 0 to change, 0 to destroy.
 ```
 
-**2 recursos:** o Security Group e a instância RDS.
+**4 recursos:** Os dois Security Groups, a EC2 e a instância RDS.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Passo 3: `terraform apply`
 
@@ -284,47 +311,45 @@ terraform apply
 
 Digite `yes` quando solicitado.
 
-> ⏱️ **ATENÇÃO:** Diferente do Lightsail (18 segundos), o RDS demora **5 a 10 minutos** para ser criado. É normal! A AWS está provisionando o banco, configurando backups automáticos e aplicando as regras de firewall.
+> ⏱️ **ATENÇÃO:** O RDS demora **5 a 10 minutos** para ser criado. É normal! A AWS está provisionando o banco, configurando backups automáticos e aplicando as regras de firewall.
 
 ```
-aws_security_group.rds_sg: Creating...
-aws_security_group.rds_sg: Creation complete after 2s
 aws_db_instance.banco_aula11: Creating...
 aws_db_instance.banco_aula11: Still creating... [1m0s elapsed]
-aws_db_instance.banco_aula11: Still creating... [5m0s elapsed]
+...
 aws_db_instance.banco_aula11: Creation complete after 6m32s
 
-Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-rds_endpoint  = "banco-terraform-aula11.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com:3306"
-rds_host      = "banco-terraform-aula11.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com"
-comando_mysql = "mysql -h banco-terraform-aula11.xxx...com -P 3306 -u admin -p aula11db"
-nome_banco    = "aula11db"
+comando_conexao_ec2 = "mysql -h banco-terraform-aula11... -u admin -p aula11db"
+ec2_id              = "i-0abcd1234efgh5678"
+rds_endpoint        = "banco-terraform-aula11.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com"
 ```
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
-## 📌 7. Conectando ao Banco de Dados
+## 📌 7. Conectando ao Banco de Dados (Teste em Produção)
 
-### Opção A: Cliente MySQL no terminal
+Como o banco é **privado**, se você tentar conectar do seu computador, a requisição dará *Timeout*. Precisamos acessar a EC2 (o servidor de aplicação) primeiro.
 
-Se você tem o `mysql` instalado (WSL, Linux ou MySQL Workbench):
+### Passo 1: Acessar a EC2 via Console AWS
+1. Vá no painel do [EC2 no Console AWS](https://console.aws.amazon.com/ec2/).
+2. Selecione a instância **EC2-App-Aula11**.
+3. Clique no botão **Conectar (Connect)**.
+4. Escolha a aba **EC2 Instance Connect** e clique em **Connect**.
+5. Um terminal abrirá no seu navegador. Você está dentro do seu servidor de aplicação!
+
+### Passo 2: Conectar ao Banco de Dados
+
+Dentro do terminal da EC2, cole o comando que o Terraform cuspiu no `outputs.tf`:
 
 ```bash
-mysql -h <cole_o_rds_host_aqui> -P 3306 -u admin -p
+mysql -h <cole_o_rds_endpoint_aqui> -u admin -p
 ```
 
 Digite a senha (`SenhaAula11Cloud2026!`) quando solicitado.
-
-### Opção B: Instalando o cliente MySQL (se necessário)
-
-```bash
-# No Ubuntu/WSL:
-sudo apt update && sudo apt install mysql-client -y
-```
 
 ### Validação — Executando queries no banco
 
@@ -366,7 +391,6 @@ Resultado esperado:
 > ✅ **Se você viu esta tabela, seu banco de dados na nuvem está funcionando — provisionado 100% por código!**
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 8. Comparação: Console vs Terraform para RDS
 
@@ -380,7 +404,6 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 | Habilitar Multi-AZ | Checkbox no console | `multi_az = true` (1 linha) |
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📌 9. `terraform destroy` — Limpeza Obrigatória
 
@@ -389,7 +412,7 @@ terraform destroy
 ```
 
 ```
-Plan: 0 to add, 0 to change, 2 to destroy.
+Plan: 0 to add, 0 to change, 4 to destroy.
 
 Do you really want to destroy all resources?
   Enter a value: yes
@@ -398,7 +421,6 @@ Do you really want to destroy all resources?
 > 🏁 **OBRIGATÓRIO:** O RDS custa mais que o Lightsail. Execute o `destroy` ao final da aula para não consumir a cota do AWS Academy.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📋 Resumo Estrutural
 
@@ -414,7 +436,6 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 | `endpoint` | URL de conexão do banco gerada pela AWS (host + porta) |
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## ❓ Banco de Questões
 
@@ -432,7 +453,6 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 **Justificativa:** O atributo `sensitive = true` é uma proteção do Terraform que impede que o valor da variável apareça na saída dos comandos `plan`, `apply` e `output`. Não afeta a criptografia do banco em si — isso é responsabilidade do RDS (via `storage_encrypted`).
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Questão 2: Teórica — Dissertativa (Nível Intermediário)
 
@@ -441,37 +461,34 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 **Resposta esperada:** (1) **Documentação automática:** O código `.tf` documenta exatamente o que foi criado, diferente de prints de tela. (2) **Reprodutibilidade:** O mesmo código cria ambientes idênticos em qualquer conta ou região AWS, sem risco de esquecer uma configuração. (3) **Versionamento:** Com Git, cada mudança na infraestrutura fica rastreada no histórico, permitindo auditoria e rollback. Bônus: (4) Destruição simplificada com `terraform destroy` e (5) habilitação de Multi-AZ com uma única linha de código.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ### Questão 3: Prática — Múltipla Escolha (Nível Intermediário)
 
-**Enunciado:** No `main.tf`, o Security Group permite acesso na porta 3306 com `cidr_blocks = ["0.0.0.0/0"]`. Em um ambiente de produção, qual seria a prática correta?
+**Enunciado:** No `main.tf`, a regra de Ingress do Security Group do RDS foi configurada da seguinte forma: `security_groups = [aws_security_group.ec2_sg.id]`. O que isso significa na prática?
 
-- [ ] A) Manter `0.0.0.0/0` porque o RDS já tem autenticação por senha.
-- [ ] B) Remover o Security Group e confiar apenas na senha do banco.
-- [x] C) Restringir o `cidr_blocks` ao IP da aplicação ou da VPN corporativa. ✅
-- [ ] D) Trocar a porta 3306 por uma porta secreta para evitar ataques.
+- [ ] A) Que o banco de dados e a EC2 compartilham as mesmas credenciais de login.
+- [ ] B) Que o banco de dados ficará acessível para toda a internet.
+- [x] C) Que o tráfego na porta 3306 será aceito **apenas** se for originado de recursos que usem o Security Group da EC2. ✅
+- [ ] D) Que a EC2 fará backup automático do banco de dados diariamente.
 
-**Justificativa:** O princípio do menor privilégio exige que o acesso ao banco seja restrito ao menor número possível de origens. Em produção, o `cidr_blocks` deve conter apenas o IP ou range da aplicação que precisa acessar o banco. Expor a porta 3306 para toda a internet (`0.0.0.0/0`) é aceitável apenas em laboratórios didáticos.
+**Justificativa:** Interligar Security Groups é a principal boa prática em nuvem AWS. Ao referenciar o SG da EC2 na regra de entrada do RDS, informamos ao firewall: "Só aceite conexões de quem pertencer a esse grupo específico". Isso garante que o banco fique isolado da internet e apenas a camada de aplicação possa acessá-lo.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 🏋️ Atividade Prática — Entrega no Moodle
 
 Execute o roteiro da aula completo e documente com evidências:
 
 1. 📸 **Screenshot** do terminal com a saída do `terraform init`.
-2. 📸 **Screenshot** do terminal com o `terraform plan` mostrando `Plan: 2 to add`.
-3. 📸 **Screenshot** do terminal com os **Outputs** após o `terraform apply` (mostrando o endpoint e o comando de conexão).
-4. 📸 **Screenshot** do terminal **conectado ao MySQL** executando `SELECT * FROM alunos;` com os 3 registros inseridos.
-5. 📸 **Screenshot** do terminal com o `terraform destroy` concluído.
-6. **Dissertativa (3-5 linhas):** Explique por que o `publicly_accessible = true` é necessário neste laboratório, mas seria uma má prática em produção.
+2. 📸 **Screenshot** do terminal com o `terraform plan` mostrando `Plan: 4 to add`.
+3. 📸 **Screenshot** do terminal com os **Outputs** após o `terraform apply` (mostrando os endpoints e IDs).
+4. 📸 **Screenshot** do navegador mostrando o terminal do **EC2 Instance Connect** conectado ao MySQL e executando `SELECT * FROM alunos;`.
+5. 📸 **Screenshot** do terminal local com o `terraform destroy` concluído.
+6. **Dissertativa (3-5 linhas):** Explique com suas palavras por que, em um ambiente de produção real, o banco de dados deve ter a configuração `publicly_accessible = false` e aceitar tráfego apenas do Security Group da EC2.
 
 > 🏁 **Certifique-se de executar o `terraform destroy` ao final!** O RDS consome significativamente mais cota que o Lightsail.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📄 Artigo de Aprofundamento
 
@@ -482,7 +499,6 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
   > *Documentação oficial da AWS para o Amazon RDS. Útil para entender as configurações que o Terraform automatiza.*
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 ## 📚 Referências Bibliográficas
 
@@ -492,6 +508,5 @@ title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 - Brikman, Y. *Terraform: Up & Running*. O'Reilly Media, 3ª ed., 2022.
 
 ---
-title: "🟢 Aula - 11: Terraform — Prática de Banco de Dados na Nuvem (RDS)"
 
 *Última atualização: 2026-04-29 | Status: publicado*
