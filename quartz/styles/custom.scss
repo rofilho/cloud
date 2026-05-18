@@ -85,6 +85,20 @@
     margin: 0 auto;
     padding: 0 4rem;
   }
+
+  /* Tablets grandes (ex: 2560×1600 em alta resolução) */
+  @media (min-width: 1400px) {
+    max-width: 1600px;
+    padding: 0 6rem;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -218,6 +232,28 @@ figure[data-rehype-pretty-code-figure] pre {
   margin: 0 !important;
   padding: var(--sp-4) var(--sp-6) !important;
   background-color: transparent !important;
+  overflow-x: auto !important;
+}
+
+/* Fix texto de código no tema escuro */
+[saved-theme="dark"] figure[data-rehype-pretty-code-figure] pre code span {
+  color: var(--shiki-dark, #e2e8f0) !important;
+}
+
+/* Garante contraste mínimo no tema claro */
+figure[data-rehype-pretty-code-figure] pre code {
+  color: var(--shiki-light, #24292e);
+}
+
+/* Responsivo: scroll horizontal em telas pequenas */
+@media (max-width: 768px) {
+  figure[data-rehype-pretty-code-figure] {
+    border-radius: 8px !important;
+    margin: var(--sp-4) 0 !important;
+  }
+  figure[data-rehype-pretty-code-figure] pre {
+    font-size: 0.78rem !important;
+  }
 }
 
 /* Código inline */
