@@ -33,9 +33,8 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 .btn-primary:hover { background: #2563eb; transform: scale(1.05); }
 .row-wrapper { margin-bottom: 2.5rem; }
 .row-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; margin-left: 5px; opacity: 0.9; }
-.row { display: flex; gap: 16px; padding: 10px 5px; overflow-x: auto; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
-.row::-webkit-scrollbar { display: none; }
-.card { flex: 0 0 calc(100% / 4 - 15px); min-width: 220px; background: var(--lightgray); border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; display: flex; flex-direction: column; border: 1px solid var(--gray); }
+.row { display: flex; flex-wrap: wrap; gap: 16px; padding: 10px 5px; }
+.card { flex: 0 0 calc(25% - 12px); min-width: 200px; background: var(--lightgray); border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; display: flex; flex-direction: column; border: 1px solid var(--gray); }
 :root[saved-theme="dark"] .card { background: var(--darkgray); border-color: rgba(255,255,255,0.05); }
 .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.15); text-decoration: none; }
 .card-thumb { height: 120px; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 40px; position: relative; overflow: hidden; }
@@ -46,8 +45,8 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 .card-title { font-size: 14px; font-weight: 600; margin: 0 0 8px 0; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: var(--dark); }
 :root[saved-theme="dark"] .card-title { color: var(--light); }
 .card-meta { font-size: 11px; color: var(--gray); margin-top: auto; display: flex; justify-content: space-between; }
-@media (max-width: 768px) { .card { flex: 0 0 calc(100% / 2 - 15px); } .hero { padding: 1.5rem; height: 300px; } .hero h1 { font-size: 28px; } }
-@media (max-width: 480px) { .card { flex: 0 0 85%; } }
+@media (max-width: 768px) { .card { flex: 0 0 calc(50% - 8px); } .hero { padding: 1.5rem; height: 300px; } .hero h1 { font-size: 28px; } }
+@media (max-width: 480px) { .card { flex: 0 0 100%; } }
 </style>
 <div class="dashboard-container">
 <div class="hero">
