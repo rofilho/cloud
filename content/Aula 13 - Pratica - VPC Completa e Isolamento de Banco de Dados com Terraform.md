@@ -123,8 +123,6 @@ graph TB
 ### ⚠️ Por que duas subnets privadas?
 O Amazon RDS **exige** um `DB Subnet Group` com subnets em pelo menos **duas Zonas de Disponibilidade (AZs) diferentes**. A AWS impõe isso mesmo para bancos Single-AZ, para garantir que uma migração futura para Multi-AZ (alta disponibilidade) possa ser feita sem reconfigurar a rede.
 
-
-
 ---
 
 ## 📌 2. Parte 1 — Construindo a Infraestrutura pelo Console AWS
@@ -648,16 +646,16 @@ terraform destroy
 
 ## 📋 Resumo Estrutural
 
-| **Recurso Terraform** | **Para que serve** |
+| **Conceito / Recurso Terraform** | **Definição em Uma Frase** |
 | --- | --- |
-| `aws_vpc` | Cria a rede lógica privada e isolada dentro da AWS |
-| `aws_subnet` | Divide a VPC em blocos com escopos de tráfego distintos (pública/privada) |
-| `aws_internet_gateway` | Porta de entrada/saída que conecta a VPC à internet |
-| `aws_route_table` | Define as regras de tráfego (subnet pública → IGW; privada → sem saída) |
-| `aws_db_subnet_group` | Agrupa subnets privadas em 2+ AZs para o RDS usar como rede |
-| `aws_security_group` encadeado | Firewall do RDS que autoriza apenas o ID do SG da EC2 — não IPs fixos |
-| `aws_db_instance` | O banco de dados MySQL gerenciado, isolado na rede privada |
-| `aws_instance` | Servidor de aplicação na subnet pública, com acesso ao banco via rede interna |
+| `aws_vpc` | Rede lógica privada e isolada dentro da AWS que contém todos os seus recursos. |
+| `aws_subnet` | Divisão da VPC em blocos de endereçamento com escopos de tráfego distintos (pública/privada). |
+| `aws_internet_gateway` | Porta de entrada e saída que conecta a VPC à internet pública. |
+| `aws_route_table` | Define quem pode ir para onde: subnet pública roteia para o IGW; privada não tem saída. |
+| `aws_db_subnet_group` | Agrupa subnets privadas em 2+ AZs distintas para que o RDS possa alocar sua interface de rede. |
+| Security Group encadeado | Firewall do RDS que autoriza **apenas o ID do SG da EC2** como origem — nunca IPs fixos. |
+| `aws_db_instance` | Instância do banco de dados MySQL gerenciada pela AWS, sem IP público, isolada na rede privada. |
+| `aws_instance` | Servidor de aplicação na subnet pública — único recurso com acesso permitido ao banco. |
 
 ---
 
