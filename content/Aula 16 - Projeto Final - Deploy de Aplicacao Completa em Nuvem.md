@@ -279,6 +279,7 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 
 ---
 
+%%
 ## ❓ Banco de Questões
 
 > 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
@@ -303,6 +304,7 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 **Resposta esperada:** O Cloudflare atua como proxy reverso e DNS autoritativo. A requisição do usuário chega primeiro ao Cloudflare (escondendo o IP real da EC2), depois é encaminhada para a instância. Benefícios: (1) SSL automático sem configurar certificado na EC2, (2) proteção DDoS pela rede Anycast, (3) cache de conteúdo estático, (4) IP real oculto.
 
 ---
+%%
 
 ## 📄 Artigo de Aprofundamento
 

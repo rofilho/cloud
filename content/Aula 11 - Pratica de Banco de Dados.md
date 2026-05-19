@@ -437,6 +437,7 @@ Do you really want to destroy all resources?
 
 ---
 
+%%
 ## ❓ Banco de Questões
 
 > 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
@@ -474,6 +475,7 @@ Do you really want to destroy all resources?
 **Justificativa:** Interligar Security Groups é a principal boa prática em nuvem AWS. Ao referenciar o SG da EC2 na regra de entrada do RDS, informamos ao firewall: "Só aceite conexões de quem pertencer a esse grupo específico". Isso garante que o banco fique isolado da internet e apenas a camada de aplicação possa acessá-lo.
 
 ---
+%%
 
 ## 🏋️ Atividade Prática — Entrega no Moodle
 

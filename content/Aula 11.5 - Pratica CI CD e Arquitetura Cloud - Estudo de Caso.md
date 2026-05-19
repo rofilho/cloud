@@ -365,6 +365,7 @@ Para que isso seja possível sem criar um banco de dados novo do zero, a arquite
 
 ---
 
+%%
 ## ❓ Banco de Questões
 
 > 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
@@ -402,6 +403,7 @@ Para que isso seja possível sem criar um banco de dados novo do zero, a arquite
 **Justificativa:** Traces (rastreamento distribuído) permitem acompanhar o percurso completo de uma requisição através de múltiplos serviços, identificando gargalos e pontos de falha na cadeia.
 
 ---
+%%
 
 ## 📄 Artigo de Aprofundamento
 

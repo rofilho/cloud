@@ -52,9 +52,9 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="hero">
 <div style="position: relative; z-index: 10;">
 <span class="tag">▶ Aula de Hoje</span>
-<h1>Elasticidade e Alta Disponibilidade</h1>
-<p>Aula 15 de hoje: ELB, Auto Scaling e CloudWatch. Entenda como a AWS escala automaticamente para milhares de usuários.</p>
-<a href="./Aula-15---Te%C3%B3rica-Elasticidade-Alta-Disponibilidade" class="btn btn-primary" data-spa>Acessar Aula 15</a>
+<h1>VPC Completa e Isolamento de RDS com Terraform</h1>
+<p>Aula 13p prática: Aprenda a criar uma VPC customizada no Console AWS e a automatizar redes e banco privado isolado usando Terraform.</p>
+<a href="./Aula-13---Pratica---VPC-Completa-e-Isolamento-de-Banco-de-Dados-com-Terraform" class="btn btn-primary" data-spa>Acessar Aula Prática</a>
 </div>
 </div>
 <div class="row-wrapper">
@@ -159,6 +159,13 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="card-content">
 <div class="card-title">Segurança na Nuvem</div>
 <div class="card-meta"><span>Aula 13</span></div>
+</div>
+</a>
+<a href="./Aula-13---Pratica---VPC-Completa-e-Isolamento-de-Banco-de-Dados-com-Terraform" class="card" data-spa>
+<div class="card-thumb" style="background: linear-gradient(135deg, #0f172a, #1e293b);">🔬<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+<div class="card-content">
+<div class="card-title">Prática: VPC, RDS e Terraform</div>
+<div class="card-meta"><span>Aula 13p</span><span>🆕 Novo</span></div>
 </div>
 </a>
 <a href="./Aula-14---FinOps-e-Custos" class="card" data-spa>

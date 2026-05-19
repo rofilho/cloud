@@ -140,6 +140,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 
 ---
 
+%%
 ## ❓ Banco de Questões
 
 > 🔒 Esta seção é **visível apenas no Obsidian do professor**. Remover antes de publicar para alunos.
@@ -196,6 +197,7 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 **Amazon DynamoDB.** Por ser um banco NoSQL de chave-valor Serverless, o DynamoDB oferece latência abaixo de 10ms em qualquer escala sem necessidade de provisionar servidores. O acesso por `pedido_id` é o padrão ideal para chave-valor. Escala automaticamente para milhões de requisições/segundo, sem configuração manual.
 
 ---
+%%
 
 ## 📚 Leituras Recomendadas
 

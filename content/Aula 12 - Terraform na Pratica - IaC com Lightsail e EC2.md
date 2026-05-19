@@ -508,6 +508,7 @@ resource "aws_lightsail_instance" "server" {
 
 ---
 
+%%
 ## ❓ Banco de Questões
 
 > 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
@@ -545,6 +546,7 @@ resource "aws_lightsail_instance" "server" {
 **Justificativa:** Quando um recurso referencia atributos de outro (ex: `.name`), o Terraform constrói um grafo de dependência e garante a ordem de execução correta automaticamente. O `depends_on` explícito só é necessário quando a dependência não pode ser inferida pelo código.
 
 ---
+%%
 
 ## 🏋️ Atividade Prática — Entrega no Moodle
 
