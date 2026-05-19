@@ -52,7 +52,7 @@ Ao final desta aula, os alunos serão capazes de:
 | --- | --- |
 | Amazon RDS ([[Aula 11 - Pratica de Banco de Dados]]) | Na aula passada de RDS, usamos a rede padrão da AWS. Hoje, criaremos nossa própria infraestrutura de rede segura para abrigá-lo. |
 | [[Terraform]] Básico ([[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]]) | O ciclo básico `init`, `plan`, `apply` e `destroy` será usado hoje para aplicar a infraestrutura de rede inteira. |
-| Redes e [[VPC]] ([[Aula 15 - Teórica Elasticidade Alta Disponibilidade]] / MOC) | Hoje colocaremos em prática os conceitos teóricos de tabelas de roteamento, gateways e subnets públicas/privadas. |
+| Redes e [[VPC]] ([[Aula 13 - Seguranca na Nuvem]] / MOC) | Hoje unimos segurança de rede e IaC: tabelas de roteamento, gateways e subnets públicas/privadas saem do papel e viram código. |
 
 > 💡 **O Salto de Hoje:** Em ambientes de desenvolvimento simples, usamos a VPC padrão da AWS. Mas em ambientes reais de produção, colocar um banco de dados em uma rede com rota para a internet é considerado uma falha grave de segurança. Hoje vamos implementar uma arquitetura clássica de mercado: **Multi-Tier (Duas Camadas)**, com isolamento de rede absoluto.
 
@@ -245,9 +245,9 @@ terraform-vpc-rds/
 
 ## 📌 4. Desenvolvendo os Arquivos Terraform
 
-Copie e crie os arquivos conforme as definições abaixo.
+Copie e crie os arquivos conforme as definições abaixo. Todos os trechos de código abaixo devem ser criados como arquivos separados dentro da pasta `terraform-vpc-rds`.
 
-### 3.1 `provider.tf` — Conexão com a AWS
+### 4.1 `provider.tf` — Conexão com a AWS
 
 ```hcl
 terraform {
@@ -266,7 +266,7 @@ provider "aws" {
 
 ---
 
-### 3.2 `variables.tf` — Variáveis de Configuração
+### 4.2 `variables.tf` — Variáveis de Configuração
 
 ```hcl
 variable "db_name" {
@@ -291,7 +291,7 @@ variable "db_password" {
 
 ---
 
-### 3.3 `network.tf` — Programando a Infraestrutura de Rede (Core)
+### 4.3 `network.tf` — Programando a Infraestrutura de Rede (Core)
 
 Neste arquivo, vamos desenhar o esqueleto lógico da nossa rede na AWS.
 
@@ -382,7 +382,7 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
 
 ---
 
-### 3.4 `database.tf` — Banco de Dados Totalmente Isolado
+### 4.4 `database.tf` — Banco de Dados Totalmente Isolado
 
 Aqui criamos o Security Group e o banco RDS. O banco será colocado no `rds_subnet_group` (o que o joga para as subnets privadas) e seu tráfego será restrito de forma rigorosa.
 
@@ -443,7 +443,7 @@ resource "aws_db_instance" "banco" {
 
 ---
 
-### 3.5 `compute.tf` — O Servidor de Aplicação na Subnet Pública
+### 4.5 `compute.tf` — O Servidor de Aplicação na Subnet Pública
 
 Criamos a EC2 na subnet pública, com IP público e um Security Group que aceita SSH. Ele possui um script de inicialização (`user_data`) para instalar automaticamente o cliente MySQL.
 
@@ -507,10 +507,10 @@ resource "aws_instance" "app_server" {
 
   # User Data: Instala o cliente MariaDB/MySQL automaticamente ao inicializar
   user_data = <<-EOF
-              #!/bin/bash
-              dnf update -y
-              dnf install mariadb105 -y
-              EOF
+    #!/bin/bash
+    dnf update -y
+    dnf install mariadb105 -y
+  EOF
 
   tags = {
     Name = "EC2-App-VPC"
@@ -520,7 +520,7 @@ resource "aws_instance" "app_server" {
 
 ---
 
-### 3.6 `outputs.tf` — Expondo as Informações Práticas
+### 4.6 `outputs.tf` — Expondo as Informações Práticas
 
 ```hcl
 output "ec2_public_ip" {
@@ -541,7 +541,7 @@ output "comando_conexao_rds" {
 
 ---
 
-## 📌 4. O Ciclo de Execução e Validação Prática
+## 📌 5. O Ciclo de Execução e Validação Prática
 
 Siga as etapas abaixo para provisionar e testar sua infraestrutura:
 
@@ -552,11 +552,11 @@ terraform init
 ```
 
 ### Passo 2: Planejamento
-Gere a simulação da infraestrutura. O plano deve acusar a criação de **12 novos recursos**:
+Gere a simulação da infraestrutura. O plano deve acusar a criação de **12 novos recursos** (além de 1 data source de AMI que o Terraform apenas lê, sem criar):
 ```bash
 terraform plan
 ```
-> 🔍 **Revisão Visual:** Dentre os 12 recursos, certifique-se de ver a VPC, as 3 subnets (1 pública, 2 privadas), o Internet Gateway, a Route Table, as regras de firewall e o RDS.
+> 🔍 **Revisão Visual:** Dentre os 12 recursos, certifique-se de ver: 1 VPC, 3 Subnets (1 pública + 2 privadas), 1 Internet Gateway, 1 Route Table pública, 1 Route Table Association, 1 DB Subnet Group, 1 Security Group da EC2, 1 Security Group do RDS, 1 instância EC2 e 1 instância RDS.
 
 ### Passo 3: Provisionamento na Nuvem
 Execute a criação da infraestrutura na sua conta AWS Academy (Learner Lab):
@@ -569,7 +569,7 @@ terraform apply
 
 ---
 
-## 📌 5. Testando o Isolamento e Conexão (Validação de Produção)
+## 📌 6. Testando o Isolamento e Conexão (Validação de Produção)
 
 Com o provisionamento completo, o terminal exibirá os Outputs. Exemplo:
 
@@ -625,7 +625,7 @@ SELECT * FROM logs_acesso;
 
 ---
 
-## 📌 6. Limpeza Obrigatória (Não Estoure sua Cota!)
+## 📌 7. Limpeza Obrigatória (Não Estoure sua Cota!)
 Evite consumo desnecessário de créditos no AWS Academy. Ao finalizar a prática, execute o comando de destruição completa:
 ```bash
 terraform destroy
@@ -690,9 +690,9 @@ Se a EC2 for destruída e recriada pelo Terraform (ganhando um novo IP privado),
 **Enunciado:** O desenvolvimento do **Trabalho Final (Projeto Prático)** da disciplina Cloud Computing exige que a infraestrutura seja provisionada via IaC (Terraform) em uma arquitetura Multi-Tier contendo rede pública e privada. Explique, sob a ótica de segurança cibernética e do princípio do menor privilégio, qual é o ganho prático em alocar a instância EC2 em uma subnet pública e a instância RDS em subnets privadas, limitando o ingresso do firewall.
 
 **Resposta esperada:** Ao implementar a arquitetura Multi-Tier, o aluno isola a camada de dados sensíveis (RDS) em sub-redes privadas que não possuem rota de entrada física para a internet, impedindo tentativas de conexão direta, varredura de portas (scanners) e ataques de força bruta vindos do exterior. Além disso, o princípio do menor privilégio é aplicado nas regras do Security Group do RDS, que aceita conexões na porta 3306 restritamente vindas do ID do Security Group da EC2 (camada de aplicação). Isso garante que, mesmo se um invasor descobrir as credenciais de administrador do banco, ele não conseguirá se comunicar com a instância a menos que invada previamente o servidor de aplicação público (EC2), criando barreiras de defesa em profundidade (Defense-in-Depth).
-%%
 
 ---
+%%
 
 ## 📄 Artigo de Aprofundamento
 
