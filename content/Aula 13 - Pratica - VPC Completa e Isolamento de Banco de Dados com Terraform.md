@@ -52,20 +52,38 @@ Ao final desta aula, os alunos serão capazes de:
 
 | **Conceito (Aulas Anteriores)** | **Conexão com hoje** |
 | --- | --- |
-| Amazon RDS ([[Aula 11 - Pratica de Banco de Dados]]) | Usamos a VPC padrão. Hoje criamos uma VPC própria para isolar o banco corretamente. |
-| [[Terraform]] Básico ([[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]]) | O ciclo `init` → `plan` → `apply` → `destroy` será usado hoje para provisionar redes inteiras. |
-| Segurança na Nuvem ([[Aula 13 - Seguranca na Nuvem]]) | Security Groups e princípio do menor privilégio aplicados na prática hoje. |
+| Amazon RDS ([[Aula 11 - Pratica de Banco de Dados]]) | Na Aula 11, usamos a VPC padrão da AWS — o banco ficou exposto. Hoje criamos uma VPC **própria** para isolar o banco corretamente. |
+| [[Terraform]] Básico ([[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]]) | O ciclo `init` → `plan` → `apply` → `destroy` será usado hoje para provisionar **redes inteiras**, não apenas servidores. |
+| ELB e Auto Scaling ([[Aula 15 - Teorica Elasticidade Alta Disponibilidade]]) | Na Aula 15, vimos que o ELB distribui tráfego entre instâncias em múltiplas AZs. Hoje entendemos **por que** distribuímos subnets em AZs diferentes. |
 
-> 💡 **O salto de hoje:** Colocar um banco de dados em uma rede com rota para a internet é uma falha grave de segurança em produção. Hoje implementamos a arquitetura **Multi-Tier** — padrão de mercado — com isolamento total. E no final, automatizamos tudo com uma única linha de comando.
+> 💡 **O salto de hoje:** Na Aula 11, criamos um RDS na VPC padrão — qualquer pessoa com o endpoint e a senha poderia acessar o banco pela internet. Isso é uma **falha grave de segurança**. Hoje implementamos a arquitetura **Multi-Tier** — o padrão do mercado — com isolamento total. E no final, automatizamos tudo com uma única linha de comando.
 
 ---
 
-## 📌 1. A Arquitetura Multi-Tier (Duas Camadas)
+## 📋 Antes de Começar (Checklist do Aluno)
+
+Antes de iniciar o lab, confirme que você tem tudo pronto:
+
+- [ ] **AWS Academy** aberto e com sessão ativa (botão verde "Start Lab" clicado)
+- [ ] **Região `us-east-1`** (Norte da Virgínia) selecionada no canto superior direito do Console
+- [ ] **Terminal** aberto no seu computador (PowerShell, Terminal, ou WSL)
+- [ ] **Terraform instalado** (`terraform -version` deve retornar versão 1.x)
+- [ ] **Credenciais AWS** atualizadas em `~/.aws/credentials` (copie do AWS Academy → AWS Details → Show CLI)
+
+> ⚠️ **Lembrete:** As credenciais do AWS Academy **expiram com a sessão**. Se o `terraform apply` retornar erro de autenticação, renove as credenciais repetindo o processo acima.
+
+> ⏱️ **Tempo total estimado da aula:** ~85 minutos (Parte 1: Console ~35 min | Parte 2: Terraform ~30 min | Testes ~15 min | Limpeza ~5 min)
+
+---
+
+## 📌 1. A Arquitetura Multi-Tier (Duas Camadas) — ⏱️ ~10 min
+
+> 💡 **Analogia para entender VPC:** Pense na VPC como o **terreno de uma empresa**. Dentro desse terreno, você constrói prédios (subnets). O prédio da frente (subnet pública) tem porta para a rua — clientes e visitantes entram e saem. O prédio dos fundos (subnet privada) é o cofre-forte — só funcionários autorizados que já estão dentro do terreno podem acessar. O **Internet Gateway** é o portão do terreno. A **Route Table** é a placa de sinalização que diz "para ir à internet, use o portão".
 
 Em produção, organizamos os recursos em camadas de rede separadas:
 
 1. **Camada Pública (Web/App):** Servidores EC2 e Load Balancers que precisam se comunicar com a internet. Têm rota de saída via Internet Gateway.
-2. **Camada Privada (Banco de Dados):** RDS e recursos sensíveis que nunca devem ser expostos. Sem rota para a internet — isolados por design.
+2. **Camada Privada (Banco de Dados):** RDS e recursos sensíveis que **nunca** devem ser expostos. Sem rota para a internet — isolados por design. Sem IP público — invisíveis para o mundo externo.
 
 ```mermaid
 graph TB
@@ -125,9 +143,11 @@ O Amazon RDS **exige** um `DB Subnet Group` com subnets em pelo menos **duas Zon
 
 ---
 
-## 📌 2. Parte 1 — Construindo a Infraestrutura pelo Console AWS
+## 📌 2. Parte 1 — Construindo a Infraestrutura pelo Console AWS — ⏱️ ~35 min
 
 > 🖱️ **Por que começar pelo Console?** Antes de codificar, precisamos entender visualmente o que cada componente representa na AWS. Quem entende o que está criando, cria código melhor.
+>
+> 🎯 **Objetivo desta parte:** Ao final dos 8 passos no Console, você terá uma VPC funcional com EC2 pública + RDS privado. Na Parte 2, vamos destruir tudo e recriar **com código**.
 
 Abra o Console AWS em `console.aws.amazon.com` e garanta que está na região **us-east-1 (Norte da Virgínia)**.
 
@@ -265,13 +285,26 @@ Este passo é o coração da segurança: o RDS só aceita tráfego vindo da EC2.
 
 ---
 
-## 📌 3. Parte 2 — Automatizando com Terraform (IaC)
+## 📌 3. Parte 2 — Automatizando com Terraform (IaC) — ⏱️ ~30 min
 
 ### Por que Terraform depois do Console?
 
 Você viu: criar essa arquitetura manualmente exigiu **8 passos, 4 serviços diferentes** (VPC, EC2, RDS, Security Groups) e dezenas de cliques. Esqueceu de habilitar o *Auto-assign public IP*? A EC2 fica sem IP. Errou a AZ no DB Subnet Group? O RDS falha. Em produção, esse processo é repetido para Desenvolvimento, Staging e Produção — com múltiplos engenheiros.
 
 **É para isso que existe Infraestrutura como Código.** Vamos agora codificar a *exatamente mesma arquitetura*, versionada no Git e executável com um único comando.
+
+### 💡 Console vs. Terraform — O Antes e o Depois
+
+| Aspecto | Console (8 passos manuais) | Terraform (1 comando) |
+|---|---|---|
+| Tempo para criar | ~35 minutos clicando | ~10 min (6-10 min é o RDS) |
+| Reproduzir em outra conta | Repetir tudo do zero | `terraform apply` na nova conta |
+| Documentação | Print screen ou wiki | O **código é** a documentação |
+| Erro humano | Esquecer o Auto-assign IP, errar AZ | Código validado: mesma infra sempre |
+| Destruir tudo | Ir em cada serviço, deletar um a um na ordem | `terraform destroy` |
+| Versionar mudanças | Impossível | `git log` mostra quem mudou o quê |
+
+> 🎯 **A lição:** O Console serve para **aprender e explorar**. O Terraform serve para **produção e automação**. Profissionais usam ambos — Console para prototipar, Terraform para implementar.
 
 ---
 
@@ -555,12 +588,15 @@ output "comando_conexao_rds" {
 
 ---
 
-## 📌 4. Executando e Validando a Infraestrutura
+## 📌 4. Executando e Validando a Infraestrutura — ⏱️ ~15 min
+
+> ⚠️ **Antes de executar:** Certifique-se de que suas credenciais AWS estão atualizadas. Se a sessão do AWS Academy expirou, renove em AWS Details → Show CLI.
 
 ### Passo 1 — Inicializar o Terraform
 ```bash
 terraform init
 ```
+> ✅ **O que esperar:** A mensagem `Terraform has been successfully initialized!` confirma que o plugin AWS foi baixado.
 
 ### Passo 2 — Simular (sem criar nada)
 ```bash
@@ -568,6 +604,8 @@ terraform plan
 ```
 > 🔍 **Revisão Visual:** O plano deve mostrar **12 recursos a criar** e 1 data source a ler (AMI):
 > 1 VPC · 3 Subnets · 1 IGW · 1 Route Table · 1 RT Association · 1 DB Subnet Group · 2 Security Groups · 1 EC2 · 1 RDS
+>
+> 💡 **Dica do Professor:** Leia o plano! Se algum recurso aparecer como `destroy` ou `change`, algo está errado. O plano é o seu "freio de mão" antes de criar recursos na nuvem (que custam dinheiro!).
 
 ### Passo 3 — Provisionar na AWS
 ```bash
@@ -575,7 +613,9 @@ terraform apply
 ```
 *Digite `yes` e pressione Enter.*
 
-> ⏱️ **Paciência:** A VPC e a EC2 são criadas em segundos. O RDS leva **6 a 10 minutos** — a AWS provisiona hardware, instala a engine e configura backups. Aproveite para revisar os arquivos.
+> ⏱️ **Paciência:** A VPC e a EC2 são criadas em segundos. O RDS leva **6 a 10 minutos** — a AWS está provisionando hardware dedicado, instalando a engine MySQL e configurando backups automáticos. Aproveite para revisar os arquivos `.tf` e conversar com os colegas sobre a arquitetura.
+>
+> 🚨 **Se deu erro**, veja a seção **Troubleshooting** no final desta aula antes de pedir ajuda.
 
 ---
 
@@ -633,14 +673,38 @@ SELECT * FROM logs_acesso;
 
 ---
 
-## 📌 6. Limpeza Obrigatória
+## 📌 6. Limpeza Obrigatória — ⏱️ ~5 min
 
-> 🚨 **Não esqueça!** O RDS cobra por hora mesmo parado. Ao terminar a aula, destrua tudo:
+> 🚨 **Não esqueça!** O RDS cobra por hora mesmo parado. Ao terminar a aula, **destrua tudo**. Se não destruir, sua cota do AWS Academy será consumida e você ficará sem créditos para o Trabalho Final!
 
 ```bash
 terraform destroy
 ```
-*Digite `yes` e aguarde a finalização.*
+*Digite `yes` e aguarde a finalização (~3-5 min).*
+
+> ✅ **Checkpoint final:** Após o destroy, entre no Console AWS e verifique se os recursos sumiram:
+> - VPC → `VPC-Projeto-Final` não deve mais aparecer
+> - RDS → `banco-vpc-projeto` não deve mais aparecer
+> - EC2 → `EC2-App-VPC` deve estar `terminated`
+
+---
+
+## 🔧 Troubleshooting — Erros Comuns
+
+Se algo deu errado, consulte esta tabela antes de chamar o professor:
+
+| Erro | Causa provável | Solução |
+|---|---|---|
+| `Error: No valid credential sources found` | Credenciais AWS expiradas | Renove em AWS Academy → AWS Details → Show CLI. Cole em `~/.aws/credentials` |
+| `Error: creating RDS DB Instance: DBSubnetGroupDoesNotCoverEnoughAZs` | Subnets privadas na mesma AZ | Verifique se `private_1` está em `us-east-1a` e `private_2` em `us-east-1b` |
+| `Error: creating VPC: VpcLimitExceeded` | Limite de 5 VPCs por região atingido | Vá em VPC → Your VPCs e delete VPCs antigas de aulas anteriores |
+| `terraform plan` mostra 0 resources | Arquivos `.tf` não estão na pasta atual | Use `ls *.tf` para confirmar que está na pasta `terraform-vpc-rds/` |
+| Timeout ao conectar no RDS pelo DBeaver/computador local | **Esperado!** O RDS está isolado | Isso é o comportamento correto — conecte via EC2 Instance Connect |
+| `ERROR 2003: Can't connect to MySQL server` (dentro da EC2) | RDS ainda inicializando OU SG errado | Espere 10 min. Se persistir, verifique se o SG do RDS referencia o SG da EC2 |
+| `terraform destroy` trava no RDS | RDS demora para deletar | Espere até 10 min. Se passar disso, delete pelo Console AWS manualmente |
+| `Error: error configuring Terraform AWS Provider` | Região não configurada | Verifique se `provider.tf` tem `region = "us-east-1"` |
+
+> 💡 **Dica de ouro:** 90% dos erros de Terraform em aula são credenciais expiradas. Sempre comece renovando as credenciais do AWS Academy.
 
 ---
 

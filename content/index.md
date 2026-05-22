@@ -157,21 +157,12 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="dashboard-container">
 
 <div class="hero">
-<<<<<<< HEAD
-<div style="position: relative; z-index: 10;">
-<span class="tag">▶ Aula de Hoje</span>
-<h1>VPC Completa e Isolamento de RDS com Terraform</h1>
-<p>Aula 13p prática: Aprenda a criar uma VPC customizada no Console AWS e a automatizar redes e banco privado isolado usando Terraform.</p>
-<a href="./Aula-13---Pratica---VPC-Completa-e-Isolamento-de-Banco-de-Dados-com-Terraform" class="btn btn-primary" data-spa>Acessar Aula Prática</a>
-</div>
-=======
   <div style="position: relative; z-index: 10;">
-    <span class="tag">▶ Continue Estudando</span>
-    <h1>☁️ Cloud Computing</h1>
-    <p>Conceitos de nuvem, provedores, elasticidade, redes virtuais e automação com Terraform.</p>
-    <a href="./Aula-15---Te%C3%B3rica-Elasticidade-Alta-Disponibilidade" class="btn" data-spa>Retomar: ⚡ Aula 15 – Elasticidade, ELB e Auto Scaling</a>
+    <span class="tag">▶ Aula de Hoje</span>
+    <h1>🌐 VPC e Redes na Nuvem</h1>
+    <p>Aula 13t teórica: Entenda a anatomia de redes virtuais, CIDR, subnets públicas e privadas, gateways e firewalls encadeados.</p>
+    <a href="./Aula-13t---Teorica---VPC-e-Redes-na-Nuvem" class="btn" data-spa>Acessar Aula Teórica</a>
   </div>
->>>>>>> 741e8a4 (feat: design premium glassmorphism e organizacao cronologica das aulas no portal cloud)
 </div>
 
 <div class="row-wrapper">
@@ -284,6 +275,13 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
       <div class="card-thumb">🔬<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
       <div class="card-content">
         <div class="card-title">🔬 Aula 13p – Prática: VPC, RDS e Terraform</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>✅ Concluído</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13t---Teorica---VPC-e-Redes-na-Nuvem" class="card" data-spa>
+      <div class="card-thumb">🌐<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🌐 Aula 13t – Teórica: VPC e Redes na Nuvem</div>
         <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
       </div>
     </a>

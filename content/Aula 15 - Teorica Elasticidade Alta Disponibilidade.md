@@ -4,8 +4,8 @@ codigo: "14189"
 aula: 15
 titulo: "Elasticidade e Alta Disponibilidade — ELB, Auto Scaling e CloudWatch"
 tipo: teorica
-semana: 8
-data: 2026-05-16
+semana: 13
+data: 2026-05-15
 status: publicado
 tags:
   - cloud
@@ -18,18 +18,18 @@ tags:
 publicar: true
 ---
 
-# 🔵 Aula 15: Elasticidade e Alta Disponibilidade — ELB, Auto Scaling e CloudWatch
+# 🟢 Aula 15: Elasticidade e Alta Disponibilidade — ELB, Auto Scaling e CloudWatch
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube
-**Semana 8** | Sexta-feira, 16/05/2026 | Prof. Romualdo Mathias Filho
+**Semana 13** | Sexta-feira, 15/05/2026 | Prof. Romualdo Mathias Filho
 **Tipo:** 📘 Teórica (Sexta-feira)
 **Eixo:** 2 — Infraestrutura e Plataformas
 **AWS Academy:** Módulo 2.5 — Serviços Essenciais: ELB, CloudWatch e Auto Scaling
 
 ---
 
-## 🎯 0. Objetivo da Aula
+## 🎯 Objetivo da Aula
 
 Ao final desta aula, o aluno deve ser capaz de:
 
@@ -41,7 +41,7 @@ Ao final desta aula, o aluno deve ser capaz de:
 
 ---
 
-## 🚀 Demonstração Prática — Conectando ao RDS com DBeaver
+## 📌 1. Demonstração Prática: Conectando ao RDS com DBeaver
 
 No início desta aula, fizemos uma demonstração ao vivo de como acessar um banco de dados gerenciado na AWS usando uma ferramenta profissional. Abaixo está o resumo do que foi apresentado e o script SQL utilizado.
 
@@ -184,21 +184,19 @@ SELECT * FROM tech_academy.alunos ORDER BY id_aluno DESC LIMIT 5;
 
 ---
 
-## 🔄 1. Recapitulação
+## 🔄 Revisão Rápida (5 min)
 
-| Aula | Conceito | Definição |
-|---|---|---|
-| Aula 10 | DBaaS | Banco de dados gerenciado pelo provedor; você foca nos dados, não na infraestrutura |
-| Aula 10 | RDS | Amazon Relational Database Service — suporta MySQL, PostgreSQL, Aurora e outros |
-| Aula 10 | Multi-AZ | Réplica síncrona em outra zona de disponibilidade para failover automático |
-| Aula 13 | Security Group | Firewall de regras por recurso — controlamos quem pode se conectar ao banco |
-| Aula 13 | Endpoint | Endereço DNS gerado pelo RDS para que aplicações se conectem ao banco |
+| **Conceito (Aulas Anteriores)** | **Conexão com hoje** |
+| --- | --- |
+| Amazon RDS (`[[Aula 10 - Banco de Dados na Nuvem]]`) | O RDS oferece Multi-AZ para alta disponibilidade dos dados. Hoje estendemos essa resiliência para os servidores web com ELB e Auto Scaling. |
+| Terraform e IaC (`[[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]]`) | Automatizamos a criação de instâncias individuais. Hoje entendemos como o Auto Scaling usa "moldes" (Launch Templates) para escalar dinamicamente a infraestrutura. |
+| VPC e Redes (`[[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]`) | Distribuímos subnets em AZs diferentes. Hoje compreendemos por que desenhar redes Multi-AZ é o pré-requisito para o balanceamento de carga (ELB). |
 
 🔗 **Conexão com a aula de hoje:** Na demonstração inicial, observamos que o CloudWatch já monitora o RDS automaticamente. Mas e quando a demanda aumenta? O banco aguenta? E a aplicação? É aqui que entram **Elasticidade, Auto Scaling e Alta Disponibilidade** — o tema central desta aula.
 
 ---
 
-## 🏗️ 2. Contextualização
+## 📌 2. Contextualização
 
 Imagine uma loja online que vende ingressos para shows. Durante o ano, o tráfego é normal. Mas no exato momento em que abre a venda para um show do The Weeknd, milhares de pessoas acessam ao mesmo tempo. O servidor tradicional trava. O site cai. A empresa perde dinheiro.
 
@@ -211,7 +209,7 @@ A computação em nuvem resolveu este problema com dois princípios fundamentais
 
 ---
 
-## 📐 3. Escalabilidade: Vertical vs. Horizontal
+## 📌 3. Escalabilidade: Vertical vs. Horizontal
 
 **Definição:** Escalabilidade é a capacidade de um sistema aumentar sua capacidade de processamento para atender à crescente demanda. (KOLBE JÚNIOR, 2020)
 
@@ -254,7 +252,7 @@ Adicionar mais máquinas menores em paralelo — distribuir a carga.
 
 ---
 
-## 🔀 4. Amazon Elastic Load Balancer (ELB)
+## 📌 4. Amazon Elastic Load Balancer (ELB)
 
 **Definição:** O Elastic Load Balancer distribui automaticamente o tráfego de entrada entre múltiplas instâncias, contêineres ou endereços IP em uma ou mais zonas de disponibilidade. (AWS, 2024)
 
@@ -298,7 +296,7 @@ O ELB é o ponto de entrada único da sua aplicação. Ele recebe as requisiçõ
 
 ---
 
-## 🔁 5. Amazon Auto Scaling
+## 📌 5. Amazon Auto Scaling
 
 **Definição:** O Amazon EC2 Auto Scaling ajusta automaticamente a capacidade de computação para manter desempenho estável e previsível ao custo mais baixo possível. (AWS, 2024)
 
@@ -349,7 +347,7 @@ O Auto Scaling trabalha em conjunto com o ELB: enquanto o ELB distribui o tráfe
 
 ---
 
-## 📊 6. Amazon CloudWatch — O Centro de Observabilidade
+## 📌 6. Amazon CloudWatch — O Centro de Observabilidade
 
 **Definição:** Amazon CloudWatch é um serviço de monitoramento e observabilidade que coleta dados de métricas, logs e eventos de todos os recursos AWS, oferecendo visibilidade unificada da infraestrutura. (AWS, 2024)
 
@@ -396,7 +394,7 @@ O CloudWatch é o sistema nervoso da sua infraestrutura em nuvem — tudo passa 
 
 ---
 
-## 🏛️ 7. Arquitetura de Alta Disponibilidade na AWS
+## 📌 7. Arquitetura de Alta Disponibilidade na AWS
 
 **Definição:** Alta Disponibilidade (HA — High Availability) é a capacidade de um sistema permanecer operacional com mínimo de downtime, mesmo quando componentes individuais falham. (AWS, 2024)
 
@@ -424,7 +422,7 @@ Na AWS, HA é alcançada combinando múltiplos serviços em uma arquitetura dist
 
 ---
 
-## ⚖️ 8. Na Prática: Como Muda Com a Nuvem?
+## 📌 8. Na Prática: Como Muda Com a Nuvem?
 
 Para consolidar tudo que vimos, veja como os serviços de hoje resolvem problemas reais:
 
@@ -438,7 +436,7 @@ Para consolidar tudo que vimos, veja como os serviços de hoje resolvem problema
 
 ---
 
-## 🔮 9. Tendências Contemporâneas
+## 📌 9. Tendências Contemporâneas
 
 | Tendência | Descrição | Impacto |
 |---|---|---|
@@ -450,24 +448,24 @@ Para consolidar tudo que vimos, veja como os serviços de hoje resolvem problema
 
 ---
 
-## 📋 10. Resumo Estrutural
+## 📋 Resumo Estrutural
 
-| Conceito | Definição em Uma Frase |
-|---|---|
-| Elasticidade | Capacidade de expandir e contrair recursos automaticamente conforme a demanda |
-| Scale Up (Vertical) | Aumentar poder de uma única máquina — tem limite físico e pode gerar downtime |
-| Scale Out (Horizontal) | Adicionar mais máquinas em paralelo — sem limite teórico e sem downtime |
-| ELB | Distribui tráfego entre múltiplas instâncias, garantindo que nenhuma fique sobrecarregada |
-| ALB | Tipo de ELB na camada de aplicação (HTTP/HTTPS), mais usado em aplicações web |
-| Auto Scaling Group | Define quantas instâncias EC2 devem existir e escala automaticamente por políticas |
-| Launch Template | Molde que define as características das instâncias criadas pelo Auto Scaling |
-| CloudWatch | Serviço de monitoramento que coleta métricas, dispara alarmes e integra com Auto Scaling |
-| Alta Disponibilidade | Garantia de que o sistema continua operando mesmo com falha de componentes individuais |
-| Multi-AZ | Distribuir recursos em múltiplas zonas de disponibilidade para eliminar ponto único de falha |
+| **Conceito** | **Definição em Uma Frase** |
+| --- | --- |
+| Elasticidade | Capacidade de expandir e contrair recursos automaticamente conforme a demanda. |
+| Scale Up (Vertical) | Aumentar poder de uma única máquina (CPU/RAM) — tem limite físico e pode gerar downtime. |
+| Scale Out (Horizontal) | Adicionar mais máquinas em paralelo — sem limite teórico e sem downtime. |
+| ELB | Distribui tráfego entre múltiplas instâncias, garantindo que nenhuma fique sobrecarregada. |
+| ALB | Tipo de ELB na camada de aplicação (HTTP/HTTPS), mais usado in aplicações web. |
+| Auto Scaling Group | Define quantas instâncias EC2 devem existir e as escala automaticamente através de políticas de escalonamento. |
+| Launch Template | Molde reutilizável que define as características das instâncias criadas pelo Auto Scaling (AMI, tipo, SG). |
+| CloudWatch | Serviço de observabilidade que coleta métricas, logs e dispara alarmes para integrar com o Auto Scaling. |
+| Alta Disponibilidade | Garantia de que o sistema continua operando sem interrupções mesmo se componentes individuais falharem. |
+| Multi-AZ | Distribuir recursos em múltiplas zonas de disponibilidade para eliminar pontos únicos de falha. |
 
 ---
 
-## 🧩 11. Atividade Prática (PBL)
+## 📌 10. Atividade Prática (PBL) e Desafio
 
 ### 📌 Cenário: A Plataforma EduStream
 
@@ -495,7 +493,7 @@ A infraestrutura atual é uma única EC2 `c5.2xlarge` (8 vCPU, 16 GB RAM) com um
 
 ---
 
-## 🚀 12. Desafio (Preparação para a Próxima Aula)
+### 🚀 Desafio (Preparação para a Próxima Aula)
 
 **Para a próxima aula (Quarta-feira — Lab: Scale & Load Balance):**
 
@@ -505,39 +503,90 @@ A infraestrutura atual é uma única EC2 `c5.2xlarge` (8 vCPU, 16 GB RAM) com um
 
 💡 **Dica:** Consulte o Módulo 2.5 do AWS Academy Cloud Foundations e a documentação oficial: https://docs.aws.amazon.com/autoscaling/ec2/userguide/
 
+### 🎥 Materiais Complementares em Vídeo
+
+| Canal / Fonte | Título do Vídeo | Duração | Link |
+| --- | --- | --- | --- |
+| AWS | Elastic Load Balancing Overview | ~5 min | [Assistir no YouTube](https://www.youtube.com/watch?v=UBl5Kb7sAzA) |
+| AWS | Introduction to Amazon EC2 Auto Scaling | ~7 min | [Assistir no YouTube](https://www.youtube.com/watch?v=4EOaAkY4pNE) |
+| TechWorld with Nana | AWS Auto Scaling & Load Balancer Tutorial | ~42 min | [Assistir no YouTube](https://www.youtube.com/watch?v=P6EhGfJqFbI) |
+| freeCodeCamp | AWS Cloud Practitioner — Full Course | ~13 h | [Assistir no YouTube](https://www.youtube.com/watch?v=NhDYbskXRgc) |
+
 ---
 
-## 📚 13. Referências Bibliográficas
+%%
+## ❓ Banco de Questões
 
-### 📖 Referências Obrigatórias
+> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
 
-| Autor | Obra | Capítulo/Seção Utilizada |
-|---|---|---|
-| ANTUNES, Jonathan Lamim | Amazon AWS: descomplicando a computação em nuvem. Casa do Código, 2016 | Cap. 3 — EC2 e Auto Scaling; Cap. 6 — Alta Disponibilidade |
-| KOLBE JÚNIOR, Armando | Computação em nuvem. Contentus, 2020 | Cap. 5 — Elasticidade e Escalabilidade em Nuvem |
+### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
+**Estudo de Caso:** A plataforma de e-commerce brasileira *MagazineLegal* planeja a arquitetura de sua API de pagamentos para a Black Friday. O sistema sofrerá picos repentinos de tráfego de até 15.000 conexões por segundo, exigindo que as conexões TCP de longa duração para processamento e conciliação bancária sejam tratadas com latência ultrabaixa no nível da rede.
 
-### 📖 Referências Complementares
+Qual tipo de Elastic Load Balancer (ELB) deve ser selecionado para este caso de uso específico, e por quê?
 
-| Autor | Obra | Relevância |
-|---|---|---|
-| MARINESCU, D. C. | Cloud Computing: Theory and Practice. 2nd ed. Morgan Kaufmann, 2017 | Elasticidade, virtualização e modelos de provisionamento |
-| ERL, T.; PUTTINI, R.; MAHMOOD, Z. | Cloud Computing: Concepts, Technology & Architecture. Prentice Hall, 2013 | Mecanismos de balanceamento e failover |
-| AWS | AWS Well-Architected Framework — Reliability Pillar (online) | Boas práticas de alta disponibilidade e resiliência |
+- [ ] A) Application Load Balancer (ALB), pois trabalha na Camada 7 do modelo OSI, permitindo roteamento inteligente baseado em caminhos de URL.
+- [x] B) Network Load Balancer (NLB), pois opera na Camada 4 do modelo OSI (TCP/UDP), sendo capaz de lidar com milhões de requisições por segundo com latência ultrabaixa e manter conexões persistentes estáveis. ✅
+- [ ] C) Classic Load Balancer (CLB), pois oferece suporte a protocolos herdados das duas camadas e simplifica a configuração de redes corporativas tradicionais.
+- [ ] D) Gateway Load Balancer (GWLB), pois insere appliances virtuais de firewalls de terceiros diretamente no fluxo de tráfego de rede para validação de segurança.
 
-### 🔗 Links Úteis
+**Justificativa:** O Network Load Balancer (NLB) é ideal para cenários de alta performance e latência ultrabaixa na Camada 4 (transporte), suportando conexões persistentes e picos instantâneos extremos de tráfego. O ALB opera na Camada 7 e é ótimo para roteamento HTTP/HTTPS complexo, mas não tem o mesmo desempenho bruto em nível de transporte que o NLB. O CLB é obsoleto e não recomendado. O GWLB serve para rotear tráfego através de firewalls virtuais, o que não é o foco do balanceamento primário da API de pagamentos.
 
-| Recurso | Descrição | Link |
-|---|---|---|
-| Documentação Amazon ELB | Guia completo do Elastic Load Balancing | https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/ |
-| Documentação Auto Scaling | EC2 Auto Scaling User Guide | https://docs.aws.amazon.com/autoscaling/ec2/userguide/ |
-| CloudWatch User Guide | Documentação completa do CloudWatch | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ |
-| Calculadora de Preços AWS | Estimativa de custo de serviços AWS | https://calculator.aws/pricing/2/home |
+---
 
-### 🎥 Vídeos Recomendados
+### Questão 2: Prática (Múltipla Escolha — Nível: Avançado)
+**Enunciado:** Durante um evento de vendas relâmpago, o time de SRE da startup *VemDePix* notou que o Auto Scaling Group (ASG) começou a criar e destruir instâncias EC2 consecutivamente num intervalo curto de 15 minutos (comportamento conhecido na literatura como "flapping" ou oscilação destrutiva). Isso ocorreu porque a métrica de utilização média da CPU disparava para 85%, acionando o Scale-Out, e assim que as novas instâncias entravam em serviço, a utilização caía bruscamente para 30%, acionando imediatamente o Scale-In antes que o tráfego se estabilizasse.
 
-| Canal/Autor | Título | Duração | Link |
-|---|---|---|---|
-| AWS | Elastic Load Balancing Overview | ~5 min | https://www.youtube.com/watch?v=UBl5Kb7sAzA |
-| AWS | Introduction to Amazon EC2 Auto Scaling | ~7 min | https://www.youtube.com/watch?v=4EOaAkY4pNE |
-| TechWorld with Nana | AWS Auto Scaling & Load Balancer Tutorial | ~42 min | https://www.youtube.com/watch?v=P6EhGfJqFbI |
-| freeCodeCamp | AWS Cloud Practitioner — Full Course | ~13 h | https://www.youtube.com/watch?v=NhDYbskXRgc |
+Para mitigar este problema específico e estabilizar o comportamento do ASG, qual parâmetro de configuração de escalonamento deve ser ajustado e qual a sua lógica operacional?
+
+- [ ] A) Reduzir o parâmetro *Minimum Capacity* do ASG, permitindo que o número de instâncias zere durante quedas de tráfego para reduzir custos operacionais.
+- [ ] B) Substituir a AMI do *Launch Template* por uma imagem de sistema operacional mais leve, otimizando o tempo de inicialização da instância no console.
+- [x] C) Aumentar o período de *Cooldown* (tempo de resfriamento) ou configurar uma política de escalonamento baseada em *Target Tracking* (rastreamento de metas) com tempo de warm-up adequado para dar tempo às instâncias de absorverem a carga antes de nova avaliação métrica. ✅
+- [ ] D) Modificar o alarme do Amazon CloudWatch para coletar a métrica `DiskReadBytes` no lugar de `CPUUtilization`, limitando o disparo por IOPS de armazenamento.
+
+**Justificativa:** O período de *cooldown* (tempo de resfriamento) garante que o ASG não lance ou encerre instâncias adicionais até que a última alteração tenha tempo de surtir efeito e as métricas se estabilizem, eliminando o flapping. Reduzir a capacidade mínima não resolve a oscilação. Otimizar a AMI ajuda no boot, mas não impede que o alarme de scale-in desligue instâncias precipitadamente. Mudar a métrica de CPU para disco é incorreto porque o gargalo real de aplicação web está geralmente atrelado a processamento/CPU e memória.
+
+---
+
+### Questão 3: Teórica (Dissertativa — Nível: Avançado)
+**Estudo de Caso (EduStream):** A plataforma brasileira de educação online *EduStream* experimenta picos sazonais maciços de tráfego durante exames nacionais (como o ENEM). Atualmente, a aplicação web roda em um único servidor EC2 monolítico com banco de dados MySQL local. Em picos de tráfego, o servidor trava devido a gargalos de CPU e concorrência no banco de dados.
+
+Como arquiteto de soluções em nuvem, estruture uma proposta técnica detalhada de **Arquitetura de Alta Disponibilidade (HA) e Elasticidade** baseada em serviços AWS para resolver o problema de resiliência da EduStream. Sua resposta deve abordar obrigatoriamente:
+1. A separação da camada de aplicação e de banco de dados (especificando os serviços correspondentes).
+2. O papel do Elastic Load Balancer (ELB) e a estruturação do Auto Scaling Group (com parâmetros recomendados de mínimo/desejado/máximo).
+3. Duas métricas de monitoramento do Amazon CloudWatch cruciais para acionar as regras de escalonamento elástico.
+
+**Resposta esperada:**
+Para solucionar os problemas de escalabilidade e resiliência da plataforma EduStream, deve-se migrar o monólito para uma arquitetura de 3 camadas desacoplada e distribuída em Múltiplas Zonas de Disponibilidade (Multi-AZ):
+1. **Desacoplamento e Banco de Dados:** A camada de aplicação deve ser separada da camada de persistência. O banco de dados MySQL local deve ser migrado para o **Amazon RDS para MySQL em modo Multi-AZ**. Isso move os dados para subnets privadas e ativa a replicação síncrona automática para uma zona secundária (com failover transparente em caso de desastres), garantindo a integridade dos dados acadêmicos.
+2. **Elasticidade e Distribuição:** A camada de aplicação deve rodar em instâncias EC2 menores (como a classe `t3.medium`) distribuídas em subnets privadas de pelo menos duas AZs. À frente destas instâncias, implementa-se um **Application Load Balancer (ALB)** em subnets públicas para centralizar e balancear as requisições HTTP/HTTPS dos alunos de forma transparente. As instâncias serão gerenciadas por um **Auto Scaling Group (ASG)** alimentado por um *Launch Template* padronizado. Os parâmetros iniciais sugeridos para absorver oscilações típicas da EduStream são:
+   - **Mínimo:** 2 instâncias (para garantir alta disponibilidade contínua mesmo se uma AZ falhar inteiramente).
+   - **Desejado:** 2 instâncias.
+   - **Máximo:** 10 instâncias (limite seguro de teto para evitar estouro de custos acidentais sob ataques ou anomalias).
+3. **Monitoramento e Gatilhos (CloudWatch):** O controle dinâmico da capacidade do ASG será guiado por duas métricas do Amazon CloudWatch:
+   - `CPUUtilization` (Média do grupo): Disparando um alarme de Scale-Out se a utilização ultrapassar 70% por 2 minutos seguidos, garantindo que novos servidores web entrem em produção antes da saturação completa.
+   - `TargetResponseTime` (do ALB): Se o tempo médio de resposta das instâncias para os alunos exceder 1.5 segundos, ativa-se um escalonamento baseado em políticas adicionais de rastreamento de metas para mitigar gargalos invisíveis à CPU (como conexões HTTP travadas).
+
+---
+%%
+
+---
+
+## 📄 Artigo de Aprofundamento
+
+- [Amazon EC2 Auto Scaling Groups — Documentação Oficial AWS](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html)
+> *Resumo prático: Guia técnico oficial da AWS detalhando como configurar, gerenciar e otimizar grupos de escalonamento automatico, com melhores práticas para definição de políticas e métricas dinâmicas.*
+
+- [Best Practices for Amazon EC2 Auto Scaling — AWS Architecture Blog](https://aws.amazon.com/blogs/architecture/best-practices-for-amazon-ec2-auto-scaling/)
+> *Resumo prático: Blog de arquitetura da AWS reunindo as melhores recomendações práticas de mercado para projetar escalonamento elástico ágil, minimizando o tempo de boot das instâncias e otimizando custos com instâncias Spot.*
+
+---
+
+## 📚 Referências Bibliográficas
+
+- STALLINGS, William. *Arquitetura e Organização de Computadores*. 11ª ed. Pearson, 2024. **(Capítulo 17 — Clusters e Sistemas Distribuídos na Nuvem, pp. 580–598)**
+- MARINESCU, Dan C. *Cloud Computing: Theory and Practice*. 2nd ed. Morgan Kaufmann, 2017. **(Chapter 5 — Virtualization and Cloud Infrastructure Resource Management, pp. 162–189)**
+- KOLBE JÚNIOR, Armando. *Computação em nuvem*. Contentus, 2020. **(Capítulo 3 — Escalabilidade, Elasticidade e Alta Disponibilidade de Sistemas, pp. 45–60)**
+- AWS. *AWS Well-Architected Framework: Reliability Pillar* (online). AWS, 2024. **(Design Principles for High Availability and Fault Tolerance)**
+
+---
+*Última atualização: 2026-05-20 | Status: publicado*

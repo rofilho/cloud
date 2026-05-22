@@ -47,7 +47,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 15/05 | 📘 Teórica | [[Aula 15 - Redes e VPC]] — VPC, subnets públicas/privadas, Internet Gateway, NAT Gateway, Security Groups vs NACLs |
+| **Sexta** | 15/05 | 📘 Teórica | [[Aula 15 - Teorica Elasticidade Alta Disponibilidade]] — Elasticidade, Auto Scaling, ELB e CloudWatch |
 | **Quarta** | 20/05 | 🔬 Prática | Lab: criar VPC completa com Terraform — subnet pública exposta + subnet privada para banco |
 
 **Objetivo da semana:** Aluno entende isolamento de rede e consegue criar uma VPC segura via IaC.
@@ -80,7 +80,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 05/06 | 🚀 Projeto | **Kick-off:** apresentação do [[avaliacoes/Projeto_Final]], formação dos grupos (2–4 pessoas), escolha de tema, dúvidas |
+| **Sexta** | 05/06 | 🚀 Projeto | **Kick-off:** apresentação do [[avaliacoes/Projeto_Final]] e instrução prática via [[Aula 16 - Projeto Final - Deploy de Aplicacao Completa em Nuvem]], formação dos grupos (2–4 pessoas), escolha de tema, dúvidas |
 | **Quarta** | 10/06 | 🔬 Orientação | **⚠️ Prazo: Etapa 0** — Grupos entregam proposta. Orientação 1: professor revisa arquitetura e repositório de cada grupo |
 
 **Entrega da semana:** Etapa 0 — Proposta (obrigatória, sem nota).
@@ -91,7 +91,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 12/06 | 🔬 Orientação | **⚠️ Prazo: Etapa 1** — Documento de Arquitetura no GitHub. Orientação 2: revisão de Terraform + aplicação |
+| **Sexta** | 12/06 | 🔬 Orientação | **⚠️ Prazo: Etapa 1** — Documento de Arquitetura no GitHub. Orientação 2: revision de Terraform + aplicação |
 | **Quarta** | 17/06 | 🔬 Orientação | **⚠️ Prazo: Etapas 2 e 3** — Terraform + app rodando. Orientação 3: revisão de CI/CD e segurança |
 
 **Entregas da semana:** Etapa 1 (sexta) + Etapas 2 e 3 (quarta).
@@ -129,10 +129,10 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | Aula | Arquivo | Status | Prioridade |
 |---|---|---|---|
-| 12 | [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]] | 🔧 Em progresso | Alta — 08/05 |
-| 15 | [[Aula 15 - Redes e VPC]] | ❌ Placeholder | Alta — 15/05 |
-| 13 | [[Aula 13 - Seguranca na Nuvem]] | ❌ Placeholder | Média — 22/05 |
-| 14 | [[Aula 14 - FinOps e Custos]] | ❌ Placeholder | Média — 29/05 |
+| 12 | [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]] | ✅ Concluído | Alta — 08/05 |
+| 15 | [[Aula 15 - Teorica Elasticidade Alta Disponibilidade]] | ✅ Concluído | Alta — 15/05 |
+| 13 | [[Aula 13 - Seguranca na Nuvem]] | ✅ Concluído | Média — 22/05 |
+| 14 | [[Aula 14 - FinOps e Custos]] | ✅ Concluído | Média — 29/05 |
 
 ---
 
