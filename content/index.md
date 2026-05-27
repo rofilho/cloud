@@ -1,4 +1,4 @@
-﻿---
+---
 title: "☁️ Cloud Computing"
 cssclasses:
   - dashboard-layout
@@ -358,4 +358,3 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 </div>
 
 </div>
-
