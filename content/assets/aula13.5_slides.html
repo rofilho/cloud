@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 13.5 Prática — Amazon S3: Hospedagem Estática e Integração com EC2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0B0F19;
+            --bg-sidebar: #111625;
+            --bg-card: rgba(20, 26, 45, 0.5);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --accent-primary: #58a6ff; /* AWS Blue */
+            --accent-secondary: #ff9900; /* AWS Orange */
+            --accent-green: #3fb950; /* Success Green */
+            --accent-purple: #d2a8ff; /* IaC Purple */
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --code-bg: #070A13;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Glows */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(88, 166, 255, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 153, 0, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Sidebar Navegação ── */
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #FFFFFF, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item a:hover {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.03);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active a {
+            color: var(--accent-primary);
+            background-color: rgba(88, 166, 255, 0.06);
+            border-left-color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* ── Main Content ── */
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Principal */
+        .header {
+            margin-bottom: 3.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.12), rgba(255, 153, 0, 0.08));
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            color: var(--accent-primary);
+            padding: 0.45rem 1.1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFFFFF 50%, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .meta-card {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* ── Seções de Conteúdo ── */
+        .section {
+            margin-bottom: 4.5rem;
+            scroll-margin-top: 2rem;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 1.25rem;
+            background: var(--accent-primary);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.98rem;
+            margin-bottom: 1.25rem;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Callouts / Avisos */
+        .callout {
+            background: rgba(88, 166, 255, 0.04);
+            border: 1px solid rgba(88, 166, 255, 0.15);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout.tip {
+            background: rgba(63, 185, 80, 0.04);
+            border-color: rgba(63, 185, 80, 0.15);
+            border-left-color: var(--accent-green);
+        }
+
+        .callout.info {
+            background: rgba(255, 153, 0, 0.04);
+            border-color: rgba(255, 153, 0, 0.15);
+            border-left-color: var(--accent-secondary);
+        }
+
+        .callout.warning {
+            background: rgba(245, 158, 11, 0.04);
+            border-color: rgba(245, 158, 11, 0.15);
+            border-left-color: #F59E0B;
+        }
+
+        .callout-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .callout .callout-title { color: var(--accent-primary); }
+        .callout.tip .callout-title { color: var(--accent-green); }
+        .callout.info .callout-title { color: var(--accent-secondary); }
+        .callout.warning .callout-title { color: #F59E0B; }
+
+        .callout p {
+            margin-bottom: 0;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        /* Tabelas Premium */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.75rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(5px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.92rem;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: middle;
+            line-height: 1.5;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(255, 255, 255, 0.015);
+            color: var(--text-primary);
+        }
+
+        /* ── Code Blocks Premium com Copiar ── */
+        .code-container {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-lang {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .copy-btn.copied {
+            color: var(--accent-green);
+            background: rgba(63, 185, 80, 0.08);
+            border-color: rgba(63, 185, 80, 0.25);
+        }
+
+        pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #E2E8F0;
+            display: block;
+        }
+
+        /* Código inline */
+        p code, li code, td code, .callout p code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--accent-secondary);
+        }
+
+        /* ── Cards de Atividades e Conceitos ── */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .concept-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0.7;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .card-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        /* Checkpoint colapsável */
+        .checkpoint-container {
+            background-color: rgba(255, 255, 255, 0.01);
+            border: 1px dashed var(--border-color);
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        details {
+            padding: 1rem 1.25rem;
+        }
+
+        summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        summary:hover {
+            color: var(--accent-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+
+        details blockquote {
+            border-left: 3px solid var(--accent-primary);
+            padding-left: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* ── Back to Top ── */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        .back-to-top:hover {
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* ── Toast de Sucesso ── */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #10B981;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Responsividade ── */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Sidebar Navegação ── -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <span class="logo-dot"></span>
+                <span class="logo-text">UNIUBE ACADEMY</span>
+            </div>
+            <div class="sidebar-subtitle">Cloud Computing · Cód. 14189</div>
+        </div>
+
+        <nav class="nav-group">
+            <div class="nav-title">Abertura de Aula</div>
+            <ul class="nav-list">
+                <li class="nav-item active"><a href="#intro">Visão Geral</a></li>
+                <li class="nav-item"><a href="#objetivos">Objetivos &amp; Revisão</a></li>
+                <li class="nav-item"><a href="#arquitetura">1. Arquitetura do Lab</a></li>
+            </ul>
+        </nav>
+
+        <nav class="nav-group">
+            <div class="nav-title">Roteiro do Lab</div>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#parte-1">2. Parte 1 — Criação Manual S3</a></li>
+                <li class="nav-item"><a href="#parte-2">3. Parte 2 — API Flask na EC2</a></li>
+                <li class="nav-item"><a href="#parte-3">4. Parte 3 — Automação Terraform</a></li>
+            </ul>
+        </nav>
+
+        <nav class="nav-group">
+            <div class="nav-title">Apoio Pedagógico</div>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#resumo">Resumo Estrutural</a></li>
+                <li class="nav-item"><a href="#banco-questoes">Banco de Questões</a></li>
+                <li class="nav-item"><a href="#referencias">Referências</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main-content">
+        <!-- ── Header ── -->
+        <header class="header" id="intro">
+            <div class="header-badge">Semana 14 — Armazenamento de Objetos</div>
+            <h1>Aula 13.5: Amazon S3 — Hospedagem Estática e Integração com EC2</h1>
+            <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 800px; margin-bottom: 2rem;">
+                Construa uma arquitetura desacoplada real de produção hospedando o frontend no S3 e consumindo dados privados do S3 via API REST na EC2 de forma elástica, econômica e protegida por IAM Roles.
+            </p>
+
+            <div class="meta-grid">
+                <div class="meta-card">
+                    <div class="meta-label">Modalidade de Aula</div>
+                    <div class="meta-value">🔬 Prática (Laboratório)</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">Tecnologias Foco</div>
+                    <div class="meta-value">AWS S3 · EC2 · IAM · Terraform</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">Duração Estimada</div>
+                    <div class="meta-value">⏳ ~85 minutos</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">Padrão Arquitetural</div>
+                    <div class="meta-value">Desacoplado (Decoupled UI)</div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <div class="callout-title">🎯 Visão Geral da Aula &amp; Recursos</div>
+                <p>
+                    Nesta aula prática, os alunos aprenderão a hospedar arquivos de frontend (HTML/JS) com alta escalabilidade nativa no S3. O backend rodará na EC2 e fará requisições dinâmicas contra o S3 para ler dados de forma privada, utilizando um perfil de privilégio seguro via **IAM Role** (sem expor nenhuma Access Key no código do servidor).
+                </p>
+            </div>
+        </header>
+
+        <!-- ── SEÇÃO OBJETIVOS ── -->
+        <section class="section" id="objetivos">
+            <h2>Objetivos de Aprendizagem &amp; Conexão</h2>
+            <p>Antes de ir para o console ou para o terminal, valide os objetivos pedagógicos da sessão com a turma:</p>
+            
+            <div class="cards-grid">
+                <div class="concept-card">
+                    <div class="card-num">Objetivo 1</div>
+                    <div class="card-title">Hospedagem Estática</div>
+                    <p style="font-size: 0.9rem;">
+                        Provisionar buckets no Amazon S3, ativando o *Static Website Hosting* com permissões públicas restritas ao frontend.
+                    </p>
+                </div>
+                <div class="concept-card">
+                    <div class="card-num">Objetivo 2</div>
+                    <div class="card-title">Segurança de Identidade</div>
+                    <p style="font-size: 0.9rem;">
+                        Configurar uma IAM Role associada à EC2 para ler dados de forma totalmente segura no S3 sem chaves hardcoded no código.
+                    </p>
+                </div>
+                <div class="concept-card">
+                    <div class="card-num">Objetivo 3</div>
+                    <div class="card-title">Automação (IaC)</div>
+                    <p style="font-size: 0.9rem;">
+                        Escrever código Terraform completo para automatizar a criação, deploy de arquivos de dados e credenciamento de IAM.
+                    </p>
+                </div>
+            </div>
+
+            <h3>Revisão Pedagógica Curta</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conceito de Aulas Passadas</th>
+                            <th>Conexão Pedagógica com Hoje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Instâncias EC2 (Aula 08)</strong></td>
+                            <td>Usamos para hospedar a aplicação toda. Hoje a EC2 passa a atuar estritamente como **API de backend**, desacoplada do HTML.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VPC e Isolamento (Aula 13p)</strong></td>
+                            <td>Na prática de VPC, isolamos redes. Hoje garantimos que o backend continue seguro, enquanto a UI é entregue de forma global pelo S3.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Segurança de Identidade (Aula 13)</strong></td>
+                            <td>Vimos IAM. O lab prático consolida a importância de usar IAM Roles temporárias para instâncias acessarem o S3 de forma segura.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ── SEÇÃO 1: ARQUITETURA ── -->
+        <section class="section" id="arquitetura">
+            <h2>1. Arquitetura do Lab: O Casamento de S3 e EC2 [Teoria ⏳ 10 min]</h2>
+            <p>O Amazon S3 armazena objetos de forma distribuída. Por sua escalabilidade assustadora, a AWS nos permite utilizá-lo como um servidor web de alta performance para arquivos que não mudam (estáticos), tais como HTML, CSS e JavaScript. A API computacional pesada (dinâmica) fica alocada na EC2.</p>
+
+            <div class="callout tip">
+                <div class="callout-title">💼 Pergunta de Entrevista de Emprego Real</div>
+                <p>
+                    <strong>"Por que eu deveria usar o Amazon S3 para hospedar meu site institucional em vez de uma instância EC2 rodando Apache ou Nginx?"</strong><br><br>
+                    <strong>Resposta Esperada:</strong> O S3 é totalmente serverless para hospedagem estática, eliminando o custo e o esforço de gerenciar servidores (patches, backups, logs). Ele oferece escalabilidade automática infinita e 99.999999999% (11 noves) de durabilidade nativa a um custo irrisório se comparado a manter uma máquina computacional ligada 24 horas por dia.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── SEÇÃO 2: PARTE 1 ── -->
+        <section class="section" id="parte-1">
+            <h2>2. Parte 1 — Criação Manual e Hospedagem Estática — ⏱️ ~25 min</h2>
+            <p>Siga os passos a seguir no Console AWS com a turma para criar e disponibilizar o site estático:</p>
+
+            <div class="callout warning">
+                <div class="callout-title">⚠️ Pegadinha de Escopo Global</div>
+                <p>
+                    O nome de um Bucket S3 deve ser <strong>exclusivo em toda a internet global</strong>. Se você tentar criar um bucket com o nome <code>uniube-s3-lab</code>, receberá um erro de conflito. Instrua os alunos a adicionarem seus nomes ou IDs no final do nome do bucket.
+                </p>
+            </div>
+
+            <h3>Roteiro do Frontend (`index.html`)</h3>
+            <p>Peça para os alunos criarem um arquivo local chamado `index.html` e colarem o código da interface visual responsiva abaixo:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-lang">HTML5 (index.html)</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                </div>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Amazon S3 &amp; EC2 Integration Lab&lt;/title&gt;
+    &lt;link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"&gt;
+    &lt;style&gt;
+        :root {
+            --bg-dark: #0d1117;
+            --card-bg: #161b22;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --text-main: #c9d1d9;
+        }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; padding: 40px; text-align: center; }
+        .container { max-width: 600px; margin: 0 auto; background: var(--card-bg); border: 1px solid #30363d; border-radius: 12px; padding: 30px; }
+        h1 { font-family: 'Outfit', sans-serif; color: white; }
+        .btn { background: var(--accent-green); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .result-box { margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.2); border: 1px dashed #30363d; border-radius: 6px; text-align: left; font-family: monospace; white-space: pre-wrap; }
+        input { width: 80%; padding: 10px; margin-bottom: 15px; background: rgba(0,0,0,0.2); border: 1px solid #30363d; border-radius: 6px; color: white; text-align: center; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;Hospedado no Amazon S3 🪣&lt;/h1&gt;
+        &lt;p&gt;Esta interface estática está rodando direto de um bucket S3 e se comunica com o backend dinâmico na EC2.&lt;/p&gt;
+        &lt;input type="text" id="api-url" placeholder="http://IP_PUBLICO_DA_EC2/api/dados"&gt;
+        &lt;br&gt;
+        &lt;button class="btn" onclick="buscarDados()"&gt;Fazer Chamada ao Backend (EC2)&lt;/button&gt;
+        &lt;div class="result-box" id="result"&gt;Aguardando chamada...&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        function buscarDados() {
+            const urlInput = document.getElementById('api-url').value;
+            const resultBox = document.getElementById('result');
+            if(!urlInput) { resultBox.innerText = 'Erro: insira a URL da API da EC2.'; return; }
+            resultBox.innerText = 'Buscando dados da EC2...';
+            fetch(urlInput)
+                .then(r =&gt; { if(!r.ok) throw new Error('Erro de rota ou conexão'); return r.json(); })
+                .then(d =&gt; { resultBox.innerText = JSON.stringify(d, null, 2); })
+                .catch(e =&gt; { resultBox.innerText = 'Erro ao conectar na EC2:\n' + e.message + '\n\nVerifique CORS e Security Group!'; });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <h3>Roteiro do Arquivo de Dados Privado (`dados.json`)</h3>
+            <p>Crie este arquivo de teste e faça upload dele no bucket. **Ele ficará privado!** Apenas a EC2 conseguirá consumi-lo via IAM Role:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-lang">JSON (dados.json)</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                </div>
+                <pre><code>{
+  "nome_disciplina": "Cloud Computing",
+  "codigo": "14189",
+  "aula": "13.5",
+  "status_integracao": "100% Saudavel",
+  "mensagem": "Parabens! Este JSON foi lido dinamicamente do S3 Bucket por meio de uma IAM Role anexada a EC2!",
+  "produtos_demonstracao": [
+    {"id": 1, "nome": "AWS S3 Bucket", "tipo": "Object Storage", "preco": "Gratuito (Free Tier)"},
+    {"id": 2, "nome": "AWS EC2 Instance", "tipo": "IaaS Compute", "preco": "$0.0116/hora"},
+    {"id": 3, "nome": "Terraform", "tipo": "Infrastructure as Code", "preco": "Open Source"}
+  ]
+}</code></pre>
+            </div>
+
+            <h3>Roteiro da Política do Bucket (Bucket Policy)</h3>
+            <p>Para tornar **apenas** a página do frontend estático pública, adicione esta política em JSON na aba <strong>Permissions</strong> do bucket:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-lang">JSON (Bucket Policy)</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                </div>
+                <pre><code>{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::NOME-DO-SEU-BUCKET/index.html"
+        }
+    ]
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- ── SEÇÃO 3: PARTE 2 ── -->
+        <section class="section" id="parte-2">
+            <h2>3. Parte 2 — Conectando o Backend (EC2) com a API Flask — ⏱️ ~25 min</h2>
+            <p>Com o frontend rodando no S3, vamos subir a API dinâmica em Flask na EC2 que consome dados no S3 de forma segura e elegante via SDK Boto3.</p>
+
+            <h3>Roteiro de Configuração da IAM Role:</h3>
+            <p>Para evitar credenciais AWS hardcoded no código, criamos um crachá de segurança para a máquina:</p>
+            <ul>
+                <li>Console IAM → <strong>Roles</strong> → <strong>Create role</strong> → Serviço: <strong>EC2</strong>.</li>
+                <li>Anexar a política: <strong>`AmazonS3ReadOnlyAccess`</strong> (Princípio do menor privilégio).</li>
+                <li>Nome: <code>EC2-S3-Read-Role</code>.</li>
+                <li>Volte no painel EC2, selecione sua instância → <strong>Actions</strong> → <strong>Security</strong> → <strong>Modify IAM role</strong> → Selecione <code>EC2-S3-Read-Role</code> e salve.</li>
+            </ul>
+
+            <h3>Script de API REST Flask com Boto3</h3>
+            <p>Conecte via SSH ou EC2 Instance Connect, instale dependências (<code>sudo pip3 install flask flask-cors boto3</code>), crie o arquivo <code>app.py</code> e configure o servidor REST:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-lang">Python (app.py)</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                </div>
+                <pre><code>import boto3
+import json
+from flask import Flask, jsonify
+from flask_cors import CORS
+from botocore.exceptions import NoCredentialsError, ClientError
+
+app = Flask(__name__)
+# O CORS é essencial. Se não ativarmos, o navegador do usuário
+# bloqueará as chamadas por virem do domínio do S3 contra o IP da EC2.
+CORS(app)
+
+# ⚠️ SUBSTITUA PELO NOME DO SEU BUCKET CRIADO NO PASSO 1!
+BUCKET_NAME = "uniube-s3-lab-seu-nome"
+FILE_KEY = "dados.json"
+
+@app.route('/api/dados', methods=['GET'])
+def obter_dados():
+    try:
+        # Inicializa o Boto3 de forma limpa. Sem senhas ou chaves!
+        # Ele lê automaticamente as credenciais temporárias do perfil IAM Role da EC2
+        s3 = boto3.client('s3', region_name='us-east-1')
+        
+        objeto = s3.get_object(Bucket=BUCKET_NAME, Key=FILE_KEY)
+        conteudo = objeto['Body'].read().decode('utf-8')
+        dados_s3 = json.loads(conteudo)
+        
+        return jsonify({
+            "status": "Online",
+            "servidor": "Amazon EC2 Instance",
+            "data_center": "us-east-1 (N. Virginia)",
+            "origem_dados": f"Lido do S3: {BUCKET_NAME}/{FILE_KEY}",
+            "conteudo_s3": dados_s3
+        })
+    except NoCredentialsError:
+        return jsonify({
+            "status": "Erro de Credenciais",
+            "erro": "Nao foi possivel localizar credenciais da AWS.",
+            "ajuda": "Voce associou a IAM Role 'EC2-S3-Read-Role' a sua instancia EC2?"
+        }), 403
+    except ClientError as e:
+        return jsonify({
+            "status": "Erro de Acesso ao S3",
+            "erro": str(e),
+            "ajuda": f"Certifique-se de que o arquivo '{FILE_KEY}' existe no bucket '{BUCKET_NAME}'."
+        }), 404
+    except Exception as e:
+        return jsonify({
+            "status": "Erro Inesperado",
+            "erro": str(e)
+        }), 500
+
+if __name__ == '__main__':
+    # Roda na porta 80 padrão de tráfego HTTP
+    app.run(host='0.0.0.0', port=80)</code></pre>
+            </div>
+
+            <div class="callout warning">
+                <div class="callout-title">⚠️ Gotcha de Porta Privilegiada no Linux</div>
+                <p>
+                    No Linux, portas menores que 1024 (como a porta 80) são restritas e exigem privilégios elevados. Portanto, para rodar o app Flask diretamente na porta 80, o comando obrigatório é <code>sudo python3 app.py</code>. Se rodar sem <code>sudo</code>, ocorrerá um erro de <em>Permission Denied</em>.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── SEÇÃO 4: PARTE 3 ── -->
+        <section class="section" id="parte-3">
+            <h2>4. Parte 3 — Automatizando o Ecossistema com Terraform — ⏱️ ~25 min</h2>
+            <p>Evite cliques manuais. Vamos subir toda a mesma infraestrutura (Bucket S3 configurado, upload automático dos arquivos, IAM Role segura, Security Group com porta 80 e instância EC2 rodando a API Flask com o nome do bucket injetado) usando IaC.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-lang">Terraform (main.tf)</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                </div>
+                <pre><code>terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+# 1. Sufixo dinâmico para garantir exclusividade de nome no S3
+resource "random_id" "sufixo" {
+  byte_length = 4
+}
+
+# 2. Bucket S3 para o Frontend
+resource "aws_s3_bucket" "frontend" {
+  bucket        = "uniube-s3-frontend-${random_id.sufixo.hex}"
+  force_destroy = true
+}
+
+# 3. Desbloqueio das configurações de acesso público ao S3
+resource "aws_s3_bucket_public_access_block" "public_control" {
+  bucket = aws_s3_bucket.frontend.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+# 4. Habilitação de Static Website Hosting no Bucket
+resource "aws_s3_bucket_website_configuration" "hosting" {
+  bucket = aws_s3_bucket.frontend.id
+
+  index_document {
+    suffix = "index.html"
+  }
+}
+
+# 5. Política JSON de Leitura Pública (Apenas para o index.html!)
+resource "aws_s3_bucket_policy" "allow_public_access" {
+  depends_on = [aws_s3_bucket_public_access_block.public_control]
+  bucket     = aws_s3_bucket.frontend.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.frontend.arn}/index.html"
+      }
+    ]
+  })
+}
+
+# 6. Upload do arquivo index.html automático
+resource "aws_s3_object" "index" {
+  bucket       = aws_s3_bucket.frontend.id
+  key          = "index.html"
+  source       = "index.html"
+  content_type = "text/html"
+}
+
+# 6.2 Upload do arquivo dados.json automático
+resource "aws_s3_object" "dados" {
+  bucket       = aws_s3_bucket.frontend.id
+  key          = "dados.json"
+  source       = "dados.json"
+  content_type = "application/json"
+}
+
+# 7. Security Group da EC2 (Libera HTTP 80 e SSH)
+resource "aws_security_group" "backend_sg" {
+  name        = "backend-api-sg"
+  description = "Acesso HTTP porta 80 e SSH"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# 7.5 AMI Dinâmica mais recente AL2023
+data "aws_ami" "amazon_linux_2023" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+}
+
+# 8. IAM Role de Leitura de S3 para a EC2
+resource "aws_iam_role" "ec2_s3_role" {
+  name = "uniube-ec2-s3-read-role-${random_id.sufixo.hex}"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+# 8.2 Anexar política gerenciada do S3 à Role
+resource "aws_iam_role_policy_attachment" "s3_read_attach" {
+  role       = aws_iam_role.ec2_s3_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+}
+
+# 8.3 Criar o Instance Profile exigido pela EC2
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "uniube-ec2-s3-profile-${random_id.sufixo.hex}"
+  role = aws_iam_role.ec2_s3_role.name
+}
+
+# 9. Instância EC2 configurada, automatizada e vinculada à IAM Role
+resource "aws_instance" "backend" {
+  ami                         = data.aws_ami.amazon_linux_2023.id
+  instance_type               = "t2.micro"
+  vpc_security_group_ids      = [aws_security_group.backend_sg.id]
+  associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
+
+  # Instala dependências e inicia o app com o nome do bucket injetado pelo Terraform!
+  user_data = <<-EOF
+    #!/bin/bash
+    dnf update -y
+    dnf install python3-pip -y
+    pip3 install flask flask-cors boto3
+    
+    # Criar o script da API Flask de forma integrada
+    cat <<'INNER_EOF' > /home/ec2-user/app.py
+    import boto3
+    import json
+    from flask import Flask, jsonify
+    from flask_cors import CORS
+    
+    app = Flask(__name__)
+    CORS(app)
+    
+    # Injetado automaticamente pelo Terraform!
+    BUCKET_NAME = "${aws_s3_bucket.frontend.id}"
+    FILE_KEY = "dados.json"
+    
+    @app.route('/api/dados', methods=['GET'])
+    def obter_dados():
+        try:
+            s3 = boto3.client('s3', region_name='us-east-1')
+            objeto = s3.get_object(Bucket=BUCKET_NAME, Key=FILE_KEY)
+            conteudo = objeto['Body'].read().decode('utf-8')
+            dados_s3 = json.loads(conteudo)
+            
+            return jsonify({
+                "status": "Online via Terraform IaC",
+                "servidor": "AWS EC2 automatizada",
+                "origem_dados": f"Lido de forma segura do S3: {BUCKET_NAME}/{FILE_KEY}",
+                "conteudo_s3": dados_s3
+            })
+        except Exception as e:
+            return jsonify({
+                "status": "Erro de Acesso",
+                "erro": str(e)
+            }), 500
+            
+    if __name__ == '__main__':
+        app.run(host='0.0.0.0', port=80)
+    INNER_EOF
+
+    # Inicia a API REST em segundo plano sob usuário root
+    python3 /home/ec2-user/app.py > /home/ec2-user/flask.log 2>&1 &
+  EOF
+
+  tags = {
+    Name = "EC2-Backend-IaC"
+  }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- ── RESUMO E QUESTÕES ── -->
+        <section class="section" id="resumo">
+            <h2>Resumo Estrutural</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Recurso / Conceito</th>
+                            <th>Aplicação Prática e Definição em Uma Frase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amazon S3</strong></td>
+                            <td>Armazenamento de objetos chave-valor elástico e sem servidor com alta durabilidade nativa.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Static Website Hosting</strong></td>
+                            <td>Mecanismo que expõe arquivos HTML/JS de um bucket em um endpoint público sem gerenciar servidores.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bucket Policy</strong></td>
+                            <td>Documento declarativo JSON que impõe políticas de acesso aos recursos e objetos internos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CORS</strong></td>
+                            <td>Mecanismo de segurança do navegador que barra chamadas de domínios diferentes a menos que o backend autorize.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IAM Role</strong></td>
+                            <td>Identidade e permissões temporárias atribuídas de forma lógica a um serviço da AWS para evitar credenciais estáticas no código.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section" id="banco-questoes">
+            <h2>Banco de Questões (🔒 Exclusivo do Professor)</h2>
+            <p>Esta seção está contida nos comentários do arquivo Markdown no Obsidian. Ela serve para guiar discussões ou compor as avaliações sem ser exposta na internet.</p>
+            
+            <div class="checkpoint-container">
+                <details>
+                    <summary>🔍 Exibir Questão de Exemplo: "O gotcha do CORS no Capstone"</summary>
+                    <blockquote>
+                        <strong>Enunciado:</strong> Um desenvolvedor de frontend hospedou uma interface React no S3 e tentou consultar a API Flask na EC2. A chamada travou com erro de CORS. Como o problema deve ser corrigido sem derrubar barreiras globais de segurança?
+                        <br><br>
+                        <strong>Resposta Correta:</strong> Deve-se ativar e configurar os headers de resposta CORS no código do backend da EC2 (Flask), permitindo explicitamente o domínio gerado pelo endpoint do S3 na lista de origens autorizadas (<code>Access-Control-Allow-Origin</code>). Alterar políticas de bucket S3 ou tornar bancos de dados públicos não afeta o comportamento de restrição de chamadas cross-origin do navegador.
+                    </blockquote>
+                </details>
+            </div>
+        </section>
+
+        <!-- ── REFERENCIAS ── -->
+        <section class="section" id="referencias">
+            <h2>Referências Bibliográficas</h2>
+            <ul>
+                <li><strong>BRIKMAN, Yevgeniy</strong>, <em>Terraform: Up &amp; Running</em>. 3ª ed. O'Reilly Media, 2022. (Cap. 3, pp. 88–105)</li>
+                <li><strong>ANTUNES, Jonathan Lamim</strong>, <em>Amazon AWS: descomplicando a computação em nuvem</em>. 1ª ed. Casa do Código, 2016. (Cap. 4, pp. 62–85)</li>
+                <li><strong>AWS Official Documentation</strong>, <em>Amazon Simple Storage Service User Guide</em>. AWS Press, 2024.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- ── Back to Top ── -->
+    <a href="#intro" class="back-to-top" title="Voltar ao Topo">▲</a>
+
+    <!-- ── Toast Notification ── -->
+    <div class="toast" id="toast">Código copiado com sucesso!</div>
+
+    <!-- ── Scripts de Interatividade ── -->
+    <script>
+        function copyCode(button) {
+            const container = button.closest('.code-container');
+            const code = container.querySelector('code').innerText;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.classList.add('copied');
+                button.innerText = 'Copiado!';
+                
+                showToast();
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerText = 'Copiar';
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar código: ', err);
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Active State na Sidebar ao rolar
+        const sections = document.querySelectorAll('.section, header');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                const link = item.querySelector('a').getAttribute('href').substring(1);
+                if (link === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
