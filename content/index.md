@@ -1,4 +1,4 @@
----
+﻿---
 title: "☁️ Cloud Computing"
 cssclasses:
   - dashboard-layout
@@ -285,6 +285,13 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
         <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
       </div>
     </a>
+    <a href="./Aula-13.5---Pratica---Amazon-S3---Hospedagem-Estatica-e-Integracao-com-EC2" class="card" data-spa>
+      <div class="card-thumb">ðŸª£<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">ðŸª£ Aula 13.5 - PrÃ¡tica: S3 EstÃ¡tico e EC2</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>ðŸ†• Novo</span></div>
+      </div>
+    </a>
     <a href="./Aula-14---FinOps-e-Custos" class="card" data-spa>
       <div class="card-thumb">💰<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
       <div class="card-content">
@@ -351,3 +358,4 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 </div>
 
 </div>
+
