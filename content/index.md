@@ -159,9 +159,9 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="hero">
   <div style="position: relative; z-index: 10;">
     <span class="tag">▶ Aula de Hoje</span>
-    <h1>🌐 VPC e Redes na Nuvem</h1>
-    <p>Aula 13t teórica: Entenda a anatomia de redes virtuais, CIDR, subnets públicas e privadas, gateways e firewalls encadeados.</p>
-    <a href="./Aula-13t---Teorica---VPC-e-Redes-na-Nuvem" class="btn" data-spa>Acessar Aula Teórica</a>
+    <h1>🪣 Amazon S3 — Armazenamento de Objetos</h1>
+    <p>Aula 13.5t teórica: Entenda por que o armazenamento de objetos revolucionou os sistemas distribuídos, as classes de armazenamento do S3 e as políticas de ciclo de vida.</p>
+    <a href="./Aula-13.5t---Teorica---Amazon-S3-e-Armazenamento-de-Objetos" class="btn" data-spa>Acessar Aula Teórica</a>
   </div>
 </div>
 
@@ -285,11 +285,18 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
         <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
       </div>
     </a>
-    <a href="./Aula-13.5---Pratica---Amazon-S3---Hospedagem-Estatica-e-Integracao-com-EC2" class="card" data-spa>
-      <div class="card-thumb">ðŸª£<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+    <a href="./Aula-13.5t---Teorica---Amazon-S3-e-Armazenamento-de-Objetos" class="card" data-spa>
+      <div class="card-thumb">🪣<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
       <div class="card-content">
-        <div class="card-title">ðŸª£ Aula 13.5 - PrÃ¡tica: S3 EstÃ¡tico e EC2</div>
-        <div class="card-meta"><span>Acessar Aula</span><span>ðŸ†• Novo</span></div>
+        <div class="card-title">🪣 Aula 13.5t – Teórica: S3 & Armazenamento de Objetos</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13.5---Pratica---Amazon-S3---Hospedagem-Estatica-e-Integracao-com-EC2" class="card" data-spa>
+      <div class="card-thumb">🪣<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🪣 Aula 13.5 – Prática: S3 Estático e EC2</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
       </div>
     </a>
     <a href="./Aula-14---FinOps-e-Custos" class="card" data-spa>
