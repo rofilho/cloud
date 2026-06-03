@@ -1,193 +1,183 @@
-# 🔵 Aula 06: Computação em Nuvem: EC2, Lambda e Serverless
+---
+disciplina: Cloud Computing
+codigo: "14189"
+aula: "06"
+titulo: "Computação em Nuvem: EC2, Lambda e Serverless"
+tipo: teorica
+semana: 4
+data: 2026-03-06
+status: publicado
+tags:
+  - cloud
+  - aws
+  - ec2
+  - lambda
+  - serverless
+  - faas
+  - iaas
+publicar: true
+---
 
-**Disciplina:** Cloud Computing (Cód. 14189)**Curso:** Inteligência Artificial e Ciência de Dados, Uniube**Semana 4** | Sexta-feira | Prof. Romualdo Mathias Filho**Tipo:** 📘 Teórica (Sexta-feira)
+# 🟢 Aula 06: Computação em Nuvem: EC2, Lambda e Serverless
+
+**Disciplina:** Cloud Computing (Cód. 14189)
+**Curso:** Inteligência Artificial e Ciência de Dados, Uniube
+**Semana:** 4 | Sexta-feira
+**Professor:** Romualdo Mathias Filho
+**Tipo:** 📘 Teórica
+**Tópicos:** Amazon EC2, Famílias de Instâncias, Computação Serverless, AWS Lambda, Comparativo IaaS vs FaaS
 
 ---
 
-## 🎯 0. Objetivo da Aula
+## 🎯 Objetivo da Aula
 
-Ao final desta aula, o aluno deve ser capaz de:
-
-- **Descrever** o conceito de computação elástica na nuvem e diferenciar os modelos IaaS e FaaS.
-- **Explicar** os componentes e as diferentes famílias de instâncias do serviço Amazon EC2.
-- **Diferenciar** o modelo estrutural de servidores (EC2) da computação Serverless (AWS Lambda).
-- **Analisar** casos de uso ideais de instâncias tradicionais versus funções orientadas a eventos.
-- **Projetar** abordagens fundamentais para processamento pesado em Inteligência Artificial versus inferências leves.
+Ao final desta aula, os alunos serão capazes de:
+- Descrever o conceito de computação elástica na nuvem e diferenciar os modelos IaaS (Infraestrutura) e FaaS (Função).
+- Explicar a arquitetura e classificar as diferentes famílias de instâncias do serviço Amazon EC2 para otimização de IA.
+- Diferenciar a computação baseada em servidores tradicionais (EC2) do modelo Serverless (AWS Lambda).
+- Analisar casos de uso ideais e projetar arquiteturas para processamento pesado em Inteligência Artificial versus inferências e microsserviços leves.
 
 ---
 
-## 🔄 1. Recapitulação
+## 🔄 Revisão Rápida (5 min)
 
-| **Aula** | **Conceito** | **Definição** |
-| --- | --- | --- |
-| Aula 05 | Regiões e AZs | Locais físicos estratificados onde os data centers da AWS operam. |
-| Aula 05 | IaaS | Infraestrutura como Serviço, onde "alugamos" recursos brutos (como servidores e redes). |
-| Aula 05 | IAM | Serviço de Gerenciamento de Identidade e Acesso para controle de segurança. |
+Na aula prática anterior, exploramos a distribuição global de datacenters e o controle de segurança:
 
-🔗 **Conexão:** Na aula passada, entendemos ONDE nossos recursos ficarão fisicamente nas Regiões da AWS e QUEM tem permissão para acessá-los através do IAM. Hoje, vamos criar o primeiro grande bloco da nossa infraestrutura: o **Processamento (Computação)**. Vamos entender como ter um "computador" rodando na nuvem.
-
----
-
-## 🏗️ 2. Contextualização
-
-A computação (processamento CPU/GPU e RAM) é o coração de qualquer aplicação de Ciência de Dados. Seja para hospedar um servidor simples web, rodar um script contínuo ou treinar uma Rede Neural Profunda enorme por semanas a fio, você precisa de poder computacional. A nuvem trouxe diferentes maneiras de conseguir isso: desde "alugar a máquina virtual inteira" até "pagar apenas pela fração de segundo que seu script precisa para rodar".
-
-> 💡 **Analogia:** Pense na computação como transporte. O Amazon EC2 é como alugar um carro na locadora: você fica com o carro por dias (IaaS), liga a chave, dirige pra onde quiser e paga pela diária, usando ou deixando ele na garagem. O AWS Lambda (Serverless) é como um aplicativo de táxi/Uber: você entra, vai até o destino, sai e paga **exatamente apenas pela corrida**. Você não se preocupa com o óleo, manutenção ou de quem é o carro.
-> 
-
----
-
-## 📦 3. Amazon EC2 (Elastic Compute Cloud)
-
-**Definição:** O Amazon EC2 é um serviço web que disponibiliza capacidade computacional segura e escalável (redimensionável) na nuvem em formato de Máquinas Virtuais (instâncias). É o pilar do modelo IaaS da AWS.
-
-| **Característica** | **Detalhe** |
+| **Conceito (Aula Anterior)** | **Conexão com hoje** |
 | --- | --- |
-| Elasticidade | É possível aumentar a potência térmica da instância de 1 vCPU para 128 vCPUs em minutos. |
-| Controle Total | Acesso root/administrador diretamente ao Sistema Operacional. |
-| Customização | Escolha total do SO (Linux, Windows, macOS), processador (Intel, AMD, Graviton ARM) e hardware. |
-| Pague pelo que "Ligar" | O faturamento ocorre por segundo rodado (pago em dólar) enquanto a instância permanecer ligada ("Running"). |
-
-### 💡 Exemplos Reais no Cotidiano
-
-- Hospedar todo o backend (API) de uma startup e o seu banco de dados relacional que precisa ficar ligado 24h por dia.
-- Criar um cluster contendo 10 máquinas potentes com 8 GPUs dedicadas em cada uma para treinar um LLM.
-- Servidor para um site institucional (WordPress) rodando perfeitamente num servidor simples na Virgínia.
-
-### 📌 Famílias de Instâncias EC2 e IA
-
-O hardware virtual é dividido em "Famílias" para atender necessidades diferentes. Para Big Data e Cientistas de Dados, escolher isso reduz tempo e custo drasticamente:
-
-| **Foco** | **Uso Comum / Exemplo em Dados** |
-| --- | --- |
-| **C (Compute)** | Processamento rápido em lote (batch-processing), modelos matemáticos que exigem CPU forte. |
-| **R, X (RAM)** | Otimizado para Memória (Redis, Apache Spark de Big Data guardando grandes DataFrames em RAM). |
-| **P, G (GPU)** | Computação Gráfica Acelerada (Ideal para Machine Learning, treinamento em PyTorch/TensorFlow). |
-| **T, M (Geral)** | Propósito Geral (Equilibrado). Ideal para servidores de teste e ambientes de pequeno tráfego. |
-
-> **Analogia:** Não dá pra correr na Fórmula 1 usando um caminhão. O EC2 permite que você alugue o "tipo de carro" ideal para o tipo exato de carga de trabalho momentânea no servidor.
-> 
+| [[Aula 05 - Infraestrutura Global AWS e Lab IAM#1. Explorando a Infraestrutura Global da AWS\|Regiões e AZs]] | Os servidores virtuais (EC2) que provisionaremos hoje serão localizados fisicamente em Regiões e AZs específicas. |
+| [[Aula 05 - Infraestrutura Global AWS e Lab IAM#2. Laboratório Prático: Introdução ao AWS IAM\|IAM (Identity & Access)]] | Compreenderemos como as instâncias EC2 e as funções Lambda utilizam credenciais e permissões seguras para atuar na nuvem. |
+| [[Aula 02 - Introducao a Computacao em Nuvem#2.1. IaaS – Infrastructure as a Service (Infraestrutura como Serviço)\|IaaS (Infraestrutura)]] | O Amazon EC2 representa a materialização clássica do modelo IaaS na nuvem da AWS. |
 
 ---
 
-## ⚡ 4. Computação Serverless e AWS Lambda
+## 📌 1. Contextualização
 
-**Definição:** *Serverless* (Computação sem servidor) é um modelo de execução onde a AWS gerencia a alocação e gerenciamento completo dos servidores para você. O **AWS Lambda** é o serviço FaaS (Function as a Service) central desse conceito.
+A computação (capacidade de processamento de CPU/GPU e RAM) é o coração lógico de qualquer aplicação de Ciência de Dados. Seja para hospedar um servidor simples web, rodar um script diário de extração ou treinar uma Rede Neural Profunda enorme por semanas a fio, você precisa de poder computacional sob demanda. A nuvem redefiniu a forma de obter esse poder: desde alugar a máquina virtual inteira sob controle completo (EC2) até delegar toda a infraestrutura e pagar apenas pelos milissegundos rodados de uma função lógica (AWS Lambda).
 
-| **Característica** | **Detalhe** |
-| --- | --- |
-| Zero Manutenção | Não há servidores para atualizar, nem sistema operacional ou patches de segurança em Linux/Windows. O foco é escrever o script (Código). |
-| Pagamento Sub-segundo | Cobrança exata por número de requisições e pelo tempo consumido *em milissegundos*! Se o script não for acionado, você não paga NADA. |
-| Orientado a Eventos | Executado por gatilhos. Por exemplo: Uma foto nova foi salva em uma pasta? Roda o código e converte. Requisição web (HTTP)? Atende e processa na hora. |
-| Escalonamento Real | Se caírem 10 mil pedidos por segundo instantaneamente, a AWS duplica seu código em 10 mil workers concorrentes. Acabou os eventos? Tudo some. |
-
-### 💡 Exemplos Reais no Cotidiano
-
-- Um script automatizado (Lambda function em Python) que roda todos os dias à meia-noite extraindo a cotação do dólar e jogando num banco SQL.
-- Chatbots onde a resposta em mensagens é feita em tempo real usando integrações simples com AI.
-- Processamento automatizado de pequenos arquivos PDF ou CSVs de extratos anexados em um sistema da empresa.
-
-> **Analogia:** O EC2 (mesmo de madrugada) é como deixar a luz da sala acesa a noite toda. Você paga por isso. O Lambda é semelhante a um interruptor de luz com sensor de movimento num corredor: a luz só acende (gasta energia) exata e milimetricamente quando você está passando, e apaga assim que o gatilho some de perto.
-> 
+> 💡 **Analogia:** Pense na computação na nuvem como transporte urbano.
+> * **Amazon EC2 (IaaS):** É como alugar um carro na locadora. Você fica com a chave, dirige para onde quiser, escolhe a rota e paga pelo período diário/mensal (use ou deixe estacionado na garagem).
+> * **AWS Lambda (Serverless):** É como chamar uma corrida de Uber. Você simplesmente entra, vai até o destino e paga **estritamente apenas pela corrida (tempo e distância)**. Você não se preocupa com manutenção, combustível, IPVA ou quem conduz o veículo.
 
 ---
 
-## ⚖️ 5. Comparação Estrutural: EC2 vs AWS Lambda
+## 📌 2. Amazon EC2 (Elastic Compute Cloud)
 
-| **Critério** | **Amazon EC2 (IaaS/Instância Virtual)** | **AWS Lambda (FaaS/Serverless)** |
+O **Amazon EC2** é o serviço web da AWS que fornece capacidade computacional segura, flexível e redimensionável na nuvem na forma de Máquinas Virtuais (chamadas de instâncias).
+
+### 2.1. Características Principais do EC2
+* **Elasticidade Vertical e Horizontal:** É possível alterar a potência do hardware da instância (de 1 vCPU para 128 vCPUs) em minutos, ou multiplicar o número de servidores.
+* **Controle Administrativo Total:** Acesso administrativo irrestrito (root em Linux / Administrator em Windows) ao Sistema Operacional selecionado.
+* **Faturamento por Segundo:** A cobrança ocorre de forma proporcional por segundo enquanto a instância estiver ativa ("Running").
+
+### 2.2. Famílias de Instâncias EC2 aplicadas à IA e Big Data
+Para otimizar custos e performance, a AWS subdivide o hardware virtual em famílias especializadas:
+
+| Família | Foco de Hardware | Uso Típico em Ciência de Dados / IA |
 | --- | --- | --- |
-| **Gestão do SO** | Cliente administra, usa SSH, atualiza antivírus. | Totalmente gerenciado pela AWS. |
-| **Tempo Suportado** | Pode ficar ligada por ANOS diretos treinando IA. | Máximo de 15 MINUTOS por execução de função. |
-| **Ponto Econômico** | Previsível, custa "X" o mês enquanto ligada. | Mais barato que EC2 mas apenas se as requisições possuírem muitas horas inativas/variáveis. |
-| **Como Escala?** | Cria mais máquinas virtuais usando o Auto-Scaling ("demora" minutos). | Imediatamente para cada um executando no evento. |
+| **C (Compute Optimized)** | Processamento matemático robusto por CPU. | Algoritmos de Machine Learning intensivos em CPU, compilação de dados. |
+| **R / X (Memory Optimized)** | Cache volumoso e alta taxa de RAM. | Big Data em tempo real (Spark), bancos em memória (Redis). |
+| **P / G (Accelerated Computing)** | Placas gráficas dedicadas (GPUs Nvidia). | Treinamento pesado de Deep Learning, redes neurais e LLMs. |
+| **T / M (General Purpose)** | Recursos computacionais balanceados. | Servidores de homologação, portais simples de visualização e testes. |
 
 ---
 
-## 🔮 6. Tendências Contemporâneas
+## 📌 3. Computação Serverless e AWS Lambda
 
-| **Tendência** | **Descrição** | **Impacto** |
+**Serverless** (computação sem servidor) é um modelo de execução lógica onde a nuvem gerencia de forma invisível toda a infraestrutura computacional subjacente para você. O **AWS Lambda** é o serviço FaaS (Function as a Service) pioneiro e central desse paradigma.
+
+### 3.1. Características Principais do AWS Lambda
+* **Administração Zero:** O desenvolvedor foca unicamente em escrever o script (código). Patches de segurança, sistemas operacionais e servidores físicos são de responsabilidade da AWS.
+* **Orientação a Eventos (Gatilhos):** A função Lambda permanece inativa até ser invocada por um evento lógico (ex.: um novo arquivo de imagem é salvo no S3, ou uma API web é acessada).
+* **Escalabilidade Instantânea e Simultânea:** Se ocorrerem 10.000 requisições síncronas simultâneas, a AWS duplica o container do Lambda em frações de segundo para atender à demanda.
+* **Faturamento Sub-segundo:** Cobrança proporcional estrita por milissegundo consumido de computação. Se a função não for invocada, o custo é **absolutamente zero**.
+
+> 💡 **Analogia Econômica:** O EC2 é como deixar a luz da sala acesa a noite inteira mesmo sem ninguém no cômodo — você pagará pela ociosidade. O Lambda funciona como um interruptor com sensor de presença no corredor: a lâmpada acende milimetricamente quando alguém passa, e apaga assim que a pessoa sai, cobrando apenas pelos segundos ativos de iluminação.
+
+---
+
+## 📌 4. Comparação Estrutural: EC2 vs AWS Lambda
+
+| Critério | Amazon EC2 (IaaS) | AWS Lambda (FaaS) |
 | --- | --- | --- |
-| **Serverless AI Inference** | Hospedar a inferência dos modelos de IA não mais em grandes servidores, mas em containers e lambdas serverless. | Fim de servidores EC2 dedicados e caros com ociosidade. A predição roda sob demanda no gatilho do cliente custando frações de centavos. |
-| **AWS Graviton (Processamento Sustentável)** | Nova arquitetura de CPUs ARM criadas por eles. | Otimiza carga, gasta muito menos energia real/térmica e reduz em até 40% a fatura. |
+| **Manutenção do OS** | Responsabilidade do cliente (updates, antivírus). | Totalmente transparente e gerenciado pela AWS. |
+| **Tempo Limite de Execução** | Sem limites. Pode rodar continuamente por anos. | Rígido: **máximo de 15 minutos** por execução. |
+| **Estrutura de Escala** | Lenta (minutos) via Auto Scaling de novas VMs. | Instantânea (milissegundos) baseada em eventos/gatilhos. |
+| **Faturamento** | Por segundo ativo com a VM ligada (Running). | Por milissegundo de uso sob invocação de evento. |
+| **Cenário Ideal** | Treinamento longo de Machine Learning e Big Data. | APIs web rápidas, micro-scripts diários e ETLs orientados a eventos. |
 
 ---
 
-## 📋 7. Resumo Estrutural
+## 📌 5. Cenários e Projetos Contemporâneos de IA na Nuvem
+As modernas arquiteturas de IA utilizam abordagens híbridas de computação:
+* **Fase de Treinamento (Pesado):** Uso massivo de instâncias **Amazon EC2 otimizadas para GPU (Famílias P ou G)** rodando ininterruptamente por dias ou semanas.
+* **Fase de Inferência (Leve / Sob Demanda):** Hospedar o modelo de predição pronto em **funções AWS Lambda** que "acordam" via gatilho HTTP para responder a uma predição em tempo real e se encerram em milissegundos.
+
+---
+
+## 📋 Resumo Estrutural
 
 | **Conceito** | **Definição em Uma Frase** |
 | --- | --- |
-| **Elastic Compute Cloud (EC2)** | Suas tradicionais máquinas virtuais (IaaS) rodam na nuvem AWS de modo altamente flexível e controlável. |
-| **Tipos de Instâncias** | Famílias de hardware pré-estruturados (GPU, CPU ou RAM) à lá carte. |
-| **Computação Serverless** | Modelo onde a AWS provê infraestrutura transparente para nós rodarmos nossa aplicação. |
-| **AWS Lambda** | O serviço do tipo FaaS para focar em escrever uma "Função" disparada por eventos pontuais. |
+| **Amazon EC2** | O serviço mestre de IaaS da AWS que fornece servidores virtuais (instâncias) elásticos e customizáveis. |
+| **Serverless** | O paradigma onde o desenvolvedor é desonerado de provisionar e gerenciar servidores físicos e SOs. |
+| **AWS Lambda** | O serviço FaaS que executa códigos/funções de forma elástica orientada a eventos. |
+| **Famílias de EC2** | Categorizações técnicas de hardware (GPU, CPU, RAM) dimensionadas para finalidades específicas de TI. |
+| **Gatilho (Trigger)** | Evento lógico ou de rede que inicia a execução automatizada de uma função no Lambda. |
 
 ---
 
-## 🧩 8. Atividade Prática (PBL)
+%%
+## ❓ Banco de Questões
 
-### 📌 Cenário: Arquitetura Global Uniube "ProcessData Analytics"
+> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
 
-O seu departamento de Inteligência Artificial da reitoria solicitou um parecer técnico. O sistema processa inscrições diárias e também analisa os TCCs no final do ano. Eles dividiram o gargalo do sistema atual em duas partes (A e B). Como o engenheiro em nuvem e futuro cientista de dados, você precisa tomar essa decisão de infraestrutura.
+### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
+**Enunciado:** O departamento de Inteligência Artificial de uma startup de telemedicina em Uberlândia precisa implantar uma API de backend de alta disponibilidade que processará continuamente as requisições de triagem de pacientes. Além disso, a aplicação exige controle administrativo completo sobre o kernel do sistema operacional Linux para customizar drivers de criptografia homologados internacionalmente. Qual serviço de computação e modelo de serviço de nuvem mais adequado para essa arquitetura?
 
-**O Processo (A):**
+- [ ] A) AWS Lambda e Função como Serviço (FaaS).
+- [x] B) Amazon EC2 e Infraestrutura como Serviço (IaaS). ✅
+- [ ] C) Amazon S3 e Software como Serviço (SaaS).
+- [ ] D) Azure App Service e Plataforma como Serviço (PaaS).
 
-Durante as duas últimas semanas do ano existe um algoritmo robusto de PNL para rastreamento de plágios e modelagem de tópicos em TCCs. A execução do treino base nos documentos durará seguidas 48 HORAS com capacidade computacional gráfica densa exigindo placas de vídeo top de linha.
-
-**O Processo (B):**
-
-Um micro-script Python de 20 linhas foi criado que: na virada de cada dia, em qualquer momento do dia, vai na base de dados rápida, extrai um dado e envia por e-mail um pequeno log para a diretoria. Leva em torno de 500 milissegundos para rodar e rodar 24h a fio é um exagero inútil.
-
-**Tarefas Analíticas (Reflita e Responda):**
-
-1. Consolidando IaaS x FaaS, qual modelo atende O Processo A e qual atende O Processo B?
-2. Justifique tecnicamente: se você usar EC2 para o O Processo B, estaria gerando gastos passivos? Explique.
-3. Considerando apenas O Processo A usando Amazon EC2; qual "Família" do EC2 você indicaria (uma C, uma R, ou uma Instância P/G com GPU)?
+**Justificativa:** O Amazon EC2 provê instâncias de servidores virtuais elásticos no modelo IaaS, concedendo privilégios de acesso administrativo (root) para customização profunda do kernel do Sistema Operacional exigido pela aplicação.
 
 ---
 
-## 🚀 9. Desafio (Sala de Aula Invertida)
+### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
+**Enunciado:** Um engenheiro de MLOps de uma empresa de logística desenvolveu um script em Python que consome uma biblioteca leve de IA para calcular a rota mais eficiente de entrega. Esse script é acionado apenas quando um novo arquivo CSV contendo os pedidos é salvo na pasta do Amazon S3, durando cerca de 3 segundos para rodar. Seguindo as melhores práticas de design de sistemas elásticos e otimização financeira, como esta arquitetura de processamento deve ser modelada na AWS?
 
-**Para a próxima aula ([Quarta — Prática de Lançamento de Máquina Virtual]):**
+- [ ] A) Manter uma instância Amazon EC2 robusta ligada ininterruptamente rodando um script de monitoramento infinito da pasta.
+- [x] B) Implementar o código em uma função no AWS Lambda (Serverless) configurando um gatilho de upload do Amazon S3. ✅
+- [ ] C) Criar um cluster físico de servidores locais On-Premises integrados via hypervisor.
+- [ ] D) Utilizar uma ferramenta de SaaS pronta para substituir a lógica proprietária do cálculo de rotas.
 
-1. Acesse o AWS Academy e clique em **Módulo 2.1 — Serviços Essenciais Parte 1 (Computação)** e dê play na vídeo-aula do Amazon EC2.
-2. Descubra os requisitos para acesso. Procure online: o que é uma **"Chave Privada (.pem/.ppk)"(Key-Pair SSH)**? Teremos de usar uma na nossa próxima aula.
-3. Se o seu Windows ainda for antigo, busque online instalar o "PuTTY". Para a maioria com Windows atualizado, o CMD padrão (que tenha suporte à palavra `ssh` em terminal aberto) bastará.
-4. Pense: se hoje você fizesse um deploy, qual "Tipo de Instância EC2" você acredita que caberia grátis? Dica: chamam as grátis providas via Free Tier de *Micro*. Busque como elas funcionam.
-
-> 💡
-> 
-> 
-> **Dica de Sucesso:**
-> 
+**Justificativa:** O AWS Lambda (Serverless/FaaS) elimina o custo de ociosidade, pois a infraestrutura computacional só é alocada e cobrada durante os 3 segundos em que a função executa a partir do gatilho de upload no S3.
 
 ---
 
-## 📚 10. Referências Bibliográficas
+### Questão 3: Teórica (Dissertativa — Nível: Avançado)
+**Enunciado:** Compare em profundidade a arquitetura clássica baseada em instâncias virtuais (Amazon EC2) com a arquitetura moderna baseada em computação sem servidor (AWS Lambda). Analise detalhadamente os critérios de: limite de tempo de execução, estrutura lógica de faturamento e tempo de resposta de escalabilidade horizontal. Por fim, justifique tecnicamente a indicação de cada modelo para as etapas de Treinamento de Modelos de Deep Learning versus a etapa de Inferência de Modelos leves na área de Ciência de Dados.
 
-### 📖 Referências Obrigatórias
+**Resposta esperada:** 
+1. **Amazon EC2 (IaaS):** Consiste no fornecimento de Máquinas Virtuais isoladas onde o usuário gerencia todo o SO e runtimes. **Tempo de Execução:** Ilimitado (ideal para workloads ininterruptos). **Faturamento:** Cobrado por segundo em que a máquina permanecer ligada, gerando custos passivos de ociosidade. **Escalabilidade:** Escala de forma horizontal adicionando instâncias em minutos via Auto Scaling. **Indicação na Ciência de Dados:** Recomendado para o **Treinamento de modelos pesados de Deep Learning (LLMs/Redes Neurais)** que consomem intensa capacidade de GPU (Famílias P ou G) e rodam continuamente por dias ou semanas.
+2. **AWS Lambda (FaaS):** Paradigma Serverless onde toda a infraestrutura física e lógica é gerenciada pelo provedor. **Tempo de Execução:** Limite rígido de até **15 minutos** por invocação. **Faturamento:** Tarifação por milissegundo de execução sob uso efetivo (ociosidade custa zero). **Escalabilidade:** Escala instantânea baseada em concorrência de eventos (milissegundos). **Indicação na Ciência de Dados:** Recomendado para a **Inferência de modelos leves de ML** (ex.: predição de scorings de crédito disparados via API web), microsserviços de ETL orientados a eventos de curta duração e limpezas diárias em bases de dados.
 
-| **Autor** | **Obra** | **Capítulo/Seção Utilizada** |
-| --- | --- | --- |
-| ANTUNES, Jonathan Lamim | Amazon AWS: descomplicando a computação na nuvem. Casa do Código, 2016 | Capítulos focados em EC2, SSH e Instâncias |
-| KOLBE JÚNIOR, Armando | Computação em nuvem. Contentus, 2020 | Capítulos Focados no IaaS vs FaaS |
-| SOUSA NETO, Manoel Veras de | Cloud computing: nova arquitetura da TI. Brasport, 2012 | Capítulos sobre Escalabilidade Virtual |
+---
+%%
 
-### 📖 Referências Complementares
+## 📄 Artigo de Aprofundamento
 
-| **Autor** | **Obra** | **Relevância** |
-| --- | --- | --- |
-| BARR, Jeff. | AWS News Blog sobre Serverless e Lambda e EC2 Graviton | Visões diretas do CTO das tecnologias usadas pelas gigantes AWS |
+- [Serverless AI Inference on AWS Lambda (AWS Whitepaper)](https://aws.amazon.com/pt/lambda/)
+> *Resumo prático: Este artigo corporativo da AWS detalha como empresas de tecnologia reduzem custos de MLOps substituindo servidores virtuais dedicados por execuções serverless sob demanda na fase de inferência de algoritmos de aprendizado de máquina.*
 
-### 🔗 Links Úteis
+---
 
-| **Recurso** | **Descrição** | **Link** |
-| --- | --- | --- |
-| Página Oficial Amazon EC2 | Comparativo oficial dos tipos de servidores IaaS com detalhamento das famílias | [aws.amazon.com/pt/ec2/](https://aws.amazon.com/pt/ec2/) |
-| Página AWS Lambda | O FaaS poderoso com estudos de caso do NuBank na página | [aws.amazon.com/pt/lambda/](https://aws.amazon.com/pt/lambda/) |
+## 📚 Referências Bibliográficas
 
-### 🎥 Vídeos Recomendados
+- ANTUNES, Jonathan Lamim. *Amazon AWS: descomplicando a computação na nuvem*. Casa do Código, 2016. **(Provisionamento de instâncias EC2 e chaves SSH, Cap. 4, pp. 45–62)**
+- KOLBE JÚNIOR, Armando. *Computação em nuvem*. Contentus, 2020. **(Comparativo estrutural de IaaS, PaaS e FaaS, Cap. 3, pp. 51–68)**
+- SOUSA NETO, Manoel Veras de. *Cloud computing: nova arquitetura da TI*. Brasport, 2012. **(Escalabilidade de sistemas computacionais elásticos, Cap. 5, pp. 101–118)**
 
-| **Canal/Autor** | **Título** | **Duração** | **Link** |
-| --- | --- | --- | --- |
-| Cloud Treinamentos | O QUE É EC2 NA AWS E COMO FUNCIONA (PT-BR) | 08:34 | [Assistir no YouTube](https://www.youtube.com/watch?v=Fj7nB_k-p_8) |
-| Código Fluente | Aula 11 - O que é o EC2 e Subindo nossa máquina virtual | 14:00+ | [Assistir no YouTube](https://www.youtube.com/watch?v=K3S1f1W4w0o) |
+---
+*Última atualização: 2026-05-20 | Status: publicado*

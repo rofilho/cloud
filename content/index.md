@@ -157,21 +157,12 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
 <div class="dashboard-container">
 
 <div class="hero">
-<<<<<<< HEAD
-<div style="position: relative; z-index: 10;">
-<span class="tag">▶ Aula de Hoje</span>
-<h1>VPC Completa e Isolamento de RDS com Terraform</h1>
-<p>Aula 13p prática: Aprenda a criar uma VPC customizada no Console AWS e a automatizar redes e banco privado isolado usando Terraform.</p>
-<a href="./Aula-13---Pratica---VPC-Completa-e-Isolamento-de-Banco-de-Dados-com-Terraform" class="btn btn-primary" data-spa>Acessar Aula Prática</a>
-</div>
-=======
   <div style="position: relative; z-index: 10;">
-    <span class="tag">▶ Continue Estudando</span>
-    <h1>☁️ Cloud Computing</h1>
-    <p>Conceitos de nuvem, provedores, elasticidade, redes virtuais e automação com Terraform.</p>
-    <a href="./Aula-15---Te%C3%B3rica-Elasticidade-Alta-Disponibilidade" class="btn" data-spa>Retomar: ⚡ Aula 15 – Elasticidade, ELB e Auto Scaling</a>
+    <span class="tag">▶ Aula de Hoje</span>
+    <h1>CDN CloudFront e Distribuição de Conteúdo</h1>
+    <p>Aula 13.6t Teórica: Entenda o funcionamento de Redes de Entrega de Conteúdo (CDNs), HTTPS com OAC e integração com Cloudflare.</p>
+    <a href="./Aula-13.6---Teorica---CDN-CloudFront-e-Distribuicao-de-Conteudo" class="btn" data-spa>Acessar Aula</a>
   </div>
->>>>>>> 741e8a4 (feat: design premium glassmorphism e organizacao cronologica das aulas no portal cloud)
 </div>
 
 <div class="row-wrapper">
@@ -287,14 +278,49 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
         <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
       </div>
     </a>
+    <a href="./Aula-13t---Teorica---VPC-e-Redes-na-Nuvem" class="card" data-spa>
+      <div class="card-thumb">🌐<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🌐 Aula 13t – Teórica: VPC e Redes na Nuvem</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13.5t---Teorica---Amazon-S3-e-Armazenamento-de-Objetos" class="card" data-spa>
+      <div class="card-thumb">🪣<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🪣 Aula 13.5t – Teórica: S3 e Armazenamento de Objetos</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13.5---Pratica---Amazon-S3---Hospedagem-Estatica-e-Integracao-com-EC2" class="card" data-spa>
+      <div class="card-thumb">🔬<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🔬 Aula 13.5 – Prática: S3 Hospedagem Estática e EC2</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13.6---Teorica---CDN-CloudFront-e-Distribuicao-de-Conteudo" class="card" data-spa>
+      <div class="card-thumb">⚡<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">⚡ Aula 13.6t – Teórica: CDN, CloudFront e Cloudflare</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
     <a href="./Aula-14---FinOps-e-Custos" class="card" data-spa>
       <div class="card-thumb">💰<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
       <div class="card-content">
-        <div class="card-title">💰 Aula 14 – FinOps e Custos</div>
-        <div class="card-meta"><span>Acessar Aula</span><span></span></div>
+        <div class="card-title">💰 Aula 14 – Teórica: FinOps e Custos</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
       </div>
     </a>
-    <a href="./Aula-15---Te%C3%B3rica-Elasticidade-Alta-Disponibilidade" class="card" data-spa>
+    <a href="./Aula-14---Pratica---FinOps-e-Custos" class="card" data-spa>
+      <div class="card-thumb">💰<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">💰 Aula 14p – Prática: FinOps e Custos</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
+    <a href="./Aula-15---Teorica-Elasticidade-Alta-Disponibilidade" class="card" data-spa>
       <div class="card-thumb">⚡<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
       <div class="card-content">
         <div class="card-title">⚡ Aula 15 – Elasticidade, ELB e Auto Scaling</div>

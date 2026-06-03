@@ -1,4 +1,20 @@
-# 🎯 Aula - 01: Ementa e Objetivos
+---
+disciplina: Cloud Computing
+codigo: "14189"
+aula: "01"
+titulo: "Ementa e Objetivos"
+tipo: teorica
+semana: 1
+data: 2026-02-13
+status: publicado
+tags:
+  - cloud
+  - ementa
+  - planejamento
+publicar: true
+---
+
+# 🟢 Aula 01: Ementa e Objetivos
 
 ---
 

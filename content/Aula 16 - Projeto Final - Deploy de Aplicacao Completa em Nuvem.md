@@ -94,10 +94,10 @@ O professor fornece **4 prompts prontos e estruturados**. O grupo cola cada prom
 
 | # | Prompt | O que gera | Entrada necessária |
 |---|---|---|---|
-| 📋 **1** | [[assets/prompts/Prompt_1_Banco_de_Dados]] | Schema SQL completo (`CREATE TABLE` + `INSERT`) | Tema da aplicação |
-| ⚙️ **2** | [[assets/prompts/Prompt_2_Backend]] | API Flask com todos os endpoints | Tema + SQL do Prompt 1 |
-| 🖥️ **3** | [[assets/prompts/Prompt_3_Frontend]] | Interface HTML/CSS/JS completa | Tema + código do Prompt 2 |
-| 🚀 **4** | [[assets/prompts/Prompt_4_Deploy_EC2]] | Guia de deploy com Nginx | — |
+| 📋 **1** | [[Prompt_1_Banco_de_Dados|Prompt 1 — Banco de Dados]] | Schema SQL completo (`CREATE TABLE` + `INSERT`) | Tema da aplicação |
+| ⚙️ **2** | [[Prompt_2_Backend|Prompt 2 — Backend]] | API Flask com todos os endpoints | Tema + SQL do Prompt 1 |
+| 🖥️ **3** | [[Prompt_3_Frontend|Prompt 3 — Frontend]] | Interface HTML/CSS/JS completa | Tema + código do Prompt 2 |
+| 🚀 **4** | [[Prompt_4_Deploy_EC2|Prompt 4 — Deploy EC2]] | Guia de deploy com Nginx | — |
 
 > 💡 **Os prompts são encadeados:** cada um recebe como entrada o resultado do anterior. Isso garante que o banco, o backend e o frontend sejam 100% compatíveis entre si.
 
