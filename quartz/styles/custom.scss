@@ -49,12 +49,22 @@
   --secondary:    var(--uniube-blue-core);
   --tertiary:     var(--uniube-blue-light);
   --text-color:   #2c3e50;   /* cinza escuro — evita fadiga do preto puro */
+
+  /* Blocos de Código (Light Theme) */
+  --code-block-bg:     #ffffff;
+  --code-block-border: #e2e8f0;
+  --code-block-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
 }
 
 :root[saved-theme="dark"] {
   --secondary:  #60a5fa;   /* azul claro legível no escuro */
   --tertiary:   #93c5fd;
   --text-color: #cbd5e1;
+
+  /* Blocos de Código (Dark Theme) */
+  --code-block-bg:     #1e293b;
+  --code-block-border: rgba(255, 255, 255, 0.05);
+  --code-block-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -207,13 +217,13 @@ article blockquote {
 /* Blocos de código — estilo macOS */
 figure[data-rehype-pretty-code-figure] {
   border-radius: 12px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--code-block-shadow) !important;
   margin: var(--sp-8) 0 !important;
   position: relative;
   padding-top: 2.5rem !important;
-  background-color: #1e293b !important;
+  background-color: var(--code-block-bg) !important;
   overflow: hidden !important;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--code-block-border) !important;
 }
 /* Bolinhas macOS (vermelho/amarelo/verde) */
 figure[data-rehype-pretty-code-figure]::before {

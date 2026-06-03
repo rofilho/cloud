@@ -275,6 +275,27 @@ html, body, #quartz-root, #quartz-body, .page, .center, .center-content, article
       <div class="card-thumb">🔬<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
       <div class="card-content">
         <div class="card-title">🔬 Aula 13p – Prática: VPC, RDS e Terraform</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>✅ Concluído</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13t---Teorica---VPC-e-Redes-na-Nuvem" class="card" data-spa>
+      <div class="card-thumb">🌐<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🌐 Aula 13t – Teórica: VPC e Redes na Nuvem</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13.5t---Teorica---Amazon-S3-e-Armazenamento-de-Objetos" class="card" data-spa>
+      <div class="card-thumb">🪣<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🪣 Aula 13.5t – Teórica: S3 & Armazenamento de Objetos</div>
+        <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
+      </div>
+    </a>
+    <a href="./Aula-13.5---Pratica---Amazon-S3---Hospedagem-Estatica-e-Integracao-com-EC2" class="card" data-spa>
+      <div class="card-thumb">🪣<div class="card-progress-bar"><div class="card-progress" style="width: 0%"></div></div></div>
+      <div class="card-content">
+        <div class="card-title">🪣 Aula 13.5 – Prática: S3 Estático e EC2</div>
         <div class="card-meta"><span>Acessar Aula</span><span>🆕 Novo</span></div>
       </div>
     </a>
