@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 13
+aula: 17
 titulo: "Segurança na Nuvem — IAM, Criptografia e Proteção de Aplicações"
 tipo: teorica
 semana: 14

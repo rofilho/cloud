@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 13p
+aula: 15
 titulo: "VPC Completa e Isolamento de Banco de Dados com Terraform"
 tipo: pratica
 semana: 13

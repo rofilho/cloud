@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 11.5
+aula: 12
 titulo: "Prática CI/CD e Arquitetura Cloud - Estudo de Caso Sana"
 tipo: teorica e pratica
 semana: 11

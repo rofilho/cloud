@@ -36,7 +36,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 08/05 | 📘 Teórica | [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]] — Conceitos de IaC, HCL, providers, state, plan/apply/destroy |
+| **Sexta** | 08/05 | 📘 Teórica | [[Aula 13 - Terraform na Pratica - IaC com Lightsail e EC2]] — Conceitos de IaC, HCL, providers, state, plan/apply/destroy |
 | **Quarta** | 13/05 | 🔬 Prática | Lab: `terraform apply` criando EC2 + Security Group + output de IP público no AWS Academy |
 
 **Objetivo da semana:** Aluno sai sabendo provisionar infraestrutura via código, sem clicar no console.
@@ -47,7 +47,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 15/05 | 📘 Teórica | [[Aula 15 - Teorica Elasticidade Alta Disponibilidade]] — Elasticidade, Auto Scaling, ELB e CloudWatch |
+| **Sexta** | 15/05 | 📘 Teórica | [[Aula 16 - Teorica Elasticidade Alta Disponibilidade]] — Elasticidade, Auto Scaling, ELB e CloudWatch |
 | **Quarta** | 20/05 | 🔬 Prática | Lab: criar VPC completa com Terraform — subnet pública exposta + subnet privada para banco |
 
 **Objetivo da semana:** Aluno entende isolamento de rede e consegue criar uma VPC segura via IaC.
@@ -58,7 +58,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 22/05 | 📘 Teórica | [[Aula 13 - Seguranca na Nuvem]] — IAM (usuários, roles, policies), least privilege, KMS, Secrets Manager, WAF |
+| **Sexta** | 22/05 | 📘 Teórica | [[Aula 17 - Seguranca na Nuvem]] — IAM (usuários, roles, policies), least privilege, KMS, Secrets Manager, WAF |
 | **Quarta** | 27/05 | 🔬 Prática | Lab: criar IAM Role para EC2 acessar S3 sem credencial hardcoded; configurar Security Group com porta mínima |
 
 **Objetivo da semana:** Aluno aplica o princípio do menor privilégio e nunca mais coloca senha no código.
@@ -69,7 +69,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 29/05 | 📘 Teórica | [[Aula 14 - FinOps e Custos]] — Free Tier, Cost Explorer, Billing Alerts, Reserved vs On-Demand vs Spot, rightsizing |
+| **Sexta** | 29/05 | 📘 Teórica | [[Aula 21 - FinOps e Custos]] — Free Tier, Cost Explorer, Billing Alerts, Reserved vs On-Demand vs Spot, rightsizing |
 | **Quarta** | 03/06 | 🔬 Prática | Lab: configurar alerta de billing ($5), analisar Cost Explorer, calcular custo do projeto no AWS Pricing Calculator |
 
 **Objetivo da semana:** Aluno sabe estimar, monitorar e reduzir custos de infra na nuvem.
@@ -80,7 +80,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 05/06 | 🚀 Projeto | **Kick-off:** apresentação do [[avaliacoes/Projeto_Final]] e instrução prática via [[Aula 16 - Projeto Final - Deploy de Aplicacao Completa em Nuvem]], formação dos grupos (2–4 pessoas), escolha de tema, dúvidas |
+| **Sexta** | 05/06 | 🚀 Projeto | **Kick-off:** apresentação do [[avaliacoes/Projeto_Final]] e instrução prática via [[Aula 23 - Projeto Final - Deploy de Aplicacao Completa em Nuvem]], formação dos grupos (2–4 pessoas), escolha de tema, dúvidas |
 | **Quarta** | 10/06 | 🔬 Orientação | **⚠️ Prazo: Etapa 0** — Grupos entregam proposta. Orientação 1: professor revisa arquitetura e repositório de cada grupo |
 
 **Entrega da semana:** Etapa 0 — Proposta (obrigatória, sem nota).
@@ -129,10 +129,10 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | Aula | Arquivo | Status | Prioridade |
 |---|---|---|---|
-| 12 | [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]] | ✅ Concluído | Alta — 08/05 |
-| 15 | [[Aula 15 - Teorica Elasticidade Alta Disponibilidade]] | ✅ Concluído | Alta — 15/05 |
-| 13 | [[Aula 13 - Seguranca na Nuvem]] | ✅ Concluído | Média — 22/05 |
-| 14 | [[Aula 14 - FinOps e Custos]] | ✅ Concluído | Média — 29/05 |
+| 13 | [[Aula 13 - Terraform na Pratica - IaC com Lightsail e EC2]] | ✅ Concluído | Alta — 08/05 |
+| 16 | [[Aula 16 - Teorica Elasticidade Alta Disponibilidade]] | ✅ Concluído | Alta — 15/05 |
+| 17 | [[Aula 17 - Seguranca na Nuvem]] | ✅ Concluído | Média — 22/05 |
+| 21 | [[Aula 21 - FinOps e Custos]] | ✅ Concluído | Média — 29/05 |
 
 ---
 

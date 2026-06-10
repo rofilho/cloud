@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "14p"
+aula: "22"
 titulo: "Prática — Alertas de Custo, Cost Explorer e Calculadora AWS"
 tipo: pratica
 semana: 15

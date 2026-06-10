@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 13t
+aula: 14
 titulo: "VPC e Redes na Nuvem"
 tipo: teorica
 semana: 13

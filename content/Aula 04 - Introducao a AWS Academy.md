@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "03-04"
+aula: "04"
 titulo: "Introdução à AWS Academy"
 tipo: pratica
 semana: 3

@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "01b"
+aula: "02"
 titulo: "Fundamentos de Cloud: História e Conceitos Essenciais"
 tipo: teorica
 semana: 1

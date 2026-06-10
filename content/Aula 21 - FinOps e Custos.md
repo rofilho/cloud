@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "14"
+aula: "21"
 titulo: "FinOps e Otimização de Custos"
 tipo: teorica
 semana: 15

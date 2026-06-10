@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "13.5t"
+aula: "18"
 titulo: "Amazon S3 — Armazenamento de Objetos e Alta Disponibilidade"
 tipo: teorica
 semana: 14

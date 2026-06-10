@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 12
+aula: 13
 titulo: "Terraform na Prática — IaC com Lightsail e EC2"
 tipo: pratica
 semana: 12

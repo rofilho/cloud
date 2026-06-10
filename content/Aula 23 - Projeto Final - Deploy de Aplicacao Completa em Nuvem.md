@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 16
+aula: 23
 titulo: "Projeto Final — Deploy de Aplicação Completa em Nuvem"
 tipo: pratica
 semana: 16
@@ -23,12 +23,12 @@ publicar: true
 
 # 🚀 Aula 16: Projeto Final — Deploy de Aplicação Completa em Nuvem
 
-**Disciplina:** Cloud Computing (Cód. 14189)
-**Curso:** Inteligência Artificial e Ciência de Dados — Uniube
-**Semana:** 16 | Quarta-feira
-**Professor:** Romualdo Mathias Filho
-**Tipo:** 🔬 Prática — Estudo Autônomo Avaliado
-**Tópicos:** EC2, RDS, DNS, Cloudflare, Backend, Frontend, IA Generativa, Infraestrutura em Nuvem
+**Disciplina:** Cloud Computing (Cód. 14189)  
+**Curso:** Inteligência Artificial e Ciência de Dados — Uniube  
+**Semana:** 16 | Quarta-feira  
+**Professor:** Romualdo Mathias Filho  
+**Tipo:** 🔬 Prática — Estudo Autônomo Avaliado  
+**Tópicos:** EC2, RDS, DNS, Cloudflare, Backend, Frontend, IA Generativa, Infraestrutura em Nuvem  
 
 ---
 
@@ -105,7 +105,7 @@ O professor fornece **4 prompts prontos e estruturados**. O grupo cola cada prom
 
 ---
 
-## 🗂️ As 4 Etapas do Projeto
+## 🗂️ As Etapas do Projeto
 
 ---
 
@@ -162,19 +162,19 @@ O professor fornece **4 prompts prontos e estruturados**. O grupo cola cada prom
 
 ---
 
-### Etapa 4 — Relatório Técnico (ABNT)
-**O que fazer:** Documentar todo o processo em relatório técnico formal.
+### Etapa 4 — Relatório Técnico (ABNT) e Vídeo de Apresentação
+**O que fazer:** Documentar todo o processo em relatório técnico formal e gravar a demonstração em vídeo.
 
 **Estrutura obrigatória:**
 
 | Seção | O que deve conter |
 |---|---|
-| **Capa** | Nome do grupo, integrantes (nome + matrícula), disciplina, professor, data |
+| **Capa** | Nome do grupo, integrantes (nome + matrícula), link ativo para o vídeo gravado, disciplina, professor, data |
 | **Sumário** | Gerado automaticamente com as seções e páginas |
 | **Introdução** | Contexto do projeto, objetivo, justificativa (1-2 páginas) |
 | **Arquitetura** | Diagrama da arquitetura (obrigatório) + descrição de cada serviço AWS |
 | **Etapas de Implementação** | Descrição detalhada: infraestrutura, deploy, DNS. Incluir os prompts utilizados e como foram adaptados |
-| **Testes e Evidências** | Screenshots de cada etapa — organizados, legendados e referenciados no texto |
+| **Testes e Evidências** | Screenshots de cada etapa — organizados, legendados e referenciados no texto; link do vídeo |
 | **Conclusão** | Aprendizados, dificuldades e como foram resolvidas |
 | **Referências** | Fontes consultadas no formato ABNT |
 
@@ -193,14 +193,31 @@ O professor fornece **4 prompts prontos e estruturados**. O grupo cola cada prom
 
 ---
 
-## 📊 Rubrica de Avaliação — 25 pontos
+## 📹 Sobre a Apresentação Técnica por Vídeo
+
+Considerando o calendário e o conflito de horário com o jogo da Seleção Brasileira na Copa do Mundo, a apresentação será realizada de forma **100% digital e assíncrona** por meio de um vídeo gravado pelo grupo (duração máxima de 5 minutos). 
+
+O link do vídeo deve ser anexado na capa do relatório em PDF. O vídeo deve conter obrigatoriamente:
+- Demonstração da aplicação rodando via URL com HTTPS ativo.
+- Visualização do Console AWS mostrando a instância EC2 e a instância RDS.
+- Breve explicação técnica sobre a arquitetura e principais decisões de segurança/custos.
+
+---
+
+## 🏆 Regra Especial — Mostratec
+
+Alunos do grupo que forem apresentar o projeto na Mostratec estão **dispensados da gravação do vídeo de demonstração** e da apresentação. Contudo, esses integrantes **devem entregar a parte escrita (relatório técnico em PDF) no AVA obrigatoriamente no prazo**. A nota de apresentação desse grupo será validada a partir do projeto apresentado na feira.
+
+---
+
+## 📊 Rubrica de Avaliação — 20 pontos
 
 | Critério | Muito Bom (A) | Bom (B/C) | Precisa Melhorar (D/F) | Pts |
 |---|---|---|---|---|
-| **Configuração da Infraestrutura** | EC2 + RDS + Security Groups corretamente configurados, banco privado, aplicação acessível pelo domínio | EC2 e RDS funcionando, mas com falhas de segurança (banco público, SGs permissivos) ou sem DNS | Infraestrutura incompleta ou não funcional | **10 pts** |
-| **Evidências Técnicas** | Screenshots organizados, legendados, cobrindo todas as 4 etapas, com URLs/IPs visíveis | Screenshots presentes mas incompletos, sem legendas ou mal organizados | Poucas ou nenhuma evidência visual | **5 pts** |
-| **Relatório Técnico** | Segue ABNT completo, todas as seções presentes, diagrama de arquitetura incluído, mínimo de 5 páginas | Relatório presente mas com seções faltando, formatação parcial ou sem diagrama | Sem relatório ou entregue sem formatação mínima | **7 pts** |
-| **Participação dos Integrantes** | Todos os integrantes identificados no relatório com suas contribuições descritas | Participação parcialmente documentada | Sem identificação individual | **3 pts** |
+| **Relatório Técnico e Evidências (Infraestrutura/Código)** | Documentação completa em padrão ABNT, com diagrama de arquitetura claro, screenshots legíveis e legendados das instâncias rodando na AWS, segurança aplicada e FinOps documentados. | Relatório entregue mas com seções faltando, formatação parcial ou diagramas/prints confusos. | Relatório ausente, sem prints que comprovem a infraestrutura ou fora das especificações mínimas. | **14 pts** |
+| **Apresentação por Vídeo** | Vídeo funcional (máx. 5 min) demonstrando a aplicação rodando via domínio público com HTTPS, mostrando os recursos no console AWS e explicando as decisões técnicas. | Vídeo entregue mas sem mostrar o console AWS, sem demonstração prática completa ou estourando o tempo. | Vídeo ausente, link quebrado ou sem demonstração técnica mínima da infraestrutura rodando. | **6 pts** |
+
+*Nota: Para alunos que apresentarão o trabalho na Mostratec, a nota de apresentação (6 pts) será atribuída com base na participação do projeto na feira.*
 
 ---
 
@@ -220,10 +237,10 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 
 | Item | Detalhe |
 |---|---|
-| **Prazo máximo** | **12/06/2026 até 23h59** |
-| **Onde entregar** | AVA — seção **Estudos Autônomos** |
-| **Formato** | Um único arquivo **PDF** |
-| **O que incluir** | Relatório técnico completo com evidências incorporadas |
+| **Prazo máximo do Trabalho** | **24/06/2026 até 23h59** |
+| **Onde entregar o Trabalho** | AVA — seção **Estudos Autônomos** |
+| **Formato** | Um único arquivo **PDF** (Relatório técnico + link do vídeo) |
+| **Prova N2 (Individual)** | **26/06/2026 (Sexta-feira)** presencial em sala de aula (sem jogo do Brasil) |
 
 ### Sobre os grupos
 
@@ -329,4 +346,4 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 
 ---
 
-*Última atualização: 2026-05-13 | Status: publicado*
+*Última atualização: 2026-06-05 | Status: publicado*

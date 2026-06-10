@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "13.5"
+aula: "19"
 titulo: "Amazon S3 — Hospedagem Estática e Integração com EC2"
 tipo: pratica
 semana: 14

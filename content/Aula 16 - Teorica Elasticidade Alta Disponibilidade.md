@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: 15
+aula: 16
 titulo: "Elasticidade e Alta Disponibilidade — ELB, Auto Scaling e CloudWatch"
 tipo: teorica
 semana: 13

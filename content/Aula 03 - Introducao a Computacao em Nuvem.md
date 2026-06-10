@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "02"
+aula: "03"
 titulo: "Introdução à Computação em Nuvem – IaaS, PaaS e SaaS"
 tipo: teorica
 semana: 2

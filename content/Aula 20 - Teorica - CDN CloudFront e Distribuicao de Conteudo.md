@@ -1,7 +1,7 @@
 ---
 disciplina: Cloud Computing
 codigo: "14189"
-aula: "13.6t"
+aula: "20"
 titulo: "CDN, Amazon CloudFront e Distribuição Global de Conteúdo"
 tipo: teorica
 semana: 15
@@ -86,12 +86,14 @@ Uma CDN é uma **rede global de servidores de cache** (chamados *Edge Locations*
 2. Se o Edge já tem uma cópia em cache do arquivo → **responde imediatamente** (cache hit).
 3. Se não tem → busca no servidor original, entrega ao usuário **e guarda uma cópia** para as próximas requisições (cache miss → cache fill).
 
+> **Figura 1 — Fluxo de requisição com CDN (Cache Hit vs Cache Miss)**
+
 ```mermaid
 graph LR
-    User((🌐 Usuário<br>Uberlândia)) -->|1. Requisição| Edge["⚡ Edge Location<br>São Paulo<br>(~10ms)"]
-    Edge -->|2. Cache Hit?| Decision{Tem cópia<br>em cache?}
-    Decision -->|✅ SIM| User
-    Decision -->|❌ NÃO| Origin["🖥️ Servidor Origem<br>us-east-1<br>(~120ms)"]
+    User(("Usuário\nUberlândia")) -->|1. Requisição| Edge["Edge Location\nSão Paulo\n~10ms"]
+    Edge -->|2. Cache Hit?| Decision{"Tem cópia\nem cache?"}
+    Decision -->|SIM| User
+    Decision -->|NAO| Origin["Servidor Origem\nus-east-1\n~120ms"]
     Origin -->|3. Resposta + Cache| Edge
     Edge -->|4. Entrega| User
     
@@ -136,12 +138,14 @@ Os dois serviços que vocês precisam conhecer para a disciplina são o **Amazon
 
 A resposta é **custo zero + simplicidade**:
 
+> **Figura 2 — Arquitetura do Projeto Final: Cloudflare como CDN/DNS/SSL**
+
 ```mermaid
 graph LR
     subgraph "Projeto Final dos Alunos"
-        User((🌐 Aluno)) -->|HTTPS| CF["☁️ Cloudflare<br>DNS + SSL + CDN<br>(Grátis)"]
-        CF -->|HTTP| EC2["🖥️ EC2<br>Flask + Nginx"]
-        EC2 --> RDS["🗄️ RDS MySQL<br>(Privado)"]
+        User(("Aluno")) -->|HTTPS| CF["Cloudflare\nDNS + SSL + CDN\nGratis"]
+        CF -->|HTTP| EC2["EC2\nFlask + Nginx"]
+        EC2 --> RDS["RDS MySQL\nPrivado"]
     end
     
     style CF fill:#f48225,stroke:#e65100,color:#fff
@@ -204,21 +208,19 @@ Um cenário clássico de arquitetura AWS: você tem imagens e arquivos estático
 
 O OAC é uma identidade que o CloudFront usa para **assinar as requisições** que faz ao S3. O bucket S3 permanece com `Block Public Access` **ativado** (totalmente privado). A Bucket Policy permite acesso **apenas** ao CloudFront:
 
-```
-┌─────────────────────────────────────────────────┐
-│                    INTERNET                      │
-│                                                  │
-│  Usuário ──HTTPS──→ CloudFront (Edge Location)  │
-│                         │                        │
-│                    [OAC Assinado]                │
-│                         │                        │
-│                         ▼                        │
-│              S3 Bucket (PRIVADO)                 │
-│              Block Public Access: ON             │
-│              Bucket Policy: Allow CloudFront     │
-│                                                  │
-│  Usuário ──HTTP──→ S3 diretamente ──→ ❌ 403    │
-└─────────────────────────────────────────────────┘
+> **Figura 3 — Arquitetura Zero Trust: CloudFront + OAC + S3 Privado**
+
+```mermaid
+graph TD
+    subgraph "INTERNET"
+        User(("Usuario")) -->|HTTPS| CF["CloudFront\nEdge Location"]
+        CF -->|"OAC Assinado\nSigV4"| S3["S3 Bucket PRIVADO\nBlock Public Access: ON\nBucket Policy: Allow CloudFront"]
+        User2(("Atacante")) -->|"HTTP direto"| Block["S3 diretamente\n403 Forbidden"]
+    end
+
+    style CF fill:#ff9800,stroke:#e65100,color:#fff
+    style S3 fill:#2e7d32,stroke:#1b5e20,color:#fff
+    style Block fill:#c62828,stroke:#b71c1c,color:#fff
 ```
 
 ### Bucket Policy para OAC (referência)
@@ -396,15 +398,17 @@ Como o Nginx da EC2 na configuração básica de laboratório escuta em HTTP pur
 
 ### 🧠 Resumo de Decisão: Qual Opção Escolher?
 
+> **Figura 4 — Árvore de Decisão: Qual DNS Gratuito Escolher?**
+
 ```mermaid
 graph TD
-    Start["🤔 Preciso de um domínio<br>para o Projeto Final"] --> Q1{"Preciso de HTTPS<br>automático?"}
-    Q1 -->|Não, só teste rápido| A["⚡ sslip.io<br>(Sem conta / IP dinâmico)"]
-    Q1 -->|Sim, obrigatório| Q2{"Quero URL limpa<br>e profissional?"}
-    Q2 -->|Não importa| B["🦆 DuckDNS<br>(Setup rápido + Certbot na EC2)"]
-    Q2 -->|Sim| Q3{"Tenho aprovação imediata<br>no GitHub Pack?"}
-    Q3 -->|Não / Vai demorar| C["🎓 is-a.dev + Cloudflare<br>(PR no Git / NS customizado)"]
-    Q3 -->|Sim| D["🎁 GitHub Student Pack<br>(Domínio .me/.tech + Cloudflare)"]
+    Start["Preciso de um dominio\npara o Projeto Final"] --> Q1{"Preciso de HTTPS\nautomatico?"}
+    Q1 -->|"Nao, so teste rapido"| A["sslip.io\nSem conta / IP dinamico"]
+    Q1 -->|"Sim, obrigatorio"| Q2{"Quero URL limpa\ne profissional?"}
+    Q2 -->|"Nao importa"| B["DuckDNS\nSetup rapido + Certbot na EC2"]
+    Q2 -->|Sim| Q3{"Tenho aprovacao imediata\nno GitHub Pack?"}
+    Q3 -->|"Nao / Vai demorar"| C["is-a.dev + Cloudflare\nPR no Git / NS customizado"]
+    Q3 -->|Sim| D["GitHub Student Pack\nDominio .me/.tech + Cloudflare"]
     
     style A fill:#4caf50,stroke:#2e7d32,color:#fff
     style B fill:#ff9800,stroke:#e65100,color:#fff
