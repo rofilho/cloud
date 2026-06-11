@@ -21,7 +21,7 @@ tags:
 publicar: true
 ---
 
-# 🚀 Aula 16: Projeto Final — Deploy de Aplicação Completa em Nuvem
+# 🚀 Aula 23: Projeto Final — Deploy de Aplicação Completa em Nuvem
 
 **Disciplina:** Cloud Computing (Cód. 14189)  
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube  

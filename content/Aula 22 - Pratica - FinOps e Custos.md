@@ -16,7 +16,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 14p: Prática — Alertas de Custo, Cost Explorer e Calculadora AWS
+# 🟢 Aula 22: Prática — Alertas de Custo, Cost Explorer e Calculadora AWS
 
 **Disciplina:** Cloud Computing (Cód. 14189)  
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube  

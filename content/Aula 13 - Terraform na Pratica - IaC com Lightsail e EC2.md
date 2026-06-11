@@ -17,7 +17,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 12: Terraform na Prática — IaC com Lightsail e EC2
+# 🟢 Aula 13: Terraform na Prática — IaC com Lightsail e EC2
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube
@@ -583,3 +583,7 @@ Execute o roteiro da aula completo e documente com evidências:
 ---
 
 *Última atualização: 2026-04-29 | Status: publicado*
+
+
+---
+**Hub:** [[MOC - Ensino]]

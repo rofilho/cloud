@@ -112,3 +112,7 @@ Ao final da disciplina, o estudante deverá ser capaz de:
 - **Principal**: MARINESCU, Dan C. *Cloud Computing: Theory and Practice*.
 - **Prática**: Trilha **AWS Academy Cloud Foundations** e cursos correlatos (conceitos, serviços centrais, segurança, arquitetura, precificação).
 - **Legislação e Ética**: LGPD e materiais de conformidade em ambientes cloud, incluindo políticas de provedores e guias de boas práticas.
+
+
+---
+**Hub:** [[MOC - Ensino]]

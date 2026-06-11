@@ -15,7 +15,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 03 e 04: Introdução à AWS Academy e Configuração do Learner Lab
+# 🟢 Aula 04 e 04: Introdução à AWS Academy e Configuração do Learner Lab
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube

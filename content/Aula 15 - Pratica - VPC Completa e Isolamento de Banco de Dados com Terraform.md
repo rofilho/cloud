@@ -19,7 +19,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 13p: VPC Completa e Isolamento de Banco de Dados com Terraform
+# 🟢 Aula 15: VPC Completa e Isolamento de Banco de Dados com Terraform
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube

@@ -19,7 +19,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 13: Segurança na Nuvem — IAM, Criptografia e Proteção de Aplicações
+# 🟢 Aula 17: Segurança na Nuvem — IAM, Criptografia e Proteção de Aplicações
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube

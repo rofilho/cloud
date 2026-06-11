@@ -18,7 +18,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 13.6t: CDN, Amazon CloudFront e Distribuição Global de Conteúdo
+# 🟢 Aula 20: CDN, Amazon CloudFront e Distribuição Global de Conteúdo
 
 **Disciplina:** Cloud Computing (Cód. 14189)  
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube  

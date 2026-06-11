@@ -18,7 +18,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 15: Elasticidade e Alta Disponibilidade — ELB, Auto Scaling e CloudWatch
+# 🟢 Aula 16: Elasticidade e Alta Disponibilidade — ELB, Auto Scaling e CloudWatch
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube

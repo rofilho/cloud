@@ -18,7 +18,7 @@ publicar: true
 ai_tier: hot
 ---
 
-# 🟢 Aula 13t: VPC e Redes na Nuvem
+# 🟢 Aula 14: VPC e Redes na Nuvem
 
 **Disciplina:** Cloud Computing (Cód. 14189)  
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube  

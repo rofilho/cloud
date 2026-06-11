@@ -17,7 +17,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 02: Introdução à Computação em Nuvem: Modelos de Serviço e Implantação
+# 🟢 Aula 03: Introdução à Computação em Nuvem: Modelos de Serviço e Implantação
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube

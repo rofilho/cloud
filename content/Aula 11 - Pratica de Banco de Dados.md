@@ -512,3 +512,7 @@ Execute o roteiro da aula completo e documente com evidências:
 ---
 
 *Última atualização: 2026-04-29 | Status: publicado*
+
+
+---
+**Hub:** [[MOC - Ensino]]

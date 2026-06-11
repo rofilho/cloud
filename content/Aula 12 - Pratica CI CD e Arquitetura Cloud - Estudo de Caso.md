@@ -17,7 +17,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 11.5: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana
+# 🟢 Aula 12: Prática CI/CD e Arquitetura Cloud — Estudo de Caso Sana
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube

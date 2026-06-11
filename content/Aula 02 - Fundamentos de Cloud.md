@@ -16,7 +16,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 01b: Fundamentos de Cloud: História e Conceitos Essenciais
+# 🟢 Aula 02: Fundamentos de Cloud: História e Conceitos Essenciais
 
 **Disciplina:** Cloud Computing (Cód. 14189)
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube
@@ -212,3 +212,7 @@ aws ec2 run-instances \
 
 ---
 *Última atualização: 2026-05-20 | Status: publicado*
+
+
+---
+**Hub:** [[MOC - Ensino]]

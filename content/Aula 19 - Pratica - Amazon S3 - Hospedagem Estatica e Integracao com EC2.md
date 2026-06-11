@@ -19,7 +19,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 13.5: Amazon S3 — Hospedagem Estática e Integração com EC2
+# 🟢 Aula 19: Amazon S3 — Hospedagem Estática e Integração com EC2
 
 **Disciplina:** Cloud Computing (Cód. 14189)  
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube  

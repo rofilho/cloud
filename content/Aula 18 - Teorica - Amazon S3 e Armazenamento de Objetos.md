@@ -16,7 +16,7 @@ tags:
 publicar: true
 ---
 
-# 🟢 Aula 13.5t: Amazon S3 — Armazenamento de Objetos e Alta Disponibilidade
+# 🟢 Aula 18: Amazon S3 — Armazenamento de Objetos e Alta Disponibilidade
 
 **Disciplina:** Cloud Computing (Cód. 14189)  
 **Curso:** Inteligência Artificial e Ciência de Dados — Uniube  
