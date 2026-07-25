@@ -21,6 +21,10 @@ const config: QuartzConfig = {
       "avaliacoes",
       "_Sistema_de_Aulas",
       "_Template_Aula",
+      // Material bruto de apoio, versionado mas nao publicado. Vivia fora do repo
+      // (A:\OneDrive\quartz-sites\) ate 25/07/2026; entrou aqui para acabar com a
+      // duplicata. Sem esta linha os 9 arquivos viram paginas do site.
+      "_knowledge",
     ],
     defaultDateType: "modified",
     theme: {
