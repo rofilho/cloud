@@ -80,7 +80,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 | | Data | Tipo | Conteúdo |
 |---|---|---|---|
-| **Sexta** | 05/06 | 🚀 Projeto | **Kick-off:** apresentação do [[avaliacoes/Projeto_Final]] e instrução prática via [[Aula 23 - Projeto Final - Deploy de Aplicacao Completa em Nuvem]], formação dos grupos (2–4 pessoas), escolha de tema, dúvidas |
+| **Sexta** | 05/06 | 🚀 Projeto | **Kick-off:** apresentação da especificação do projeto e instrução prática via [[Aula 23 - Projeto Final - Deploy de Aplicacao Completa em Nuvem]], formação dos grupos (2–4 pessoas), escolha de tema, dúvidas |
 | **Quarta** | 10/06 | 🔬 Orientação | **⚠️ Prazo: Etapa 0** — Grupos entregam proposta. Orientação 1: professor revisa arquitetura e repositório de cada grupo |
 
 **Entrega da semana:** Etapa 0 — Proposta (obrigatória, sem nota).
@@ -138,9 +138,7 @@ Concluir os conteúdos teóricos restantes (Aulas 12–15), integrar tudo no **P
 
 ## 🔗 Documentos Relacionados
 
-- [[avaliacoes/Projeto_Final]] — Especificação completa do projeto (etapas, rubricas, regras)
-- [[avaliacoes/N2_Questoes]] — Banco de questões para a prova (aulas 08–15)
-- [[MOC - Cloud Computing]] — MOC central da disciplina
+- **Especificação completa do projeto** (etapas, rubricas, regras) — publicada no AVA.
 
 ---
 

@@ -545,4 +545,4 @@ Execute o roteiro da aula completo e documente com evidências:
 
 
 ---
-**Hub:** [[MOC - Ensino]]
+**Hub:** MOC - Ensino

@@ -177,4 +177,4 @@ aws ec2 run-instances \
 
 
 ---
-**Hub:** [[MOC - Ensino]]
+**Hub:** MOC - Ensino

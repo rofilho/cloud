@@ -25,7 +25,7 @@ ai_tier: hot
 **Semana:** 13 | Sexta-feira, 22/05/2026  
 **Professor:** Romualdo Mathias Filho  
 **Tipo:** 📘 Teórica  
-**Tópicos:** [[VPC]] (Virtual Private Cloud), Blocos CIDR, Subnets Públicas e Privadas, Tabelas de Roteamento, Internet Gateway (IGW), NAT Gateway, Security Groups Encadeados e NACLs.
+**Tópicos:** VPC (Virtual Private Cloud), Blocos CIDR, Subnets Públicas e Privadas, Tabelas de Roteamento, Internet Gateway (IGW), NAT Gateway, Security Groups Encadeados e NACLs.
 
 ---
 
@@ -37,7 +37,7 @@ ai_tier: hot
 >   - Como funciona o endereçamento (IP e CIDR) usando analogias do mundo real.
 >   - A diferença entre áreas públicas e privadas dentro de uma rede na nuvem.
 >   - Como os firewalls virtuais protegem seus servidores em camadas.
-> * **Pré-requisitos:** Apenas familiaridade com o laboratório da [[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform|Aula 13p]] (Terraform). Não é necessário ter cursado Redes de Computadores.
+> * **Pré-requisitos:** Apenas familiaridade com o laboratório da [[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform|Aula 13p]] (Terraform). Não é necessário ter cursado Redes de Computadores.
 > * **📂 Recursos Adicionais:**
 >   - [Código Terraform de Suporte no GitHub](https://github.com/rofilho/cloud-computing-uniube/tree/main/aula13-vpc)
 
@@ -51,13 +51,13 @@ Ao final desta aula, você será capaz de:
 3. Diferenciar subnet pública de subnet privada e saber quando usar cada uma.
 4. Explicar o papel do Internet Gateway, do NAT Gateway e das Tabelas de Roteamento.
 5. Comparar Security Groups e NACLs e entender por que usamos os dois.
-6. Conectar toda essa teoria com o que vocês construíram no laboratório prático com [[Terraform]].
+6. Conectar toda essa teoria com o que vocês construíram no laboratório prático com Terraform.
 
 ---
 
 ## 🔄 Revisão Rápida: O que Aconteceu no Lab da Semana Passada? (10 min)
 
-Na última aula prática ([[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform|Aula 13p]]), vocês criaram uma infraestrutura completa usando Terraform. Vamos relembrar os três testes que fizemos e entender **por que** cada um teve o resultado que teve:
+Na última aula prática ([[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform|Aula 13p]]), vocês criaram uma infraestrutura completa usando Terraform. Vamos relembrar os três testes que fizemos e entender **por que** cada um teve o resultado que teve:
 
 | **O que testamos** | **O que aconteceu e por quê** |
 | :--- | :--- |

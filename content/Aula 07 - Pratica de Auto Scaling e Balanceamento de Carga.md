@@ -51,7 +51,7 @@ Na aula teórica anterior, discutimos a diferença conceitual e as capacidades d
 | --- | --- |
 | [[Aula 06 - Computacao em Nuvem EC2 Lambda e Serverless#2. Amazon EC2 (Elastic Compute Cloud)\|Amazon EC2]] | Usaremos instâncias EC2 virtuais como base de execução para o nosso modelo de escalabilidade automatizada. |
 | [[Aula 05 - Infraestrutura Global AWS e Lab IAM#2. Laboratório Prático: Introdução ao AWS IAM\|Chaves SSH e Security Groups]] | Configuraremos o Launch Template com chaves seguras e liberação da porta 80 (HTTP) para a nossa aplicação. |
-| [[Aula 02 - Introducao a Computacao em Nuvem#3. Modelos de Implantação de Nuvem\|Elasticidade e Escala]] | A elasticidade horizontal é a materialização prática da nuvem pública, onde recursos são adicionados ou removidos sob demanda real. |
+| [[Aula 03 - Introducao a Computacao em Nuvem#3. Modelos de Implantação de Nuvem\|Elasticidade e Escala]] | A elasticidade horizontal é a materialização prática da nuvem pública, onde recursos são adicionados ou removidos sob demanda real. |
 
 ---
 

@@ -26,7 +26,7 @@ publicar: true
 **Semana:** 13 | Quarta-feira, 20/05/2026
 **Professor:** Romualdo Mathias Filho
 **Tipo:** 🔬 Prática
-**Tópicos:** [[VPC]], Subnets Públicas e Privadas, Internet Gateway, Route Tables, DB Subnet Group, Security Groups, Amazon RDS, EC2, [[Terraform]], IaC, Multi-tier Architecture
+**Tópicos:** VPC, Subnets Públicas e Privadas, Internet Gateway, Route Tables, DB Subnet Group, Security Groups, Amazon RDS, EC2, Terraform, IaC, Multi-tier Architecture
 
 ---
 
@@ -38,12 +38,12 @@ publicar: true
 
 Ao final desta aula, os alunos serão capazes de:
 
-- Provisionar uma **[[VPC]]** customizada do zero pela interface web do Console AWS.
+- Provisionar uma **VPC** customizada do zero pela interface web do Console AWS.
 - Criar **Subnets** públicas e privadas em Zonas de Disponibilidade diferentes.
 - Configurar **Internet Gateway** e **Route Tables** para expor apenas a camada pública.
 - Criar um **DB Subnet Group** e associar o Amazon RDS a subnets privadas.
 - Encadear **Security Groups** para que o RDS aceite tráfego somente da EC2.
-- Automatizar toda a mesma infraestrutura com **[[Terraform]]** (IaC), eliminando trabalho manual.
+- Automatizar toda a mesma infraestrutura com **Terraform** (IaC), eliminando trabalho manual.
 - Testar e validar o **isolamento de rede** na prática.
 
 ---
@@ -53,8 +53,8 @@ Ao final desta aula, os alunos serão capazes de:
 | **Conceito (Aulas Anteriores)** | **Conexão com hoje** |
 | --- | --- |
 | Amazon RDS ([[Aula 11 - Pratica de Banco de Dados]]) | Na Aula 11, usamos a VPC padrão da AWS — o banco ficou exposto. Hoje criamos uma VPC **própria** para isolar o banco corretamente. |
-| [[Terraform]] Básico ([[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]]) | O ciclo `init` → `plan` → `apply` → `destroy` será usado hoje para provisionar **redes inteiras**, não apenas servidores. |
-| ELB e Auto Scaling ([[Aula 15 - Teorica Elasticidade Alta Disponibilidade]]) | Na Aula 15, vimos que o ELB distribui tráfego entre instâncias em múltiplas AZs. Hoje entendemos **por que** distribuímos subnets em AZs diferentes. |
+| Terraform Básico ([[Aula 13 - Terraform na Pratica - IaC com Lightsail e EC2]]) | O ciclo `init` → `plan` → `apply` → `destroy` será usado hoje para provisionar **redes inteiras**, não apenas servidores. |
+| ELB e Auto Scaling ([[Aula 16 - Teorica Elasticidade Alta Disponibilidade]]) | Na Aula 15, vimos que o ELB distribui tráfego entre instâncias em múltiplas AZs. Hoje entendemos **por que** distribuímos subnets em AZs diferentes. |
 
 > 💡 **O salto de hoje:** Na Aula 11, criamos um RDS na VPC padrão — qualquer pessoa com o endpoint e a senha poderia acessar o banco pela internet. Isso é uma **falha grave de segurança**. Hoje implementamos a arquitetura **Multi-Tier** — o padrão do mercado — com isolamento total. E no final, automatizamos tudo com uma única linha de comando.
 

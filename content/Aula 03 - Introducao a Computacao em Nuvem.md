@@ -44,9 +44,9 @@ Na aula anterior, estudamos os fundamentos econômicos e a taxonomia NIST de nuv
 
 | **Conceito (Aula 01b)** | **Conexão com hoje** |
 | --- | --- |
-| [[Aula 01 - Fundamentos de Cloud#4. Impacto Financeiro: Capex vs Opex\|Despesas Operacionais (Opex)]] | Modelos como IaaS e PaaS viabilizam a eliminação de despesas CAPEX, reduzindo a barreira de entrada técnica. |
-| [[Aula 01 - Fundamentos de Cloud#5. Definição Oficial: 5 Características Essenciais do NIST\|Características NIST]] | Veremos como a elasticidade rápida e pool de recursos se traduzem nas ofertas concretas de IaaS, PaaS e SaaS. |
-| [[Aula 01 - Fundamentos de Cloud#6. Demonstração Conceitual: Infraestrutura como Código (IaC)\|Virtualização e Hypervisor]] | O hypervisor é o bloco lógico básico que permite aos provedores públicos venderem IaaS escalável. |
+| [[Aula 02 - Fundamentos de Cloud#4. Impacto Financeiro: Capex vs Opex\|Despesas Operacionais (Opex)]] | Modelos como IaaS e PaaS viabilizam a eliminação de despesas CAPEX, reduzindo a barreira de entrada técnica. |
+| [[Aula 02 - Fundamentos de Cloud#5. Definição Oficial: 5 Características Essenciais do NIST\|Características NIST]] | Veremos como a elasticidade rápida e pool de recursos se traduzem nas ofertas concretas de IaaS, PaaS e SaaS. |
+| [[Aula 02 - Fundamentos de Cloud#6. Demonstração Conceitual: Infraestrutura como Código (IaC)\|Virtualização e Hypervisor]] | O hypervisor é o bloco lógico básico que permite aos provedores públicos venderem IaaS escalável. |
 
 ---
 

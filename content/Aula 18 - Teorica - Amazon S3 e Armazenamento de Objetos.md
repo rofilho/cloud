@@ -23,7 +23,7 @@ publicar: true
 **Semana:** 14 | Sexta-feira, 29/05/2026  
 **Professor:** Romualdo Mathias Filho  
 **Tipo:** 📘 Teórica  
-**Tópicos:** [[Amazon_S3]], Armazenamento de Objetos, Classes de Armazenamento, Políticas de Ciclo de Vida (Lifecycle), Bucket Policies, Segurança e Criptografia, Static Website Hosting.
+**Tópicos:** Amazon S3, Armazenamento de Objetos, Classes de Armazenamento, Políticas de Ciclo de Vida (Lifecycle), Bucket Policies, Segurança e Criptografia, Static Website Hosting.
 
 ---
 
@@ -34,10 +34,9 @@ publicar: true
 >   - A distinção arquitetural e operacional entre armazenamento de Objetos, Bloco (EBS) e Arquivo (EFS).
 >   - A física de custos do S3 através de suas classes de armazenamento e regras de ciclo de vida.
 >   - A modelagem de segurança via IAM Policies, Bucket Policies e Criptografia em repouso.
-> * **Pré-requisitos:** Conceitos de [[VPC]], subnets, e permissões do IAM analisados em [[Aula 13 - Seguranca na Nuvem]].
+> * **Pré-requisitos:** Conceitos de VPC, subnets, e permissões do IAM analisados em [[Aula 17 - Seguranca na Nuvem]].
 > * **📂 Recursos Adicionais para Download:**
 >   - [📚 AWS Certified Solutions Architect Study Guide](https://www.wiley.com/en-us/AWS+Certified+Solutions+Architect+Study+Guide-p-9781119713081)
->   - [[../../40_Recursos/Cheatsheet_S3_CLI.pdf|Cheatsheet de Comandos AWS CLI para S3 (PDF)]]
 >   - [🌐 Documentação Oficial do Amazon S3](https://docs.aws.amazon.com/s3/)
 
 ---
@@ -56,15 +55,15 @@ Ao final desta aula, os alunos serão capazes de:
 
 | **Conceito (Aulas Anteriores)** | **Conexão com a Aula de Hoje** |
 | :--- | :--- |
-| Segurança na Nuvem ([[Aula 13 - Seguranca na Nuvem]]) | O IAM fornece chaves e políticas. Hoje entenderemos como as **Bucket Policies** adicionam uma camada de segurança baseada em recursos diretamente no S3. |
+| Segurança na Nuvem ([[Aula 17 - Seguranca na Nuvem]]) | O IAM fornece chaves e políticas. Hoje entenderemos como as **Bucket Policies** adicionam uma camada de segurança baseada em recursos diretamente no S3. |
 | Instâncias EC2 ([[Aula 08 - Lancando Instancias EC2 AWS CLI e Terraform]]) | A EC2 armazena seus dados no EBS (bloco). Hoje compararemos o EBS com o S3 para entender por que o S3 é a escolha ideal para dados não estruturados. |
-| Conceito de Infraestrutura como Código ([[Terraform]]) | Provisionamos recursos via console e CLI. O S3 se destaca como o armazenamento ideal para armazenar o arquivo de estado global do Terraform (`.tfstate`). |
+| Conceito de Infraestrutura como Código (Terraform) | Provisionamos recursos via console e CLI. O S3 se destaca como o armazenamento ideal para armazenar o arquivo de estado global do Terraform (`.tfstate`). |
 
 ---
 
 ## 📌 1. A Revolução do Armazenamento de Objetos com AWS S3 [Teoria ⏳ 15 min]
 
-Em sistemas tradicionais *on-premises* ou em instâncias [[EC2]], o armazenamento comum é baseado em **Bloco (Block Storage)** por meio do EBS. Nele, o disco rígido é mapeado de forma crua, dividido em blocos de tamanho fixo, e exige um Sistema de Arquivos (como ext4 ou NTFS) para ser legível pelo Sistema Operacional. Existe também o armazenamento de **Arquivo (File Storage)** como o EFS, que compartilha arquivos em rede via protocolo NFS.
+Em sistemas tradicionais *on-premises* ou em instâncias EC2, o armazenamento comum é baseado em **Bloco (Block Storage)** por meio do EBS. Nele, o disco rígido é mapeado de forma crua, dividido em blocos de tamanho fixo, e exige um Sistema de Arquivos (como ext4 ou NTFS) para ser legível pelo Sistema Operacional. Existe também o armazenamento de **Arquivo (File Storage)** como o EFS, que compartilha arquivos em rede via protocolo NFS.
 
 O **Amazon S3** quebra esse paradigma ao implementar o **Armazenamento de Objetos (Object Storage)**. Os dados não residem em diretórios aninhados e setores físicos. Em vez disso, o S3 utiliza uma **estrutura plana (flat namespace)** baseada em chaves e valores:
 
@@ -113,7 +112,7 @@ graph TD
 
 ## 📌 2. Classes de Armazenamento e Ciclo de Vida (FinOps) [Teoria & Custos ⏳ 15 min]
 
-Nem todos os dados de uma empresa são acessados de forma recorrente. Armazenar backups antigos de conformidade fiscal de 5 anos atrás com o mesmo custo de armazenamento das fotos de perfil acessadas no feed do aplicativo a cada segundo é um erro crasso de engenharia de custos (**[[FinOps]]**). 
+Nem todos os dados de uma empresa são acessados de forma recorrente. Armazenar backups antigos de conformidade fiscal de 5 anos atrás com o mesmo custo de armazenamento das fotos de perfil acessadas no feed do aplicativo a cada segundo é um erro crasso de engenharia de custos (**FinOps**). 
 
 Para resolver isso, a AWS divide o S3 em **Classes de Armazenamento**, balanceando custo de armazenamento, custo de requisição e velocidade de recuperação:
 

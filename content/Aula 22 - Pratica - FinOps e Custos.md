@@ -37,7 +37,6 @@ publicar: true
 > * **Pré-requisitos:** Acesso ao Console AWS da AWS Academy (Learner Lab) ou conta pessoal da AWS.
 > * **📂 Recursos Adicionais para Download:**
 >   - [AWS Pricing Calculator - Site Oficial](https://calculator.aws/)
->   - [[../../40_Recursos/Calculadora_AWS_Estudo_Caso.pdf|Estudo de Caso de Dimensionamento de TCO (PDF)]]
 
 ---
 
@@ -54,9 +53,9 @@ Ao final desta aula, os alunos serão capazes de:
 
 | **Conceito (Aulas Anteriores)** | **Conexão com a Aula de Hoje** |
 | :--- | :--- |
-| [[Aula 14 - FinOps e Custos]] | Entendemos os fundamentos conceituais do FinOps (Informar, Otimizar, Operar). Hoje vamos colocar em prática as ferramentas de visibilidade e governança. |
-| [[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]] | Criamos uma arquitetura segura com subnets públicas, subnets privadas e NAT Gateway. Hoje aprenderemos a calcular o custo real que essa infraestrutura gera por mês. |
-| [[Aula 13 - Seguranca na Nuvem]] | Entendemos que o IAM governa permissões de acesso. Hoje veremos que os Billing Alarms e Budgets atuam como a governança financeira de custos da conta. |
+| [[Aula 21 - FinOps e Custos]] | Entendemos os fundamentos conceituais do FinOps (Informar, Otimizar, Operar). Hoje vamos colocar em prática as ferramentas de visibilidade e governança. |
+| [[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]] | Criamos uma arquitetura segura com subnets públicas, subnets privadas e NAT Gateway. Hoje aprenderemos a calcular o custo real que essa infraestrutura gera por mês. |
+| [[Aula 17 - Seguranca na Nuvem]] | Entendemos que o IAM governa permissões de acesso. Hoje veremos que os Billing Alarms e Budgets atuam como a governança financeira de custos da conta. |
 
 ---
 

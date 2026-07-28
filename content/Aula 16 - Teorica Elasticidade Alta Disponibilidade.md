@@ -189,8 +189,8 @@ SELECT * FROM tech_academy.alunos ORDER BY id_aluno DESC LIMIT 5;
 | **Conceito (Aulas Anteriores)** | **Conexão com hoje** |
 | --- | --- |
 | Amazon RDS (`[[Aula 10 - Banco de Dados na Nuvem]]`) | O RDS oferece Multi-AZ para alta disponibilidade dos dados. Hoje estendemos essa resiliência para os servidores web com ELB e Auto Scaling. |
-| Terraform e IaC (`[[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]]`) | Automatizamos a criação de instâncias individuais. Hoje entendemos como o Auto Scaling usa "moldes" (Launch Templates) para escalar dinamicamente a infraestrutura. |
-| VPC e Redes (`[[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]`) | Distribuímos subnets em AZs diferentes. Hoje compreendemos por que desenhar redes Multi-AZ é o pré-requisito para o balanceamento de carga (ELB). |
+| Terraform e IaC (`[[Aula 13 - Terraform na Pratica - IaC com Lightsail e EC2]]`) | Automatizamos a criação de instâncias individuais. Hoje entendemos como o Auto Scaling usa "moldes" (Launch Templates) para escalar dinamicamente a infraestrutura. |
+| VPC e Redes (`[[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]`) | Distribuímos subnets em AZs diferentes. Hoje compreendemos por que desenhar redes Multi-AZ é o pré-requisito para o balanceamento de carga (ELB). |
 
 🔗 **Conexão com a aula de hoje:** Na demonstração inicial, observamos que o CloudWatch já monitora o RDS automaticamente. Mas e quando a demanda aumenta? O banco aguenta? E a aplicação? É aqui que entram **Elasticidade, Auto Scaling e Alta Disponibilidade** — o tema central desta aula.
 

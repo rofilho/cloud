@@ -115,4 +115,4 @@ Ao final da disciplina, o estudante deverá ser capaz de:
 
 
 ---
-**Hub:** [[MOC - Ensino]]
+**Hub:** MOC - Ensino

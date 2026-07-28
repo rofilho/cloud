@@ -150,4 +150,4 @@ O **Amazon DynamoDB** é o banco de dados de chave-valor e documentos da AWS.
 
 
 ---
-**Hub:** [[MOC - Ensino]]
+**Hub:** MOC - Ensino

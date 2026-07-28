@@ -48,7 +48,7 @@ Ao final desta aula, os alunos serão capazes de:
 | **Conceito (Aulas Anteriores)** | **Conexão com hoje** |
 | --- | --- |
 | [[Aula 10 - Banco de Dados na Nuvem]] | Como o PostgreSQL é gerenciado fora dos containers, garantindo persistência e alta disponibilidade. |
-| [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]] | O isolamento da rede interna dos containers e o provisionamento de servidores web. |
+| [[Aula 13 - Terraform na Pratica - IaC com Lightsail e EC2]] | O isolamento da rede interna dos containers e o provisionamento de servidores web. |
 | [[Aula 06 - Computacao em Nuvem EC2 Lambda e Serverless]] | Como VMs na nuvem hospedam as Stacks Docker do sistema. |
 
 ---

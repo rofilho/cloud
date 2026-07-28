@@ -47,7 +47,7 @@ Na aula prática anterior, exploramos a distribuição global de datacenters e o
 | --- | --- |
 | [[Aula 05 - Infraestrutura Global AWS e Lab IAM#1. Explorando a Infraestrutura Global da AWS\|Regiões e AZs]] | Os servidores virtuais (EC2) que provisionaremos hoje serão localizados fisicamente em Regiões e AZs específicas. |
 | [[Aula 05 - Infraestrutura Global AWS e Lab IAM#2. Laboratório Prático: Introdução ao AWS IAM\|IAM (Identity & Access)]] | Compreenderemos como as instâncias EC2 e as funções Lambda utilizam credenciais e permissões seguras para atuar na nuvem. |
-| [[Aula 02 - Introducao a Computacao em Nuvem#2.1. IaaS – Infrastructure as a Service (Infraestrutura como Serviço)\|IaaS (Infraestrutura)]] | O Amazon EC2 representa a materialização clássica do modelo IaaS na nuvem da AWS. |
+| [[Aula 03 - Introducao a Computacao em Nuvem#2.1. IaaS – Infrastructure as a Service (Infraestrutura como Serviço)\|IaaS (Infraestrutura)]] | O Amazon EC2 representa a materialização clássica do modelo IaaS na nuvem da AWS. |
 
 ---
 

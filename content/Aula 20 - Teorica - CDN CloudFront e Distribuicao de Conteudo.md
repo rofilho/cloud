@@ -25,7 +25,7 @@ publicar: true
 **Semana:** 15 | Terça-feira, 03/06/2026  
 **Professor:** Romualdo Mathias Filho  
 **Tipo:** 📘 Teórica  
-**Tópicos:** [[Zero_Trust]], CDN e Edge Computing, Amazon CloudFront, Origin Access Control (OAC), HTTPS/TLS, DNS Gratuito para o Projeto Final.
+**Tópicos:** Zero Trust, CDN e Edge Computing, Amazon CloudFront, Origin Access Control (OAC), HTTPS/TLS, DNS Gratuito para o Projeto Final.
 
 ---
 
@@ -37,7 +37,7 @@ publicar: true
 >   - O papel do HTTPS/TLS na segurança de dados em trânsito e como obtê-lo gratuitamente via Cloudflare ou AWS.
 >   - O mecanismo de Origin Access Control (OAC) do CloudFront para proteger buckets S3 privados.
 >   - **Como obter um domínio DNS gratuito** para o Projeto Final da disciplina.
-> * **Pré-requisitos:** Conceitos de [[Amazon_S3]], Bucket Policies e [[VPC]] vistos nas aulas anteriores.
+> * **Pré-requisitos:** Conceitos de Amazon S3, Bucket Policies e VPC vistos nas aulas anteriores.
 > * **📂 Recursos Adicionais para Download:**
 >   - [🌐 Documentação Oficial do Amazon CloudFront](https://docs.aws.amazon.com/cloudfront/)
 >   - [🌐 sslip.io — DNS Gratuito Baseado em IP](https://sslip.io)
@@ -59,9 +59,9 @@ Ao final desta aula, os alunos serão capazes de:
 
 | **Conceito (Aulas Anteriores)** | **Conexão com a Aula de Hoje** |
 | :--- | :--- |
-| Static Website Hosting no S3 ([[Aula 13.5t - Teorica - Amazon S3 e Armazenamento de Objetos]]) | O S3 pode hospedar frontends, mas o endpoint público é HTTP sem criptografia e sem cache global. Hoje entenderemos como a CDN resolve isso. |
-| IAM Roles e Bucket Policies ([[Aula 13 - Seguranca na Nuvem]]) | As políticas de acesso do S3 são a base para entender como o OAC do CloudFront obtém permissão para ler objetos de um bucket **privado**. |
-| Cloudflare no Projeto Final ([[Aula 16 - Projeto Final - Deploy de Aplicacao Completa em Nuvem]]) | O Projeto Final usa Cloudflare como CDN + DNS + SSL. Hoje vocês vão entender **por que** essa arquitetura funciona e quais são as alternativas. |
+| Static Website Hosting no S3 ([[Aula 18 - Teorica - Amazon S3 e Armazenamento de Objetos]]) | O S3 pode hospedar frontends, mas o endpoint público é HTTP sem criptografia e sem cache global. Hoje entenderemos como a CDN resolve isso. |
+| IAM Roles e Bucket Policies ([[Aula 17 - Seguranca na Nuvem]]) | As políticas de acesso do S3 são a base para entender como o OAC do CloudFront obtém permissão para ler objetos de um bucket **privado**. |
+| Cloudflare no Projeto Final ([[Aula 23 - Projeto Final - Deploy de Aplicacao Completa em Nuvem]]) | O Projeto Final usa Cloudflare como CDN + DNS + SSL. Hoje vocês vão entender **por que** essa arquitetura funciona e quais são as alternativas. |
 
 ---
 
@@ -429,7 +429,7 @@ graph TD
 | **Edge Location** | Servidor de borda da CDN posicionado em uma cidade específica (ex: São Paulo), que armazena cópias cache dos arquivos do servidor original. |
 | **Amazon CloudFront** | CDN nativa da AWS com integração direta ao S3 e EC2, ideal para arquiteturas 100% AWS com OAC e ACM. |
 | **Cloudflare** | CDN independente com plano gratuito que inclui DNS, HTTPS automático e proteção DDoS — usado no Projeto Final. |
-| **Origin Access Control (OAC)** | Mecanismo do CloudFront que assina requisições ao S3 privado, garantindo que apenas a CDN autorizada acesse os objetos (arquitetura [[Zero_Trust]]). |
+| **Origin Access Control (OAC)** | Mecanismo do CloudFront que assina requisições ao S3 privado, garantindo que apenas a CDN autorizada acesse os objetos (arquitetura Zero Trust). |
 | **HTTPS/TLS** | Protocolo de criptografia em trânsito que protege dados entre cliente e servidor, identificado pelo cadeado verde no navegador. |
 | **sslip.io / DuckDNS** | Serviços gratuitos de DNS para desenvolvimento e projetos acadêmicos, eliminando a necessidade de comprar domínios. |
 

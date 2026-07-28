@@ -26,7 +26,7 @@ publicar: true
 **Semana:** 14 | Quarta-feira, 27/05/2026  
 **Professor:** Romualdo Mathias Filho  
 **Tipo:** 🔬 Prática  
-**Tópicos:** [[Amazon_S3]], Hospedagem Estática, Bucket Policies, Integração Frontend-Backend, [[EC2]], [[Terraform]], Armazenamento de Objetos, IAM Roles.
+**Tópicos:** Amazon S3, Hospedagem Estática, Bucket Policies, Integração Frontend-Backend, EC2, Terraform, Armazenamento de Objetos, IAM Roles.
 
 ---
 
@@ -42,8 +42,6 @@ publicar: true
 > * **Pré-requisitos:** Conta AWS Academy ativa, Terraform 1.x instalado, e editor de código (VS Code).
 > * **📂 Recursos Adicionais para Download:**
 >   - [Repositório de Exemplos AWS S3 Oficial](https://github.com/awsdocs/amazon-s3-developer-guide)
->   - [[../../40_Recursos/Cheatsheet_S3_CLI.pdf|Cheatsheet de Comandos AWS CLI para S3 (PDF)]]
->   - [🌐 Visualizar Versão HTML Premium (Slides)](file:///a:/OneDrive/organizacao/Uniube/10_Acao/Uniube/Cloud_Computing/Aula%2013.5%20-%20Pratica%20-%20Amazon%20S3%20-%20Hospedagem%20Estatica%20e%20Integra%20com%20EC2.html)
 
 ---
 
@@ -63,8 +61,8 @@ Ao final desta aula, os alunos serão capazes de:
 | **Conceito (Aulas Anteriores)** | **Conexão com a Aula de Hoje** |
 | :--- | :--- |
 | Instâncias EC2 ([[Aula 08 - Lancando Instancias EC2 AWS CLI e Terraform]]) | Usamos a EC2 para hospedar nosso servidor de aplicação. Hoje a EC2 atuará estritamente como **API de backend**, desacoplada da camada visual (frontend). |
-| VPC e Segurança de Rede ([[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]) | Protegemos subnets e portas. Hoje permitimos que a EC2 acesse o S3 por meio de uma **IAM Role**, garantindo o mínimo acesso à internet. |
-| Teoria de Segurança ([[Aula 13 - Seguranca na Nuvem]]) | Entendemos o IAM. Hoje aplicamos de forma prática uma permissão de leitura de bucket para a instância computacional. |
+| VPC e Segurança de Rede ([[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]) | Protegemos subnets e portas. Hoje permitimos que a EC2 acesse o S3 por meio de uma **IAM Role**, garantindo o mínimo acesso à internet. |
+| Teoria de Segurança ([[Aula 17 - Seguranca na Nuvem]]) | Entendemos o IAM. Hoje aplicamos de forma prática uma permissão de leitura de bucket para a instância computacional. |
 
 > 💡 **O salto de hoje:** Até agora, colocávamos o frontend HTML/CSS e o backend de banco na mesma máquina EC2. Se o site recebia muito acesso, a máquina caía. Hoje implementamos a **Arquitetura Desacoplada (Serverless Frontend)**: a interface do usuário roda no S3 (com escalabilidade infinita e custo quase zero), e a computação pesada fica isolada na EC2.
 

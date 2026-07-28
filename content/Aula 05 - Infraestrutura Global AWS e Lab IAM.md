@@ -45,10 +45,10 @@ Nas aulas passadas, consolidamos as definições lógicas e práticas de acesso 
 
 | **Conceito (Aula Anterior)** | **Conexão com hoje** |
 | --- | --- |
-| [[Aula 02 - Introducao a Computacao em Nuvem|IaaS (Infraestrutura como Serviço)]] | O console AWS permite provisionar fisicamente recursos brutos de computação, rede e storage sob demanda. |
-| [[Aula 02 - Introducao a Computacao em Nuvem|Nuvem Pública]] | A AWS organiza sua infraestrutura global para garantir alta disponibilidade e elasticidade na nuvem pública. |
-| [[Aula 03 e 04 - Introducao a AWS Academy|AWS Academy Learner Lab]] | Utilizaremos o sandbox elástico e chaves de sessão federadas para executar o laboratório prático. |
-| [[Aula 03 e 04 - Introducao a AWS Academy|Restrições do IAM (`LabRole`)]] | Aprenderemos a trabalhar sob a `LabRole` e a compreender as regras de menor privilégio na prática corporativa. |
+| [[Aula 03 - Introducao a Computacao em Nuvem|IaaS (Infraestrutura como Serviço)]] | O console AWS permite provisionar fisicamente recursos brutos de computação, rede e storage sob demanda. |
+| [[Aula 03 - Introducao a Computacao em Nuvem|Nuvem Pública]] | A AWS organiza sua infraestrutura global para garantir alta disponibilidade e elasticidade na nuvem pública. |
+| [[Aula 04 - Introducao a AWS Academy|AWS Academy Learner Lab]] | Utilizaremos o sandbox elástico e chaves de sessão federadas para executar o laboratório prático. |
+| [[Aula 04 - Introducao a AWS Academy|Restrições do IAM (`LabRole`)]] | Aprenderemos a trabalhar sob a `LabRole` e a compreender as regras de menor privilégio na prática corporativa. |
 
 ---
 

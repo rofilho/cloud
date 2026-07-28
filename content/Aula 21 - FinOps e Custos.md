@@ -46,9 +46,9 @@ Ao final desta aula, o aluno será capaz de:
 
 | **Conceito (Aula Anterior)** | **Conexão com hoje** |
 | --- | --- |
-| [[Aula 12 - Terraform na Pratica - IaC com Lightsail e EC2]] | O Terraform nos permite criar recursos rapidamente. Hoje veremos como etiquetar (tag) e monitorar o custo de tudo o que provisionamos via IaC. |
-| [[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]] | O isolamento de subnets privadas protege nossos bancos de dados. Mas e se esquecermos esses bancos e NAT Gateways ligados? Hoje aprenderemos a rastrear e evitar desperdícios em redes e banco de dados. |
-| [[Aula 13 - Seguranca na Nuvem]] | A segurança aplica o princípio do menor privilégio. Em FinOps, aplicamos um princípio análogo: o menor provisionamento necessário para garantir desempenho sem carregar "peso morto" financeiro. |
+| [[Aula 13 - Terraform na Pratica - IaC com Lightsail e EC2]] | O Terraform nos permite criar recursos rapidamente. Hoje veremos como etiquetar (tag) e monitorar o custo de tudo o que provisionamos via IaC. |
+| [[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]] | O isolamento de subnets privadas protege nossos bancos de dados. Mas e se esquecermos esses bancos e NAT Gateways ligados? Hoje aprenderemos a rastrear e evitar desperdícios em redes e banco de dados. |
+| [[Aula 17 - Seguranca na Nuvem]] | A segurança aplica o princípio do menor privilégio. Em FinOps, aplicamos um princípio análogo: o menor provisionamento necessário para garantir desempenho sem carregar "peso morto" financeiro. |
 
 ---
 

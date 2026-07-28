@@ -25,7 +25,7 @@ publicar: true
 **Curso:** Inteligência Artificial e Ciência de Dados, Uniube
 **Semana 14** | Sexta-feira, 22/05/2026 | Prof. Romualdo Mathias Filho
 **Tipo:** 📘 Teórica (Sexta-feira)
-**Tópicos:** [[Zero_Trust]], IAM (Usuários, Roles, Policies), Princípio do Menor Privilégio, KMS, Secrets Manager, [[VPC]] Security Groups, WAF, Shield, Modelo de Responsabilidade Compartilhada
+**Tópicos:** Zero Trust, IAM (Usuários, Roles, Policies), Princípio do Menor Privilégio, KMS, Secrets Manager, VPC Security Groups, WAF, Shield, Modelo de Responsabilidade Compartilhada
 
 ---
 
@@ -50,9 +50,9 @@ Ao final desta aula, os alunos serão capazes de:
 
 | **Conceito (Aulas Anteriores)** | **Conexão com hoje** |
 | --- | --- |
-| Security Groups ([[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]) | Na prática de VPC, encadeamos SGs para isolar o RDS. Hoje entendemos os fundamentos teóricos por trás disso. |
-| VPC e Subnets Privadas ([[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]) | O isolamento de rede é uma camada de segurança. Hoje vamos aprofundar nas outras camadas: identidade, criptografia e WAF. |
-| Elasticidade e ELB ([[Aula 15 - Teorica Elasticidade Alta Disponibilidade]]) | O ALB que distribui tráfego também pode trabalhar com WAF para filtrar requisições maliciosas antes de chegar aos servidores. |
+| Security Groups ([[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]) | Na prática de VPC, encadeamos SGs para isolar o RDS. Hoje entendemos os fundamentos teóricos por trás disso. |
+| VPC e Subnets Privadas ([[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]]) | O isolamento de rede é uma camada de segurança. Hoje vamos aprofundar nas outras camadas: identidade, criptografia e WAF. |
+| Elasticidade e ELB ([[Aula 16 - Teorica Elasticidade Alta Disponibilidade]]) | O ALB que distribui tráfego também pode trabalhar com WAF para filtrar requisições maliciosas antes de chegar aos servidores. |
 
 > 💡 **O salto de hoje:** Nas aulas anteriores, protegemos o banco de dados isolando-o numa rede privada. Mas e se alguém roubar as credenciais do `admin`? E se o código tiver uma SQL Injection? Isolamento de rede **não basta** — hoje adicionamos as camadas de **identidade**, **criptografia** e **proteção de aplicação**.
 
@@ -168,7 +168,7 @@ Ao final desta aula, os alunos serão capazes de:
 
 ### Como a EC2 Acessa o S3 Sem Senha (IAM Role)
 
-Na [[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]], vimos que o Security Group do RDS referencia o SG da EC2 em vez de um IP fixo. O conceito de IAM Role é análogo:
+Na [[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]], vimos que o Security Group do RDS referencia o SG da EC2 em vez de um IP fixo. O conceito de IAM Role é análogo:
 
 1. Você cria uma **IAM Role** com uma Policy que permite `s3:GetObject`
 2. Anexa essa Role à instância EC2 (Instance Profile)
@@ -200,7 +200,7 @@ Na [[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terrafo
 | **Em repouso (At Rest)** | Dados armazenados (S3, EBS, RDS) | KMS + criptografia AES-256 habilitada no serviço |
 | **Em trânsito (In Transit)** | Dados trafegando pela rede | TLS/SSL (HTTPS), VPN, PrivateLink |
 
-💡 **Exemplo prático:** Quando você ativou `publicly_accessible = false` no RDS da [[Aula 13 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]], protegeu o trânsito (sem IP público). Mas os dados **dentro** do disco do RDS ainda podem ser lidos se alguém acessar o storage. A criptografia at rest com KMS resolve isso.
+💡 **Exemplo prático:** Quando você ativou `publicly_accessible = false` no RDS da [[Aula 15 - Pratica - VPC Completa e Isolamento de Banco de Dados com Terraform]], protegeu o trânsito (sem IP público). Mas os dados **dentro** do disco do RDS ainda podem ser lidos se alguém acessar o storage. A criptografia at rest com KMS resolve isso.
 
 ### 4.2 AWS Secrets Manager
 

@@ -42,9 +42,9 @@ Nas aulas passadas, estabelecemos as definições lógicas e modelos estruturais
 
 | **Conceito (Aula Anterior)** | **Conexão com hoje** |
 | --- | --- |
-| [[Aula 02 - Introducao a Computacao em Nuvem#2.1. IaaS – Infrastructure as a Service (Infraestrutura como Serviço)\|IaaS (Infraestrutura)]] | Hoje acessaremos o console real da AWS que utilizaremos para criar nossos recursos IaaS nas próximas semanas. |
-| [[Aula 02 - Introducao a Computacao em Nuvem#3.1. Nuvem Pública\|Nuvem Pública]] | A AWS Academy nos fornece um laboratório prático oficial rodando diretamente na nuvem pública global da AWS. |
-| [[Aula 01 - Fundamentos de Cloud#5. Definição Oficial: 5 Características Essenciais do NIST\|Autoatendimento sob Demanda]] | O painel do console AWS que usaremos é a materialização do Autoatendimento sob Demanda defendido pelo NIST. |
+| [[Aula 03 - Introducao a Computacao em Nuvem#2.1. IaaS – Infrastructure as a Service (Infraestrutura como Serviço)\|IaaS (Infraestrutura)]] | Hoje acessaremos o console real da AWS que utilizaremos para criar nossos recursos IaaS nas próximas semanas. |
+| [[Aula 03 - Introducao a Computacao em Nuvem#3.1. Nuvem Pública\|Nuvem Pública]] | A AWS Academy nos fornece um laboratório prático oficial rodando diretamente na nuvem pública global da AWS. |
+| [[Aula 02 - Fundamentos de Cloud#5. Definição Oficial: 5 Características Essenciais do NIST\|Autoatendimento sob Demanda]] | O painel do console AWS que usaremos é a materialização do Autoatendimento sob Demanda defendido pelo NIST. |
 
 ---
 
@@ -68,8 +68,6 @@ Para gerenciar o ciclo de vida das nossas práticas na nuvem, a AWS Academy util
    * **Botão `AWS`:** Abre uma aba anônima federada com o Console de Gerenciamento da AWS real na região de N. Virginia (`us-east-1`).
    * **Botão `End Lab`:** Encerra a sessão ativa do laboratório. **Atenção:** Isso não exclui seus recursos (servidores, bancos), apenas desconecta você do console da nuvem.
 
-![[assets/aula03_console_vocareum.png]]
-> *Legenda: Fluxo lógico de provisionamento de sessão via portal Vocareum. Fonte: AWS Academy Documentation.*
 
 ---
 
