@@ -382,47 +382,6 @@ Os alunos devem criar um relatório em formato PDF no Moodle da Uniube contendo 
 | **Declarativo vs Imperativo** | O método imperativo dita a sequência exata de passos a se executar (CLI), enquanto o declarativo descreve e garante unicamente o estado final desejado (Terraform). |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Um Engenheiro de MLOps que atua em Uberlândia escreveu um arquivo Terraform (`main.tf`) para gerenciar um conjunto de instâncias EC2 otimizadas para processamento de Machine Learning. Após realizar o deploy da arquitetura utilizando `terraform apply` com sucesso, ele notou que esqueceu de associar a tag de custo `Billing = IA-Model` nas instâncias. O profissional adicionou a respectiva linha de tags no arquivo `main.tf` e executou o comando `terraform apply` novamente. Qual será a ação lógica do Terraform ao interpretar esta modificação de metadados?
-
-- [ ] A) Destruirá as instâncias EC2 existentes de forma imediata e provisionará novas instâncias do zero para forçar a inserção das tags, acarretando perda temporária de acesso ao servidor.
-- [ ] B) Retornará um erro crítico de banco de dados indicando que o recurso com o ID de instância especificado já existe na AWS e encerrará a execução sem fazer nada.
-- [x] C) Realizará uma atualização segura no local (*In-Place Update*), modificando unicamente a propriedade de metadados de tags na AWS sem necessidade de interromper ou recriar a máquina virtual. ✅
-- [ ] D) Ignorará a alteração, visto que propriedades decorativas como tags de classificação não são monitoradas pelo sistema de controle de estado do Terraform.
-
-**Justificativa:** O Terraform analisa a API do provedor (AWS) para discernir quais alterações exigem destruição de recursos (ex: mudança de VPC ou subnet) e quais podem ser aplicadas com a máquina rodando (*In-Place Update*). Como a adição de tags é um metadado dinâmico atualizado via API da AWS, o Terraform apenas atualiza a propriedade sem impactar o status de execução do servidor.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Uma equipe de engenharia de Cloud de uma grande empresa de tecnologia precisa implantar uma arquitetura de rede complexa em nuvem composta por VPCs, Subnets Públicas e Privadas, Gateways de Internet, Tabelas de Roteamento e 10 servidores EC2. O líder do projeto optou expressamente por utilizar o HashiCorp Terraform ao invés de implementar scripts complexos via AWS CLI operando em loops bash. Qual a principal justificativa técnica fundamentada para justificar o uso do Terraform em detrimento ao AWS CLI neste cenário?
-
-- [ ] A) O Terraform opera requisições de API de forma mais rápida do que a CLI nativa da AWS devido ao suporte nativo a redes CDN proprietárias.
-- [x] B) O Terraform constrói um grafo lógico de dependência de recursos na memória, identificando a sequência exata de dependências para criar a VPC antes das subnets e gerencia o estado por meio do arquivo `.tfstate`. ✅
-- [ ] C) O Terraform ignora as restrições de permissões do IAM no console AWS, permitindo criar recursos que estariam indisponíveis no terminal comum do CLI.
-- [ ] D) O Terraform é um serviço SaaS hospedado na infraestrutura nativa da AWS, reduzindo a necessidade de uso de processamento de hardware na máquina do desenvolvedor.
-
-**Justificativa:** A capacidade de realizar análises lógicas de dependência de recursos (dependency graph) para planejar a criação na ordem correta e a persistência do mapeamento de estado com o arquivo `.tfstate` tornam o Terraform uma ferramenta de gestão de ciclo de vida de infraestrutura autônoma, diferenciando-se da CLI que exige scripts imperativos complexos controlando erros manualmente a cada chamada de API.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Avançado)
-**Enunciado:** Explique em detalhes a diferença conceitual e as implicações práticas envolvidas na abordagem **Imperativa** (como a automatização via AWS CLI / scripts de shell bash) e na abordagem **Declarativa** (como HashiCorp Terraform) no contexto da disciplina de Infraestrutura como Código (IaC). Disserte especialmente sobre a facilidade ou complexidade ao lidar com **desvios de configuração (configuration drift)** do ambiente e o gerenciamento de **limpeza e descarte (cleanup)** de recursos ao final do ciclo de vida da aplicação.
-
-**Resposta esperada:**
-1. **Diferença Conceitual:** A abordagem imperativa (ex.: AWS CLI / Shell Scripts) baseia-se em "como" o recurso deve ser feito. O desenvolvedor deve programar comandos passo a passo sequenciais de criação de chaves, grupos e servidores de forma imperativa. A abordagem declarativa (ex.: Terraform) baseia-se no "o quê" deve ser construído. O desenvolvedor declara unicamente o mapa ideal da arquitetura no código, e a própria ferramenta se encarrega de mapear as APIs e alcançar esse estado de forma abstrata.
-2. **Implicação no Desvio de Configuração (Drift):** Em scripts imperativos de CLI, se alguém modificar a máquina na nuvem de forma manual (ex.: adicionando uma porta liberada no firewall), o script comum de criação não saberá avaliar esse desvio, gerando erros ao rodar novamente. O Terraform utiliza o controle persistente de arquivo de estado (`.tfstate`). Em cada execução de `plan` ou `apply`, ele compara a nuvem real contra o código. Se detectar um desvio manual não documentado no código, ele reverterá automaticamente a nuvem para coincidir com a verdade expressa no código, blindando a infraestrutura de intervenções informais de operadores.
-3. **Implicação em Limpeza e Descarte (Cleanup):** No modelo imperativo, deletar a infraestrutura construída exige mapear cada ID gerado individualmente em variáveis ou arquivos de log, executando a exclusão em ordem inversa manual cuidadosa (se tentar deletar um security group com instâncias presas nele, ocorrerá falha). No Terraform, devido ao rastreamento estruturado do `.tfstate` e do grafo lógico de dependências, um simples comando unificado `terraform destroy` avalia os mapeamentos lógicos de forma imediata e exclui recursivamente todos os recursos encadeados na ordem reversa exata em poucos segundos, eliminando o erro de deixar recursos sobressalentes órfãos gerando despesas invisíveis no orçamento.
-
----
-%%
-
 ---
 
 ## 📄 Artigo de Aprofundamento

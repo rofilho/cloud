@@ -104,44 +104,6 @@ Para evitar violações de segurança e abusos nos datacenters, a AWS bloqueia d
 | **Budget Limit** | O limite de USD 100 que, se ultrapassado devido a recursos ociosos ligados, causa a suspensão irreversível da conta. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Básico)
-**Enunciado:** Ao interagir com o portal do AWS Academy Learner Lab no dia a dia acadêmico, qual é o papel desempenhado pela interface intermediadora Vocareum na orquestração dos laboratórios práticos?
-
-- [ ] A) É o hypervisor físico que cria instâncias de computação locais no computador do estudante.
-- [ ] B) É o provedor de nuvem pública concorrente que hospeda os bancos de dados de homologação da universidade.
-- [x] C) É o intermediador administrativo que gerencia a sessão sandbox temporária, fornecendo chaves temporárias e acesso federado ao Console AWS. ✅
-- [ ] D) É o serviço gerenciado de firewall (Web Application Firewall) que protege a aplicação dos alunos de ataques.
-
-**Justificativa:** O Vocareum atua como o painel administrativo acadêmico que provisiona chaves de acesso de linha de comando temporárias e orquestra a federação de login do estudante para a conta sandbox real da AWS.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Um estudante de Inteligência Artificial finalizou sua prática de Machine Learning na quarta-feira criando duas instâncias potentes EC2 no Learner Lab. Contudo, ele esqueceu de desligar ou terminar as instâncias ao final do exercício. Na semana seguinte, ao tentar logar para a próxima aula, o estudante percebeu que sua conta de testes estava suspensa de forma definitiva. Qual foi a causa provável desse incidente de infraestrutura?
-
-- [ ] A) O hypervisor local da máquina detectou falha no disco rígido e encerrou a sessão.
-- [x] B) As instâncias EC2 rodando de forma ociosa e contínua geraram custos virtuais que esgotaram a cota (budget limit) de USD 100 do laboratório. ✅
-- [ ] C) O aluno violou as políticas de conformidade da nuvem ao abrir uma janela anônima para acessar o console.
-- [ ] D) Ocorreu um bloqueio por tentativa de criar uma IAM Role administrativa personalizada pelo painel web.
-
-**Justificativa:** O Learner Lab possui um limite rígido de faturamento de USD 100. Recursos ociosos ligados continuamente geram consumo de créditos lógicos em dólares e causam a suspensão irreversível da conta sandbox ao atingirem o limite orçamentário.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Intermediário)
-**Enunciado:** Explique em termos de segurança e controle de acessos (IAM) por que um estudante do AWS Academy recebe um erro administrativo de "AccessDenied" ao tentar criar uma nova função de execução (IAM Role) para um script do AWS Lambda, e cite qual o nome da credencial pré-aprovada disponibilizada pela AWS que deve ser associada para contornar esta limitação nos laboratórios práticos.
-
-**Resposta esperada:** O Learner Lab é um ecossistema sandbox controlado por políticas de governança rígidas (SCPs - Service Control Policies) para impedir fraudes, mau uso ou geração de custos astronômicos na nuvem pública. Por isso, privilégios de criação, edição ou exclusão de novos perfis de segurança (IAM Roles) e políticas lógicas (Policies) são estritamente bloqueados para o usuário do aluno. Para contornar essa barreira de segurança e permitir a execução das práticas pedagógicas, a AWS já injeta de forma padrão um perfil de segurança pré-configurado com as permissões mestre necessárias chamado **`LabRole`** (associado ao profile de instância `LabInstanceProfile`). Os estudantes devem obrigatoriamente associar este perfil existente ao criar recursos de plataforma e microsserviços.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [AWS Academy Student Guide - Learner Lab (2025)](https://awsacademy.instructure.com)

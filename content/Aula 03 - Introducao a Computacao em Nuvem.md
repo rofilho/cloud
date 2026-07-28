@@ -140,47 +140,6 @@ Muitos engenheiros confundem os dois termos pela semelhança semântica. Uma for
 | **Multi-cloud** | O uso de múltiplos provedores de nuvem pública diferentes de forma distribuída para otimizar workloads. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Básico)
-**Enunciado:** Uma tradicional empresa de contabilidade em Uberlândia optou por migrar seu ecossistema de produtividade para o Microsoft 365 e a gestão de tarefas corporativas para o Trello. Os colaboradores passam a criar planilhas, relatórios e organizar cartões diretamente via navegadores web, sem necessidade de instalação de softwares locais adicionais ou manutenção de servidores internos. Esse cenário reflete, respectivamente, quais modelos de serviço e de implantação de TI?
-
-- [ ] A) Plataforma como Serviço (PaaS) e Nuvem Privada.
-- [ ] B) Infraestrutura como Serviço (IaaS) e Nuvem Híbrida.
-- [x] C) Software como Serviço (SaaS) e Nuvem Pública. ✅
-- [ ] D) Software como Serviço (SaaS) e Nuvem Privada.
-
-**Justificativa:** Ferramentas corporativas finais consumidas de forma pronta diretamente via internet sem gestão interna de infraestrutura, SO ou bancos caracterizam o modelo de Software como Serviço (SaaS), operados sob o modelo de Nuvem Pública do provedor de serviço global.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** O departamento de engenharia de software da Universidade Federal de Uberlândia (UFU) iniciará o desenvolvimento de uma nova aplicação web interna para controle de bolsas de iniciação científica em Python. Para garantir o ciclo de desenvolvimento rápido, a equipe exige um ambiente onde os desenvolvedores foquem estritamente no código da aplicação e nos testes integrados, sem se preocuparem com a configuração de patches de segurança de Linux, provisionamento de redes virtuais ou versionamento dos runtimes de execução. Qual modelo de serviço atende a essa especificação?
-
-- [ ] A) Infraestrutura como Serviço (IaaS).
-- [x] B) Plataforma como Serviço (PaaS). ✅
-- [ ] C) Software como Serviço (SaaS).
-- [ ] D) Rede como Serviço (NaaS).
-
-**Justificativa:** O modelo PaaS (Plataforma como Serviço) abstrai os servidores físicos, sistemas operacionais e middlewares subjacentes, entregando ao desenvolvedor um runtime pronto para deploy de código com automação de escala lógica.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Avançado)
-**Enunciado:** Um grande banco privado brasileiro de investimentos planeja migrar seu aplicativo móvel de investimentos de ações para a nuvem pública, buscando alta elasticidade e escalabilidade horizontal para suportar os picos de tráfego agressivos durante a abertura e fechamento diário do mercado financeiro. Contudo, devido a rigorosas regulamentações do Banco Central do Brasil e preocupações estritas de compliance, todos os dados cadastrais sensíveis, chaves criptográficas e registros financeiros históricos dos correntistas devem ser armazenados de forma restrita dentro de um datacenter local próprio. Proponha uma arquitetura de nuvem apropriada para solucionar este problema corporativo, detalhando a integração tecnológica exigida entre as camadas de rede e justificando como os riscos de compliance e escalabilidade técnica são mitigados simultaneamente.
-
-**Resposta esperada:** A solução arquitetural apropriada para este cenário corporativo é o modelo de **Nuvem Híbrida**.
-1. **Mitigação de Compliance (Nuvem Privada / On-Premises):** Toda a base de dados cadastrais dos correntistas, chaves criptográficas (HSM) e logs financeiros são mantidos em segurança no datacenter privado local (on-premises) do banco, respeitando as normas regulatórias de governança bancária e sigilo exigidas pelo Banco Central do Brasil.
-2. **Mitigação de Escalabilidade (Nuvem Pública):** O frontend móvel e os microsserviços de cotações das ações são hospedados de forma elástica na Nuvem Pública, utilizando serviços auto-escaláveis de processamento. Nos picos de mercado, novas instâncias horizontais de servidores virtuais são geradas de forma instantânea para absorver a demanda, mitigando riscos técnicos de indisponibilidade.
-3. **Integração de Redes:** A comunicação lógica e tráfego seguro de dados entre a nuvem pública e o datacenter local privado deve ocorrer obrigatoriamente através de redes criptografadas exclusivas, tais como um túnel VPN IPSec corporativo redundante ou conexões dedicadas físicas de fibra óptica de baixa latência (ex.: AWS Direct Connect ou equivalente no Azure/GCP). Desta forma, o banco garante conformidade total com a legislação de dados e obtém resiliência computacional de alto nível sob demanda operacional.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [Nuvem pública em comparação com nuvem privada e nuvem híbrida (Microsoft Azure)](https://azure.microsoft.com/pt-br/resources/cloud-computing-dictionary/what-are-private-public-hybrid-clouds)

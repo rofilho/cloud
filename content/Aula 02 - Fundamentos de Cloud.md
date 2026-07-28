@@ -159,44 +159,6 @@ aws ec2 run-instances \
 | Características do NIST | O conjunto de cinco pré-requisitos técnicos exigidos para legitimar um ecossistema como computação em nuvem. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Básico)
-**Enunciado:** Uma startup brasileira de comércio eletrônico planeja lançar uma campanha promocional agressiva de 48 horas nas redes sociais. Espera-se picos de tráfego extremos e imprevisíveis no site de vendas. Qual modelo de despesas de TI e qual característica fundamental da computação em nuvem recomendada pelo NIST melhor se aplicam a esse cenário para obter alta eficiência financeira sem desperdícios?
-
-- [ ] A) Despesas de Capital (CAPEX) e Autoatendimento sob Demanda.
-- [ ] B) Despesas de Capital (CAPEX) e Acesso Amplo à Rede.
-- [x] C) Despesas Operacionais (OPEX) e Elasticidade Rápida. ✅
-- [ ] D) Despesas Operacionais (OPEX) e Virtualização Local.
-
-**Justificativa:** O modelo OPEX garante que a startup pague apenas pelas instâncias rodadas durante a promoção de 48 horas, evitando a compra permanente de hardware inativo. A Elasticidade Rápida permite que o sistema escale horizontalmente e contraia a contagem de servidores de forma automatizada ao final da campanha de marketing.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Uma empresa decide migrar seu sistema interno para uma infraestrutura em nuvem privada. No entanto, a equipe de desenvolvimento de software identificou que, para provisionar uma nova máquina virtual de testes, eles precisam preencher um formulário via e-mail e aguardar a verificação e aprovação manual da equipe de administração de redes, que pode levar até 2 dias úteis. Com base na taxonomia do NIST, qual característica essencial da computação em nuvem está sendo VIOLADA neste fluxo?
-
-- [ ] A) Acesso amplo à rede (Broad network access).
-- [x] B) Autoatendimento sob demanda (On-demand self-service). ✅
-- [ ] C) Pool de recursos (Resource pooling).
-- [ ] D) Serviço medido (Measured service).
-
-**Justificativa:** O Autoatendimento sob demanda (On-demand self-service) exige que o cliente possa provisionar capacidades computacionais (como tempo de servidor ou armazenamento em rede) de maneira totalmente autônoma e automatizada, sem necessidade de interação humana com o provedor ou suporte técnico.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Avançado)
-**Enunciado:** Um arquiteto de nuvem precisa tomar a decisão de desenho de rede para hospedar um novo cluster de processamento pesado de Big Data que consome memória RAM intensamente. Explique detalhadamente por que a Escalabilidade Horizontal (Scale-Out) é superior à Escalabilidade Vertical (Scale-Up) no contexto de provedores de nuvem pública elásticos, destacando o limite físico do Scale-Up e o impacto operacional na alta disponibilidade.
-
-**Resposta esperada:** A Escalabilidade Vertical (Scale-Up) possui um limite físico intransponível determinado pela capacidade máxima da placa-mãe do hardware de servidor disponibilizado pelo hypervisor da nuvem pública (limitação de vCPUs e slots de RAM). Além disso, o Scale-Up exige downtime em muitos casos para reconfigurar e reiniciar a VM com o novo "tamanho". Por outro lado, a Escalabilidade Horizontal (Scale-Out) contorna limites físicos adicionando novas VMs de tamanho estável em paralelo atrás de um balanceador de carga. Isso permite que a expansão ocorra de maneira teoricamente ilimitada na nuvem pública, garantindo a Alta Disponibilidade (HA) sem downtime perceptível aos usuários finais, sendo a opção arquitetural padrão em nuvem elástica.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [Above the Clouds: A Berkeley View of Cloud Computing (2009)](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2009/EECS-2009-28.pdf)

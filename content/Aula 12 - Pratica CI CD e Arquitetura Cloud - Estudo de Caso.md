@@ -364,47 +364,6 @@ Para que isso seja possível sem criar um banco de dados novo do zero, a arquite
 | **Portainer** | Interface visual para gerenciar containers sem terminal. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
-
-### Questão 1: Prática — Múltipla Escolha (Nível Intermediário)
-
-**Enunciado:** No pipeline GitOps V3, qual é o papel do **Healthcheck** configurado no `compose.yaml` em relação ao Traefik durante um deploy com `--force-recreate`?
-
-- [ ] A) Reiniciar automaticamente o container caso ele consuma mais de 80% de CPU.
-- [ ] B) Autenticar o container junto ao IAM antes de receber tráfego.
-- [x] C) Garantir que o Traefik só direcione tráfego ao container novo quando este confirmar disponibilidade (HTTP 200), implementando o Zero Downtime. ✅
-- [ ] D) Executar as migrations do banco de dados antes do container inicializar.
-
-**Justificativa:** O Traefik monitora o status do Healthcheck de cada container. Enquanto o novo container não responder `HTTP 200` no endpoint `/up`, o Traefik mantém o tráfego no container antigo. Quando o Healthcheck passa, o tráfego é chaveado — sem interrupção perceptível ao usuário.
-
----
-
-### Questão 2: Teórica — Dissertativa (Nível Avançado)
-
-**Enunciado:** Explique o conceito de fluxo "Lab → Produção" e por que ele é essencial para a confiabilidade do pipeline de deploy contínuo.
-
-**Resposta esperada:** O fluxo Lab → Produção é a prática de validar toda mudança em um ambiente de homologação (Lab) antes de aplicá-la em produção. A imagem Docker construída pelo CI é a mesma nos dois ambientes (imutabilidade). No Lab, a equipe valida funcionalidades, verifica logs no Grafana e confirma que as migrations de banco rodaram sem erros. Somente após essa validação, uma Tag de Release é criada, disparando o deploy automático em produção com a mesma imagem já testada. Isso elimina o risco de "na minha máquina funciona" e garante deploys previsíveis.
-
----
-
-### Questão 3: Prática — Múltipla Escolha (Nível Intermediário)
-
-**Enunciado:** Qual dos três pilares da Observabilidade permite investigar o caminho de uma requisição HTTP que passa por múltiplos microsserviços?
-
-- [ ] A) Métricas
-- [ ] B) Logs
-- [x] C) Traces ✅
-- [ ] D) Healthcheck
-
-**Justificativa:** Traces (rastreamento distribuído) permitem acompanhar o percurso completo de uma requisição através de múltiplos serviços, identificando gargalos e pontos de falha na cadeia.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [Traefik: How It Works](https://doc.traefik.io/traefik/) — Documentação oficial do Traefik v3 com exemplos de roteamento dinâmico via Labels Docker.

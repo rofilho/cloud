@@ -152,44 +152,6 @@ Os conceitos de identidade e infraestrutura global se repetem entre os principai
 | **MFA (Multi-Factor Authentication)** | Camada adicional de validação de identidade que exige um token temporário além da senha clássica. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Um engenheiro de confiabilidade de sites (SRE) da reitoria de uma universidade foi encarregado de implantar uma aplicação web crítica que processa dados acadêmicos confidenciais em conformidade estrita com a LGPD (Lei Geral de Proteção de Dados Pessoais). Para garantir a conformidade jurídica da residência física dos dados em território brasileiro e assegurar latência ultra-baixa aos usuários locais, em qual nível da infraestrutura global da AWS a aplicação deve ser provisionada fisicamente?
-
-- [ ] A) Na Edge Location de Buenos Aires.
-- [x] B) Na Região de São Paulo (`sa-east-1`). ✅
-- [ ] C) Em qualquer Zona de Disponibilidade (AZ) da Região de N. Virginia (`us-east-1`).
-- [ ] D) Diretamente na interface global lógica do painel do IAM.
-
-**Justificativa:** Hospedar a infraestrutura e os bancos de dados na Região de São Paulo (`sa-east-1`) garante que os dados acadêmicos permaneçam fisicamente armazenados em solo brasileiro para fins de conformidade com a LGPD, fornecendo também a menor latência de rede para os estudantes locais.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Seguindo as melhores práticas de governança e segurança na computação em nuvem, um arquiteto corporativo precisa delegar a uma nova aplicação automática rodando em um servidor Amazon EC2 a permissão de ler e salvar arquivos de forma pontual em um repositório de armazenamento privado do Amazon S3. Seguindo o **Princípio da Menor Permissão (Least Privilege)**, como o arquiteto deve modelar este acesso sem comprometer credenciais?
-
-- [ ] A) Criar um IAM User com permissões de administrador total (AdministratorAccess) e embutir suas chaves lógicas de acesso diretamente no código-fonte da aplicação.
-- [ ] B) Colocar as instâncias de computação EC2 dentro de um IAM Group padrão de administradores de TI.
-- [x] C) Criar uma Função do IAM (IAM Role) contendo apenas permissões JSON de leitura e gravação no bucket S3 específico e associar esta Role à instância EC2. ✅
-- [ ] D) Configurar o Security Group do EC2 para abrir tráfego irrestrito bidirecional de entrada e saída na rede externa.
-
-**Justificativa:** O uso de uma IAM Role associada a uma instância computacional elimina a necessidade de chaves fixas embutidas em código (o que representa grave risco de vazamento no GitHub), gerando credenciais temporárias seguras apenas para os serviços autorizados necessários.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Avançado)
-**Enunciado:** Explique em detalhes a diferença de isolamento físico e lógico existente entre uma Região (Region) e uma Zona de Disponibilidade (Availability Zone) na AWS. Em seguida, descreva de forma técnica como um arquiteto projeta uma solução de banco de dados relacional altamente disponível (High Availability - HA) utilizando o conceito Multi-AZ para garantir resiliência operacional contra falhas catastróficas locais (como inundações ou colapsos de subestações elétricas regionais).
-
-**Resposta esperada:** Uma Região é uma área geográfica independente no mundo que abriga múltiplos clusters de datacenters, enquanto uma Zona de Disponibilidade (AZ) é composta por um ou mais datacenters físicos independentes e isolados contra falhas de energia, refrigeração e conectividade de rede dentro de uma mesma Região. Para projetar um banco de dados relacional altamente disponível (HA), o arquiteto utiliza o padrão Multi-AZ. A instância principal do banco de dados (gravação) é hospedada em uma determinada AZ (ex.: AZ-A) da região escolhida. Paralelamente, uma réplica de failover síncrona é provisionada em uma AZ distinta (ex.: AZ-B) na mesma Região. Caso ocorra um desastre físico na AZ primária, os sistemas lógicos de monitoramento da AWS detectam a queda e realizam o failover automático e transparente: o DNS do banco é atualizado para apontar para a réplica na AZ sobrevivente, mantendo a aplicação online com indisponibilidade mínima e zero perda de dados.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [AWS Well-Architected Framework: Pilar Segurança (AWS)](https://docs.aws.amazon.com/pt_br/wellarchitected/latest/security-pillar/security.html)

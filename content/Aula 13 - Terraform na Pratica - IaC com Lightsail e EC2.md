@@ -507,47 +507,6 @@ resource "aws_lightsail_instance" "server" {
 | **Grafo de dependência** | O Terraform sabe a ordem de criação e destruição automaticamente. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
-
-### Questão 1: Prática — Múltipla Escolha (Nível Básico)
-
-**Enunciado:** Qual comando Terraform **não realiza nenhuma alteração** na infraestrutura real, servindo apenas como simulação?
-
-- [ ] A) `terraform apply`
-- [x] B) `terraform plan` ✅
-- [ ] C) `terraform init`
-- [ ] D) `terraform destroy`
-
-**Justificativa:** O `terraform plan` é o comando de previsão. Ele compara o código declarado com o estado atual (`.tfstate` + nuvem) e exibe exatamente o que seria criado, modificado ou destruído, sem executar nada. É essencial para validar mudanças antes de aplicá-las.
-
----
-
-### Questão 2: Teórica — Dissertativa (Nível Intermediário)
-
-**Enunciado:** Explique o que é o arquivo `terraform.tfstate`, para que ele serve e o que acontece se você deletá-lo manualmente.
-
-**Resposta esperada:** O `.tfstate` é o arquivo de estado do Terraform — um JSON que mapeia cada recurso declarado no código ao recurso real criado na nuvem (com seus IDs, IPs, ARNs etc.). Ele é o "cérebro" do Terraform: sem ele, a ferramenta não sabe o que já existe na nuvem. Se deletado manualmente, o Terraform "esquece" que criou aqueles recursos. Na próxima execução, tentará criá-los de novo (causando duplicação ou erros de conflito de nomes) e nunca conseguirá destruí-los com `terraform destroy`. Em projetos de time, o estado é armazenado remotamente (ex: AWS S3) para evitar esse risco.
-
----
-
-### Questão 3: Prática — Múltipla Escolha (Nível Intermediário)
-
-**Enunciado:** No código `main.tf` da aula, o recurso `aws_lightsail_static_ip_attachment` referencia `aws_lightsail_instance.meu_servidor.name`. Qual é a implicação desta referência para o Terraform?
-
-- [ ] A) É apenas uma convenção de nomenclatura, sem efeito técnico.
-- [ ] B) Faz o Terraform criar os dois recursos simultaneamente em paralelo.
-- [x] C) Cria uma dependência implícita: o Terraform garantirá que a instância seja criada *antes* do attachment. ✅
-- [ ] D) Exige que o engenheiro defina manualmente a ordem de criação com `depends_on`.
-
-**Justificativa:** Quando um recurso referencia atributos de outro (ex: `.name`), o Terraform constrói um grafo de dependência e garante a ordem de execução correta automaticamente. O `depends_on` explícito só é necessário quando a dependência não pode ser inferida pelo código.
-
----
-%%
-
 ## 🏋️ Atividade Prática — Entrega no Moodle
 
 Execute o roteiro da aula completo e documente com evidências:

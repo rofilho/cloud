@@ -333,47 +333,6 @@ graph TB
 | Defense-in-Depth | Múltiplas camadas independentes de segurança protegem contra diferentes vetores de ataque |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Múltipla Escolha — Nível Básico
-
-**Enunciado:** Uma startup que roda sua aplicação em instâncias EC2 na AWS sofreu um incidente: um ex-funcionário ainda conseguiu acessar o banco de dados RDS porque suas credenciais IAM nunca foram revogadas. No Modelo de Responsabilidade Compartilhada, de quem é a responsabilidade por esse incidente?
-
-- [ ] A) Da AWS, porque ela deveria monitorar automaticamente quem acessa os recursos do cliente.
-- [x] B) Do cliente (startup), porque o gerenciamento de identidade e acesso (IAM) é responsabilidade do cliente no modelo compartilhado. ✅
-- [ ] C) Do ex-funcionário, porque ele violou um acordo de confidencialidade.
-- [ ] D) De ambos igualmente, porque a responsabilidade é sempre 50/50 entre AWS e cliente.
-
-**Justificativa:** No Modelo de Responsabilidade Compartilhada, a AWS protege a infraestrutura física e o hypervisor. Tudo acima — incluindo gestão de identidade (IAM), configuração de firewall (Security Groups) e criptografia de dados — é responsabilidade do cliente. Revogar acessos de ex-funcionários é uma obrigação operacional de quem administra a conta AWS.
-
----
-
-### Questão 2: Múltipla Escolha — Nível Intermediário
-
-**Enunciado:** Uma equipe de desenvolvimento precisa que suas instâncias EC2 acessem um bucket S3 para armazenar logs da aplicação. Seguindo o Princípio do Menor Privilégio, qual é a abordagem correta?
-
-- [ ] A) Criar um IAM User com `AdministratorAccess` e armazenar as Access Keys no código da aplicação.
-- [ ] B) Usar as credenciais do Root User para configurar o acesso ao S3 via variáveis de ambiente.
-- [x] C) Criar uma IAM Role com uma Policy que permite apenas `s3:PutObject` no bucket específico e anexá-la à instância EC2 via Instance Profile. ✅
-- [ ] D) Desativar toda autenticação e tornar o bucket S3 público para facilitar o acesso.
-
-**Justificativa:** A IAM Role com Policy restritiva implementa o princípio do menor privilégio: a EC2 só pode escrever (`PutObject`) no bucket específico, sem credenciais hardcoded no código. As credenciais são temporárias e rotacionam automaticamente, eliminando o risco de vazamento de Access Keys.
-
----
-
-### Questão 3: Dissertativa — Nível Avançado
-
-**Enunciado:** Na arquitetura Multi-Tier construída na Aula 13 Prática (VPC com Terraform), o RDS está isolado em subnets privadas e o Security Group aceita conexões apenas do SG da EC2. Explique por que esse isolamento de rede, apesar de essencial, **não é suficiente** para garantir a segurança completa do banco de dados. Descreva pelo menos 3 camadas adicionais de segurança que deveriam ser implementadas, citando os serviços AWS correspondentes.
-
-**Resposta esperada:** O isolamento de rede (VPC + Security Groups) protege contra acesso externo direto, mas não cobre outros vetores de ataque: (1) **Identidade e Acesso (IAM):** Se o atacante comprometer a EC2 e encontrar credenciais do banco no código, o Security Group não impede o acesso — é necessário usar IAM Roles e Secrets Manager para eliminar senhas hardcoded e rotacionar credenciais automaticamente. (2) **Criptografia de Dados (KMS):** Se alguém acessar os backups ou snapshots do RDS (por exemplo, via permissão IAM mal configurada), os dados estarão legíveis — é necessário ativar criptografia at rest com KMS para tornar os dados inúteis sem a chave. (3) **Proteção de Aplicação (WAF):** Se a aplicação na EC2 tiver uma vulnerabilidade de SQL Injection, o atacante pode manipular consultas ao banco por dentro da conexão legítima — é necessário um WAF na frente do ALB para filtrar payloads maliciosos antes de chegarem à EC2. A segurança efetiva exige Defense-in-Depth: múltiplas camadas independentes (rede + identidade + dados + aplicação) trabalhando juntas.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [AWS Well-Architected Framework — Security Pillar](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)

@@ -434,47 +434,6 @@ graph TD
 | **sslip.io / DuckDNS** | Serviços gratuitos de DNS para desenvolvimento e projetos acadêmicos, eliminando a necessidade de comprar domínios. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 *Esta seção é visível apenas no Obsidian do professor. Não publicada para os alunos no Quartz.*
-
-### Questão 1 (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Uma empresa de mídia hospeda milhões de imagens em um bucket S3 privado. Para servir essas imagens aos usuários globais com baixa latência e sem expor o bucket publicamente na internet, o arquiteto configurou uma distribuição Amazon CloudFront. Qual mecanismo de segurança deve ser utilizado para que apenas o CloudFront consiga ler os objetos do S3 privado?
-
-- [ ] A) Desativar o Block Public Access e adicionar uma Bucket Policy com `Principal: "*"`.
-- [x] B) Configurar um Origin Access Control (OAC) na distribuição e ajustar a Bucket Policy para permitir apenas o ARN da distribuição. ✅
-- [ ] C) Criar uma IAM Role anexada à distribuição CloudFront com acesso de administrador.
-- [ ] D) Habilitar o Static Website Hosting no bucket e usar o endpoint HTTP público.
-
-**Justificativa:** O OAC permite que o CloudFront assine requisições ao S3 com SigV4, autenticando-se como a distribuição específica. A Bucket Policy do S3 verifica o ARN da distribuição na condição `aws:SourceArn`, mantendo o bucket completamente privado para qualquer outro acesso.
-
----
-
-### Questão 2 (Múltipla Escolha — Nível: Básico)
-**Enunciado:** No contexto do Projeto Final da disciplina, os alunos configuraram o Cloudflare como intermediário entre o usuário e a EC2. Ao ativar o ícone de nuvem laranja (☁️ Proxied) no registro DNS, qual benefício de segurança é obtido automaticamente?
-
-- [ ] A) O banco de dados RDS passa a aceitar conexões públicas via HTTPS.
-- [ ] B) A EC2 recebe um certificado SSL instalado automaticamente pelo Cloudflare.
-- [x] C) O IP público real da EC2 fica oculto, protegendo-a contra ataques DDoS diretos, e o tráfego do usuário é criptografado com HTTPS. ✅
-- [ ] D) O Security Group da EC2 é atualizado automaticamente para bloquear tráfego não-Cloudflare.
-
-**Justificativa:** Quando o proxy do Cloudflare está ativo, as consultas DNS retornam o IP do Cloudflare, não o IP da EC2. Isso oculta a infraestrutura real contra atacantes. Além disso, o Cloudflare emite automaticamente um certificado SSL para o domínio, habilitando HTTPS sem configuração na EC2.
-
----
-
-### Questão 3 (Dissertativa — Nível: Avançado)
-**Enunciado:** Compare a arquitetura de distribuição de conteúdo utilizada no Projeto Final (Cloudflare + EC2) com uma arquitetura equivalente 100% AWS (CloudFront + S3 + OAC). Considere: (a) custo, (b) segurança do bucket/origem e (c) complexidade de configuração.
-
-**Resposta esperada:**
-- **(a) Custo:** O Cloudflare oferece plano gratuito com DNS, CDN e SSL ilimitados. O CloudFront cobra por requisição e GB transferido (free tier de 1TB/mês no 1º ano). O Route 53 para DNS custa $0.50/mês por zona hospedada. Para projetos acadêmicos, o Cloudflare é significativamente mais barato.
-- **(b) Segurança:** O CloudFront + OAC oferece integração nativa — o bucket S3 permanece 100% privado e apenas a distribuição autorizada (via ARN) pode ler os objetos. No modelo Cloudflare + EC2, a segurança depende da correta configuração do Security Group da EC2 e do modo de SSL (Full Strict vs Flexible). O CloudFront é mais rigoroso por padrão.
-- **(c) Complexidade:** O Cloudflare é mais simples (painel web, 3 cliques para DNS + proxy). O CloudFront + OAC exige configuração de distribuição, Bucket Policy com condition ARN, e opcionalmente ACM para certificados. É mais complexo mas oferece controle granular superior.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [Amazon CloudFront com Origin Access Control (OAC)](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-origin-access-control-oac/)

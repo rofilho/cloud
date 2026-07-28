@@ -766,46 +766,6 @@ terraform destroy -auto-approve
 | **IAM Role** | Perfil lógico que concede credenciais AWS temporárias a serviços (como a EC2) para evitar o uso de senhas ou chaves estáticas no código. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 *Esta seção é visível apenas no Obsidian do professor. Não publicada para os alunos no site Quartz.*
-
-### Questão 1 (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Uma equipe de engenheiros de Big Data desenvolveu um portal web para visualização de relatórios gerenciais estáticos em HTML e PDF. A aplicação foi provisionada em uma instância Amazon EC2. Em dias de auditoria anual, o site apresenta quedas severas por gargalos de I/O de disco da instância computacional sob alta carga de conexões. O orçamento do setor está extremamente reduzido para investimentos em balanceadores ou escalonamento de instâncias. Seguindo as melhores práticas arquiteturais em nuvem da AWS, qual é a solução ideal e de menor custo?
-
-- [ ] A) Migrar a aplicação para um cluster de contêineres Elastic Container Service (ECS) mantendo o roteamento por DNS.
-- [ ] B) Inserir um disco físico EBS maior e com IOPS provisionados (gp3/io2) anexado à instância EC2 para melhorar o I/O.
-- [x] C) Mover todos os arquivos estáticos de relatórios HTML/PDF para um bucket S3, habilitando o recurso de Static Website Hosting com durabilidade nativa. ✅
-- [ ] D) Desenvolver uma função serverless no AWS Lambda para processar e renderizar as requisições sob demanda.
-
-**Justificativa:** Hospedar arquivos estáticos no S3 elimina o servidor EC2 ativo do fluxo, desonerando a computação pesada. O S3 é escalável e elástico por padrão, gerenciando qualquer volume de tráfego simultâneo sem quedas de processamento a um custo operacional irrisório e sem necessitar de balanceadores ou instâncias redundantes.
-
----
-
-### Questão 2 (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Um arquiteto provisionou um frontend estático no Amazon S3 e a API REST em uma instância EC2. Ao carregar o site pelo endereço do bucket no navegador e clicar para buscar dados, o botão apresenta erro no Console de Desenvolvedor (F12) reportando: *"Access to fetch at 'http://EC2-IP/api' from origin 'http://s3-bucket-endpoint' has been blocked by CORS policy"*. O que o desenvolvedor deve fazer para resolver a falha?
-
-- [ ] A) Alterar a Bucket Policy no S3 para liberar conexões a partir do IP da EC2.
-- [ ] B) Habilitar a criptografia de dados KMS no bucket S3 para forçar segurança de trânsito.
-- [x] C) Adicionar headers de resposta CORS (*Cross-Origin Resource Sharing*) na aplicação de backend (Flask) autorizando a origem do bucket S3. ✅
-- [ ] D) Alocar a instância EC2 dentro de uma subnet privada sem saída para a internet.
-
-**Justificativa:** O bloqueio de CORS ocorre no navegador do cliente, pois o script carregado a partir do domínio do S3 tenta fazer uma requisição assíncrona para outro domínio/IP (EC2). Para resolver, o servidor de backend na EC2 deve responder explicitamente com os cabeçalhos HTTP apropriados (como `Access-Control-Allow-Origin: *` ou o endereço do bucket) para que o navegador do usuário libere a transação.
-
----
-
-### Questão 3 (Dissertativa — Nível: Avançado)
-**Enunciado:** Em ambientes de produção reais, as equipes de DevOps evitam expor credenciais de acesso fixas da AWS (Access Keys e Secret Keys) dentro dos arquivos de código fonte ou nas configurações das variáveis de ambiente de suas instâncias EC2 que precisam consumir o Amazon S3. Explique a ameaça de segurança envolvida nesta má prática e descreva o mecanismo recomendado pela AWS para implementar esse acesso de forma temporária e segura (sem senhas estáticas no código).
-
-**Resposta esperada:**
-- **Ameaça:** Credenciais fixas (Access Keys/Secret Keys) salvas no código fonte podem vazar caso o repositório Git seja comprometido (público ou invadido) ou caso usuários acessem os arquivos internos do servidor. Com as chaves na mão, um invasor tem controle sobre o bucket S3 (e potencialmente toda a conta AWS dependendo dos privilégios da chave), podendo roubar ou apagar dados estratégicos.
-- **Mecanismo Recomendado:** A abordagem correta é o uso de **IAM Roles (Funções)** associadas à instância EC2 por meio de um **Instance Profile**. Em vez de usar credenciais fixas no código, a aplicação utiliza a biblioteca SDK da AWS (Boto3), que de forma transparente consulta o serviço de metadados da instância (`IMDSv2`) para obter credenciais temporárias do IAM que rotacionam automaticamente de hora em hora. Dessa forma, caso o código vaze, nenhuma credencial da nuvem está hardcoded nas linhas.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [Amazon S3 — Documentação de Hospedagem de Sites Estáticos](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)

@@ -324,46 +324,6 @@ Para validação da presença e nota do laboratório no Moodle da Uniube, envie 
 | **CloudWatch Logs** | O serviço nativo centralizado de coleta, monitoramento e consolidação de logs e saídas padrão de depuração das ferramentas AWS. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** O setor de engenharia de MLOps de uma startup financeira em Uberlândia implantou um modelo preditivo leve de análise de crédito via AWS Lambda integrado à API Gateway. Durante um evento promocional, o volume de requisições de clientes disparou de 5 chamadas por segundo para 5.000 chamadas simultâneas. Como o serviço AWS Lambda responde a esse aumento extremo de requisições em comparação ao comportamento clássico de um Auto Scaling Group (ASG) de instâncias EC2?
-
-- [ ] A) O AWS Lambda entrará em estado de sobrecarga física e abortará as transações, exigindo que o operador da infraestrutura acesse o console para reiniciar manualmente os servidores lógicos.
-- [x] B) O AWS Lambda provisiona e executa de forma instantânea e transparente múltiplos containers simultâneos da função em frações de segundo (escala horizontal em milissegundos), sem o atraso de inicialização física de sistemas operacionais. ✅
-- [ ] C) O AWS Lambda enfileira as requisições em um buffer local estrito de thread única, processando as predições de crédito sequencialmente ao longo de várias horas consecutivas.
-- [ ] D) O AWS Lambda notificará o administrador para criar novas instâncias EC2 baseadas em um Launch Template e aguardará o boot completo da infraestrutura antes de iniciar o processamento lúdico.
-
-**Justificativa:** O AWS Lambda é uma arquitetura FaaS orientada a eventos. Diante de picos severos de acessos, a plataforma gerencia a concorrência instantaneamente, criando cópias isoladas da lógica computacional em containers efêmeros em milissegundos, diferentemente de servidores EC2 em ASG que demoram minutos para realizar o boot completo do SO e middlewares.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Um estudante do curso de Inteligência Artificial da Uniube implantou um script Terraform configurando um Auto Scaling Group (ASG) com `desired_capacity = 2` e `max_size = 4`. Com o intuito de finalizar o dia de práticas e encerrar as despesas do laboratório, o aluno acessou a tela de instâncias EC2 no Console AWS e excluiu manualmente as duas máquinas ativas do grupo. Minutos depois, ele percebeu que a conta do lab continuava computando gastos e que duas novas instâncias EC2 haviam surgido na tela. Qual a explicação lógica para este comportamento e qual o procedimento de descarte correto?
-
-- [ ] A) O console da AWS sofreu um travamento de sincronização de estado com o data center e as instâncias novas são fantasmas virtuais sem custo real.
-- [x] B) O Auto Scaling Group detectou que a contagem de instâncias ativas caiu abaixo da capacidade desejada (desired = 2) e instanciou de forma autônoma novas máquinas para cumprir sua regra de conformidade lúdica. O aluno deve rodar o comando `terraform destroy` no terminal para excluir o grupo de vez. ✅
-- [ ] C) O estudante corrompeu de forma irreversível as chaves criptográficas locais do arquivo `.tfstate`, impossibilitando qualquer intervenção futura na nuvem do laboratório.
-- [ ] D) O papel IAM `LabRole` perdeu as permissões de acesso, travando as instâncias na tela em um loop infinito de segurança corporativa do provedor.
-
-**Justificativa:** A função primordial do Auto Scaling Group é manter o estado desejado (`desired_capacity`). Ao encerrar as instâncias manualmente pelo console, o ASG interpreta a ação como uma falha do hardware e executa a auto-recuperação recriando as máquinas. Para apagar os recursos em conformidade de IaC, é obrigatório destruir a raiz lógica que comanda as regras de escala através do comando `terraform destroy`.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Avançado)
-**Enunciado:** Explique de que forma o conceito de **Chaos Engineering (Engenharia do Caos)** se relaciona com a evolução histórica de paradigmas de gerenciamento de infraestrutura computacional definidos classicamente como **"Pets vs Cattle" (Animais de Estimação vs Gado)** na computação em nuvem. Em sua resposta, analise os mecanismos operacionais internos que o Auto Scaling Group utiliza para executar a auto-recuperação (Self-Healing) de servidores quando uma máquina é desativada manualmente de forma proposital durante as práticas de laboratório.
-
-**Resposta esperada:**
-1. **Pets vs Cattle e o Caos:** No paradigma tradicional de "Pets" (Animais de Estimação), os servidores eram tratados como únicos, recebiam nomes especiais e passavam por manutenções manuais minuciosas ao menor sinal de falha. No paradigma moderno de "Cattle" (Rebanho), os servidores são descartáveis, gerados em massa com configurações e tags idênticas. A Engenharia do Caos surge para validar este segundo paradigma: em vez de evitar falhas e quedas a todo custo, assume-se que falhas físicas e lógicas ocorrerão. Injetam-se falhas de forma controlada no ambiente para provar que a infraestrutura é capaz de sobreviver e se reestruturar sem intervenção humana.
-2. **Mecanismo Operacional de Self-Healing:** O Auto Scaling Group funciona como um ciclo de controle contínuo fechado (control loop). Ele monitora constantemente a integridade lúdica e o status de presença das instâncias registradas sob sua tutela. Quando uma instância é encerrada propositalmente (falha física ou teste de caos manual), a contagem de servidores cai de 2 para 1. O ASG detecta a discrepância entre a capacidade atual (1) e o estado desejado parametrizado (`desired_capacity = 2`). O ASG aciona imediatamente a API da AWS, processa o Launch Template referenciado e provisiona uma nova máquina virtual idêntica em uma das subnets declaradas. Esse processo automatizado garante a auto-recuperação da estabilidade arquitetônica da infraestrutura de forma autônoma em poucos minutos.
-
----
-%%
-
 ---
 
 ## 📄 Artigo de Aprofundamento

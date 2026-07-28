@@ -295,34 +295,6 @@ Exemplos válidos: `grupo_alpha.pdf`, `equipe_cloud.pdf`
 | ABNT | Norma brasileira para formatação de documentos acadêmicos |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
-
-### Questão 1: Prática — Múltipla Escolha (Nível Intermediário)
-
-**Enunciado:** O grupo usou os prompts encadeados para gerar a aplicação. O Prompt 2 (Backend) pede que o aluno cole o SQL do Prompt 1 dentro dele. Qual é o benefício técnico dessa abordagem?
-
-- [ ] A) Permite que a IA aprenda com os dados do banco de dados do aluno.
-- [x] B) Garante que os modelos SQLAlchemy do backend sejam 100% compatíveis com as tabelas criadas no banco, evitando erros de mapeamento. ✅
-- [ ] C) Faz com que a IA crie o banco de dados automaticamente na AWS.
-- [ ] D) Permite que o frontend funcione sem precisar de backend.
-
-**Justificativa:** Ao incluir o SQL como contexto no prompt do backend, a IA gera modelos ORM que espelham exatamente a estrutura das tabelas. Sem isso, haveria risco de o backend tentar acessar colunas inexistentes ou com nomes diferentes.
-
----
-
-### Questão 2: Teórica — Dissertativa (Nível Avançado)
-
-**Enunciado:** Explique o papel do Cloudflare como intermediário DNS entre o usuário e a EC2. Quais benefícios de segurança e desempenho essa configuração oferece?
-
-**Resposta esperada:** O Cloudflare atua como proxy reverso e DNS autoritativo. A requisição do usuário chega primeiro ao Cloudflare (escondendo o IP real da EC2), depois é encaminhada para a instância. Benefícios: (1) SSL automático sem configurar certificado na EC2, (2) proteção DDoS pela rede Anycast, (3) cache de conteúdo estático, (4) IP real oculto.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [Cloudflare — How Cloudflare Works](https://www.cloudflare.com/learning/what-is-cloudflare/)

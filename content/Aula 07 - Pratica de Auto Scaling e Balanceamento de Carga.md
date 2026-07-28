@@ -173,47 +173,6 @@ A escalabilidade horizontal automatizada e monitorada por telemetria de hardware
 | **Scale-In** | O desligamento e descarte planejado de máquinas virtuais ociosas para evitar o desperdício financeiro de orçamentos. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** O arquiteto de infraestrutura da maior plataforma de e-commerce de varejo do Brasil (semelhante ao Mercado Livre) configurou um Auto Scaling Group (ASG) com um Launch Template contendo a versão mais estável da aplicação. Contudo, em testes de estresse para a Black Friday, percebeu-se que o tempo que uma nova instância leva para instalar dependências e inicializar os pacotes na inicialização via script *User Data* demora cerca de 12 minutos. Em picos repentinos de acessos de usuários, essa lentidão resulta em lentidão e quedas severas no sistema antes que a nova máquina consiga começar a processar a carga. Qual a recomendação técnica ideal para otimizar esse tempo de inicialização (*boot*) e garantir alta velocidade na elasticidade?
-
-- [ ] A) Migrar todas as instâncias de `t2.micro` para instâncias da família `c5.large` focadas em computação pesada.
-- [x] B) Empacotar todas as dependências pré-instaladas da aplicação e criar uma imagem de disco personalizada (Golden AMI), reduzindo a necessidade de scripts complexos no *User Data*. ✅
-- [ ] C) Alterar o limite da métrica de CPU no Target Tracking de 50% para 90% de utilização.
-- [ ] D) Desativar o Auto Scaling Group e realizar o provisionamento manual de servidores a cada início de dia de vendas.
-
-**Justificativa:** A criação de uma imagem personalizada (Golden AMI) contendo o software e as dependências já configurados elimina a necessidade de baixar e rodar longas rotinas de instalação de pacotes no momento de boot da instância, permitindo que a nova VM entre no ar e comece a receber carga útil em poucos segundos.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Um aluno do curso de Ciência de Dados da Uniube está executando a prática de escalabilidade em nuvem no laboratório AWS Academy Learner Lab. Ao tentar configurar regras complexas de escala, ele se deparou com a necessidade de atribuir uma permissão de acesso de serviço para que o grupo pudesse interagir com outros recursos da infraestrutura. Ele tentou criar uma nova IAM Role com políticas personalizadas, mas o console AWS retornou um erro de acesso negado (*Access Denied*). Sabendo-se das limitações do ambiente acadêmico da AWS Academy, qual deve ser o procedimento correto do estudante?
-
-- [ ] A) Cadastrar um cartão de crédito pessoal no console para migrar a conta de estudante para uma conta profissional e obter acesso de Root.
-- [x] B) Selecionar a Role padrão pré-configurada pela AWS Academy chamada `LabRole` (ou o profile correspondente) que já possui as políticas necessárias embutidas. ✅
-- [ ] C) Interromper a execução do laboratório, visto que o Auto Scaling não funciona sob o ambiente restrito da sandbox Acadêmica.
-- [ ] D) Mudar a Região global da AWS de N. Virginia (`us-east-1`) para São Paulo (`sa-east-1`) onde os limites de sandbox não se aplicam.
-
-**Justificativa:** As sandboxes acadêmicas da AWS Academy possuem bloqueios rigorosos no serviço IAM para impedir ações de risco e faturamento. Os alunos não possuem direitos administrativos para criar novos recursos do IAM, devendo utilizar sempre a entidade com privilégios adequados já criada pela infraestrutura do curso: o `LabRole`.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Avançado)
-**Enunciado:** Apresente em detalhes a relação de sinergia entre o serviço **Elastic Load Balancing (ELB)** e o **Auto Scaling Group (ASG)** em uma arquitetura web de alta disponibilidade contemporânea na nuvem. Em seu texto, explique como esses dois serviços trabalham juntos em uma situação de pico súbito de tráfego de rede (Scale-Out) e, posteriormente, em um período de calmaria e ociosidade da aplicação (Scale-In), descrevendo o caminho lógico de requisições de um cliente do aplicativo.
-
-**Resposta esperada:**
-1. **Sinergia do ELB e ASG:** O Elastic Load Balancing (ELB) funciona como a porta única de entrada (Single Point of Entry) da arquitetura, distribuindo o tráfego de requisições HTTP/HTTPS recebido de forma uniforme e balanceada entre as várias instâncias EC2 ativas. O Auto Scaling Group (ASG), por sua vez, controla o número ideal dessas instâncias em execução dinâmica.
-2. **Fluxo no Pico de Tráfego (Scale-Out):** Conforme o número de requisições web cresce repentinamente, a carga média de CPU das máquinas do ASG aumenta. O CloudWatch detecta o desvio do limite estipulado (ex: 50% de CPU média) e aciona o ASG para provisionar uma nova instância. Assim que a nova máquina é declarada saudável pelo processo de *Health Check*, o ASG a registra automaticamente no ELB. A partir desse instante, o ELB passa a desviar uma fração do tráfego das requisições públicas para este novo servidor, aliviando a carga sobre as máquinas antigas de forma totalmente transparente para os usuários de rede.
-3. **Fluxo na Calmaria (Scale-In):** Quando a demanda web diminui, a utilização média de CPU do grupo despenca. O CloudWatch alerta o ASG sobre a ociosidade duradoura. O ASG inicia o desligamento ordenado de uma das instâncias excedentes. Primeiramente, ele notifica o ELB para iniciar o processo de *Connection Draining* (ou desregistro), onde o ELB para de direcionar novas requisições para a máquina a ser encerrada, mas aguarda a finalização das conexões ativas. Após o esvaziamento seguro das conexões, o ASG encerra a VM de forma definitiva, minimizando despesas operacionais ativas sem afetar a experiência dos usuários.
-
----
-%%
-
 ---
 
 ## 📄 Artigo de Aprofundamento

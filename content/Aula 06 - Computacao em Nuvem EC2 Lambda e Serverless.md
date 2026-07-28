@@ -126,46 +126,6 @@ As modernas arquiteturas de IA utilizam abordagens híbridas de computação:
 | **Gatilho (Trigger)** | Evento lógico ou de rede que inicia a execução automatizada de uma função no Lambda. |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 Esta seção é visível apenas no Obsidian do professor. Não publicada.
-
-### Questão 1: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** O departamento de Inteligência Artificial de uma startup de telemedicina em Uberlândia precisa implantar uma API de backend de alta disponibilidade que processará continuamente as requisições de triagem de pacientes. Além disso, a aplicação exige controle administrativo completo sobre o kernel do sistema operacional Linux para customizar drivers de criptografia homologados internacionalmente. Qual serviço de computação e modelo de serviço de nuvem mais adequado para essa arquitetura?
-
-- [ ] A) AWS Lambda e Função como Serviço (FaaS).
-- [x] B) Amazon EC2 e Infraestrutura como Serviço (IaaS). ✅
-- [ ] C) Amazon S3 e Software como Serviço (SaaS).
-- [ ] D) Azure App Service e Plataforma como Serviço (PaaS).
-
-**Justificativa:** O Amazon EC2 provê instâncias de servidores virtuais elásticos no modelo IaaS, concedendo privilégios de acesso administrativo (root) para customização profunda do kernel do Sistema Operacional exigido pela aplicação.
-
----
-
-### Questão 2: Prática (Múltipla Escolha — Nível: Intermediário)
-**Enunciado:** Um engenheiro de MLOps de uma empresa de logística desenvolveu um script em Python que consome uma biblioteca leve de IA para calcular a rota mais eficiente de entrega. Esse script é acionado apenas quando um novo arquivo CSV contendo os pedidos é salvo na pasta do Amazon S3, durando cerca de 3 segundos para rodar. Seguindo as melhores práticas de design de sistemas elásticos e otimização financeira, como esta arquitetura de processamento deve ser modelada na AWS?
-
-- [ ] A) Manter uma instância Amazon EC2 robusta ligada ininterruptamente rodando um script de monitoramento infinito da pasta.
-- [x] B) Implementar o código em uma função no AWS Lambda (Serverless) configurando um gatilho de upload do Amazon S3. ✅
-- [ ] C) Criar um cluster físico de servidores locais On-Premises integrados via hypervisor.
-- [ ] D) Utilizar uma ferramenta de SaaS pronta para substituir a lógica proprietária do cálculo de rotas.
-
-**Justificativa:** O AWS Lambda (Serverless/FaaS) elimina o custo de ociosidade, pois a infraestrutura computacional só é alocada e cobrada durante os 3 segundos em que a função executa a partir do gatilho de upload no S3.
-
----
-
-### Questão 3: Teórica (Dissertativa — Nível: Avançado)
-**Enunciado:** Compare em profundidade a arquitetura clássica baseada em instâncias virtuais (Amazon EC2) com a arquitetura moderna baseada em computação sem servidor (AWS Lambda). Analise detalhadamente os critérios de: limite de tempo de execução, estrutura lógica de faturamento e tempo de resposta de escalabilidade horizontal. Por fim, justifique tecnicamente a indicação de cada modelo para as etapas de Treinamento de Modelos de Deep Learning versus a etapa de Inferência de Modelos leves na área de Ciência de Dados.
-
-**Resposta esperada:** 
-1. **Amazon EC2 (IaaS):** Consiste no fornecimento de Máquinas Virtuais isoladas onde o usuário gerencia todo o SO e runtimes. **Tempo de Execução:** Ilimitado (ideal para workloads ininterruptos). **Faturamento:** Cobrado por segundo em que a máquina permanecer ligada, gerando custos passivos de ociosidade. **Escalabilidade:** Escala de forma horizontal adicionando instâncias em minutos via Auto Scaling. **Indicação na Ciência de Dados:** Recomendado para o **Treinamento de modelos pesados de Deep Learning (LLMs/Redes Neurais)** que consomem intensa capacidade de GPU (Famílias P ou G) e rodam continuamente por dias ou semanas.
-2. **AWS Lambda (FaaS):** Paradigma Serverless onde toda a infraestrutura física e lógica é gerenciada pelo provedor. **Tempo de Execução:** Limite rígido de até **15 minutos** por invocação. **Faturamento:** Tarifação por milissegundo de execução sob uso efetivo (ociosidade custa zero). **Escalabilidade:** Escala instantânea baseada em concorrência de eventos (milissegundos). **Indicação na Ciência de Dados:** Recomendado para a **Inferência de modelos leves de ML** (ex.: predição de scorings de crédito disparados via API web), microsserviços de ETL orientados a eventos de curta duração e limpezas diárias em bases de dados.
-
----
-%%
-
 ## 📄 Artigo de Aprofundamento
 
 - [Serverless AI Inference on AWS Lambda (AWS Whitepaper)](https://aws.amazon.com/pt/lambda/)

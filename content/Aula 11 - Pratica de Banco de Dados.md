@@ -436,47 +436,6 @@ Do you really want to destroy all resources?
 | `endpoint` | URL de conexão do banco gerada pela AWS (host + porta) |
 
 ---
-
-%%
-## ❓ Banco de Questões
-
-> 🔒 *Seção exclusiva do professor — não publicada para os alunos.*
-
-### Questão 1: Prática — Múltipla Escolha (Nível Básico)
-
-**Enunciado:** No projeto Terraform desta aula, por que a senha do banco foi marcada com `sensitive = true` na variável?
-
-- [ ] A) Para criptografar a senha no banco de dados RDS.
-- [x] B) Para impedir que o Terraform exiba a senha nos logs e no output do `plan`/`apply`. ✅
-- [ ] C) Para que a senha seja gerada automaticamente pela AWS.
-- [ ] D) Para bloquear o acesso remoto ao banco de dados.
-
-**Justificativa:** O atributo `sensitive = true` é uma proteção do Terraform que impede que o valor da variável apareça na saída dos comandos `plan`, `apply` e `output`. Não afeta a criptografia do banco em si — isso é responsabilidade do RDS (via `storage_encrypted`).
-
----
-
-### Questão 2: Teórica — Dissertativa (Nível Intermediário)
-
-**Enunciado:** Compare a criação de um banco RDS pelo Console AWS (como visto na Aula 10) versus via Terraform (como nesta aula). Cite pelo menos 3 vantagens da abordagem IaC.
-
-**Resposta esperada:** (1) **Documentação automática:** O código `.tf` documenta exatamente o que foi criado, diferente de prints de tela. (2) **Reprodutibilidade:** O mesmo código cria ambientes idênticos em qualquer conta ou região AWS, sem risco de esquecer uma configuração. (3) **Versionamento:** Com Git, cada mudança na infraestrutura fica rastreada no histórico, permitindo auditoria e rollback. Bônus: (4) Destruição simplificada com `terraform destroy` e (5) habilitação de Multi-AZ com uma única linha de código.
-
----
-
-### Questão 3: Prática — Múltipla Escolha (Nível Intermediário)
-
-**Enunciado:** No `main.tf`, a regra de Ingress do Security Group do RDS foi configurada da seguinte forma: `security_groups = [aws_security_group.ec2_sg.id]`. O que isso significa na prática?
-
-- [ ] A) Que o banco de dados e a EC2 compartilham as mesmas credenciais de login.
-- [ ] B) Que o banco de dados ficará acessível para toda a internet.
-- [x] C) Que o tráfego na porta 3306 será aceito **apenas** se for originado de recursos que usem o Security Group da EC2. ✅
-- [ ] D) Que a EC2 fará backup automático do banco de dados diariamente.
-
-**Justificativa:** Interligar Security Groups é a principal boa prática em nuvem AWS. Ao referenciar o SG da EC2 na regra de entrada do RDS, informamos ao firewall: "Só aceite conexões de quem pertencer a esse grupo específico". Isso garante que o banco fique isolado da internet e apenas a camada de aplicação possa acessá-lo.
-
----
-%%
-
 ## 🏋️ Atividade Prática — Entrega no Moodle
 
 Execute o roteiro da aula completo e documente com evidências:
