@@ -1,83 +1,171 @@
 @use "./base.scss";
 
-/* ╔══════════════════════════════════════════════════════════╗
-   ║   UNIUBE – CLOUD COMPUTING DESIGN SYSTEM                ║
-   ║   Versão 2.0 · Maio 2026                                ║
-   ╚══════════════════════════════════════════════════════════╝ */
+/* ==========================================================================
+   CLOUD COMPUTING · Uniube · 2026-2
+   Design System de Aulas v2.0 — porte para Quartz
 
-/* ──────────────────────────────────────────────────────────
-   1. TOKENS DE DESIGN
-   ────────────────────────────────────────────────────────── */
+   Fonte de verdade: vault → .claude/skills/criacao-aulas/references/
+                             design-system-html.md  +  componentes.css
+   Pesquisa: _CEREBRO/PESQUISA_DESIGN_PAGINAS_AULA_2026-07.md
+
+   ORGANIZAÇÃO DESTE ARQUIVO
+     1. Tokens T568B (comuns)
+     2. Modos → aqui o modo é o TEMA do Quartz:
+          claro  = modo leitura   (aula, serifa, coluna de 68ch)
+          escuro = modo operação  (bancada, denso, terminal protagonista)
+     3. Ponte Quartz — o markdown nativo da aula obedece aos tokens
+     4. Componentes `au-` — opt-in, para blocos escritos em HTML na nota
+     5. Acessibilidade, impressão, movimento
+
+   POR QUE A PONTE EXISTE
+     Uma nota `.md` no Quartz nunca escreve <body>. O design system original
+     supõe `<body class="au-leitura">`. Aqui o papel de trocar de modo é do
+     botão de tema do Quartz — então os tokens nascem em :root, condicionados
+     a [saved-theme], e as três classes de modo continuam válidas para
+     contêineres (usadas no index).
+   ========================================================================== */
+
+/* ──────────────────────────────────────────────────────────────
+   1. TOKENS — comuns aos dois temas
+   Cores ancoradas nos pares do cabo T568B: vocabulário do próprio
+   assunto, não paleta genérica. Semântica fixa em TODA a disciplina.
+   ────────────────────────────────────────────────────────────── */
 :root {
-  /* Cores institucionais (Uniube) */
-  --uniube-blue-dark:  #003366;   /* Azul profundo — headers, contraste forte */
-  --uniube-blue-core:  #004B87;   /* Azul principal da marca */
-  --uniube-blue-light: #2D6A9F;   /* Azul suave — fundos e bordas */
-  --uniube-accent:     #f97316;   /* Laranja — ênfase, botões, links */
+  /* identidade LMS clean: Inter em tudo (Brilliant/LearnHouse); a serifa
+     fica disponível para citação longa, não para corpo */
+  --au-serif: "Source Serif 4", Charter, Georgia, serif;
+  --au-sans: "Inter", "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* display — geométrica com corte de instrumento de medição. Entra só em
+     hero, título de bloco e código de semana; o corpo continua Inter. */
+  --au-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --au-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, Consolas, monospace;
 
-  /* Escala tipográfica (Major Third 1.250×) */
-  --text-xs:   0.8rem;
-  --text-sm:   0.9rem;
-  --text-base: 1.05rem;   /* ótimo para leitura longa */
-  --text-lg:   1.25rem;
-  --text-xl:   1.563rem;
-  --text-2xl:  1.953rem;
-  --text-3xl:  2.441rem;
+  /* escala modular 1.25 (Major Third) a partir de 16px */
+  --au-t--2: 0.8125rem; /* 13px — só rótulo, nunca corpo */
+  --au-t--1: 0.875rem; /* 14px — piso absoluto */
+  --au-t-0: 1rem; /* 16px — corpo */
+  --au-t-1: 1.25rem;
+  --au-t-2: 1.5625rem;
+  --au-t-3: 1.9375rem;
+  --au-t-4: 2.4375rem;
 
-  /* Ritmo vertical */
-  --leading-tight:  1.2;
-  --leading-snug:   1.4;
-  --leading-normal: 1.72;  /* W3C para blocos longos de texto */
+  /* ritmo vertical — múltiplos de 4 */
+  --au-s-1: 0.25rem;
+  --au-s-2: 0.5rem;
+  --au-s-3: 0.75rem;
+  --au-s-4: 1rem;
+  --au-s-5: 1.5rem;
+  --au-s-6: 2rem;
+  --au-s-7: 3rem;
 
-  /* Espaçamento (base 8 px) */
-  --sp-1:  0.25rem;
-  --sp-2:  0.5rem;
-  --sp-3:  0.75rem;
-  --sp-4:  1rem;
-  --sp-6:  1.5rem;
-  --sp-8:  2rem;
-  --sp-12: 3rem;
+  /* medida de leitura — regra dura (Dyson & Haselgrove 2001; WCAG 1.4.8) */
+  --au-medida: 68ch;
 
-  /* Medida ideal de leitura */
-  --max-prose: 1200px;
+  /* pares T568B — semântica fixa, saturação de LMS moderno */
+  /* IDENTIDADE UNIUBE — extraída dos ativos oficiais em 26/07/2026, não
+     escolhida por gosto: #1D2057 é o fill do logo_azul.svg; os demais são as
+     cores dominantes do uniube.br. É a âncora institucional do portal. */
+  --uni-navy: #1d2057; /* tinta do logo — chrome, hero, títulos     */
+  --uni-navy-2: #11275b; /* azul profundo — par de gradiente          */
+  --uni-azul: #2778c4; /* azul de ação — link, foco                 */
+  --uni-turquesa: #00aa9f; /* o acento distintivo da marca              */
+
+  /* Pares do T568B: a SEMÂNTICA é fonte de verdade (Design System v2.0) e não
+     muda. O que muda é a tonalidade — azul e verde passam a ser os da Uniube,
+     de modo que a cor que ensina o cabo e a cor da casa sejam a mesma. Laranja
+     e marrom permanecem quentes: são cor de cabo e precisam ler como alerta. */
+  --au-par-azul: var(--uni-azul); /* conceito primário, links, VLAN de dados */
+  --au-par-verde: var(--uni-turquesa); /* sucesso, verificação, convergido   */
+  --au-par-laranja: #d9702a; /* atenção, quebra deliberada, VLAN de voz */
+  --au-par-marrom: #8a5a34; /* legado, obsoleto, "não faça isso"       */
+
+  --au-raio: 14px;
+  --au-borda: 1px;
+  --au-transicao: 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ──────────────────────────────────────────────────────────
-   2. ADAPTAÇÃO DE TEMA (LIGHT / DARK)
-   ────────────────────────────────────────────────────────── */
-:root:not([saved-theme="dark"]) {
-  --secondary:    var(--uniube-blue-core);
-  --tertiary:     var(--uniube-blue-light);
-  --text-color:   #2c3e50;   /* cinza escuro — evita fadiga do preto puro */
+/* ──────────────────────────────────────────────────────────────
+   2. MODOS
+   Claro por decisão, não por descuido: para tarefa de precisão
+   (achar erro de digitação numa config) a evidência favorece
+   polaridade positiva — Piepenbrock et al. 2013/2014, Ergonomics.
+   ────────────────────────────────────────────────────────────── */
 
-  /* Blocos de Código (Light Theme) */
-  --code-block-bg:     #ffffff;
-  --code-block-border: #e2e8f0;
-  --code-block-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+/* modo LEITURA — página de aula */
+:root:not([saved-theme="dark"]),
+.au-leitura {
+  --au-bg: #fafaf8;
+  --au-bg2: #ffffff;
+  --au-bd: #e8e6e0;
+  --au-tx: #2b2e35;
+  --au-tx2: #5d636d;
+  --au-tx3: #8a8f98;
+  --au-ac: var(--au-par-azul);
+  --au-cod-bg: #2b2f36;
+  --au-cod-tx: #e4e7ea;
+  /* texto secundário SOBRE o fundo de código — não usar --au-tx3 aqui:
+     ele é calibrado contra --au-bg e cai para ~4:1 sobre o terminal. */
+  --au-cod-tx2: #a7aeb8;
 }
 
-:root[saved-theme="dark"] {
-  --secondary:  #60a5fa;   /* azul claro legível no escuro */
-  --tertiary:   #93c5fd;
-  --text-color: #cbd5e1;
-
-  /* Blocos de Código (Dark Theme) */
-  --code-block-bg:     #1e293b;
-  --code-block-border: rgba(255, 255, 255, 0.05);
-  --code-block-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+/* modo OPERAÇÃO — lab e revisão pré-prova. Escuro por compromisso:
+   é bancada, fica ao lado do Packet Tracer. */
+:root[saved-theme="dark"],
+.au-operacao {
+  --au-bg: #12161c;
+  --au-bg2: #191f27;
+  --au-bd: #29313c;
+  --au-tx: #dfe4ea;
+  --au-tx2: #98a2b0;
+  --au-tx3: #6b7683;
+  --au-ac: #63c78e;
+  --au-cod-bg: #0b0e13;
+  --au-cod-tx: #dfe4ea;
+  --au-cod-tx2: #a7aeb8;
 }
 
-/* ──────────────────────────────────────────────────────────
-   3. OVERRIDE GRID QUARTZ (TELA CHEIA SEM SIDEBARS)
-   ────────────────────────────────────────────────────────── */
+/* as classes de modo, quando usadas em contêiner, também pintam */
+.au-leitura {
+  background: var(--au-bg);
+  color: var(--au-tx);
+  font-family: var(--au-sans);
+  font-size: var(--au-t-0);
+  line-height: 1.65;
+}
 
-/* Remove os espaços reservados para sidebars */
+.au-operacao {
+  background: var(--au-bg);
+  color: var(--au-tx);
+  font-family: var(--au-sans);
+  font-size: var(--au-t--1);
+  line-height: 1.6;
+}
+
+/* modo VITRINE — índice da disciplina. Único lugar onde a linguagem de
+   streaming paga: é onde o aluno escolhe. Sem autoplay, sem countdown,
+   sem recomendação, sem grade infinita. */
+.au-vitrine {
+  /* herda a paleta do TEMA — a vitrine é off-white no claro e bancada no
+     escuro, nunca mais um dark hardcoded que ignora o botão de tema */
+  --au-ac: var(--au-par-laranja);
+
+  background: var(--au-bg);
+  color: var(--au-tx);
+  font-family: var(--au-sans);
+  font-size: var(--au-t-0);
+  line-height: 1.55;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   3. PONTE QUARTZ — o markdown da aula, governado pelos tokens
+   ────────────────────────────────────────────────────────────── */
+
+/* sem sidebars: a aula é a página */
 .sidebar.left,
 .sidebar.right {
   display: none !important;
 }
 
-/* Reconstrói o grid sem as colunas laterais */
 .page > #quartz-body {
   @media (min-width: 1200px) {
     grid-template-columns: 1fr !important;
@@ -88,265 +176,1553 @@
   }
 }
 
-/* Limita a largura máxima da página e centraliza */
 .page {
   @media (min-width: 1200px) {
-    max-width: 1400px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 0 4rem;
+    padding: 0 3rem;
   }
-
-  /* Tablets grandes (ex: 2560×1600 em alta resolução) */
-  @media (min-width: 1400px) {
-    max-width: 1600px;
-    padding: 0 6rem;
-  }
-
   @media (max-width: 1024px) {
     padding: 0 2rem;
   }
-
   @media (max-width: 768px) {
     padding: 0 1rem;
   }
 }
 
-/* ──────────────────────────────────────────────────────────
-   4. FUNDAÇÕES DE LEITURA (READABILITY)
-   ────────────────────────────────────────────────────────── */
+/* Cabeçalho: nome de disciplina é longo e, em tela estreita, quebrava
+   em três linhas por baixo da caixa de busca — título e busca se sobrepunham.
+   Declarar a linha como flex que QUEBRA resolve sem encurtar o nome. */
+.page-header > header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--au-s-2) var(--au-s-3);
+}
+.page-header > header > .page-title {
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* prosa — sans em tudo (identidade LMS clean); serifa só se um bloco pedir */
 article {
-  font-size: var(--text-base);
-  line-height: var(--leading-normal);
-  color: var(--text-color);
-  max-width: var(--max-prose) !important;
-  margin: 0 auto;
-  animation: fadeSlideUp 0.5s ease-out forwards;
+  font-family: var(--au-sans);
+  font-size: var(--au-t-0);
+  line-height: 1.65;
+  color: var(--au-tx);
+}
+
+/* A medida de leitura vale para o TEXTO, não para o artigo: tabela de
+   cronograma e bloco de terminal precisam da largura toda. */
+article p,
+article li {
+  max-width: var(--au-medida);
 }
 
 article p {
-  margin-bottom: var(--sp-6);
+  margin: 0 0 var(--au-s-4);
 }
 
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0);    }
+/* ---------------------------------------------------------------------
+   Prosa justificada, com hifenização.
+
+   Justificar SEM hifenizar abre rios de espaço branco no meio do
+   parágrafo — fica pior que a margem irregular. Os dois andam juntos, e
+   o `lang="pt"` que o Quartz emite no <html> é o que dá ao navegador o
+   dicionário de separação silábica. Sem ele, `hyphens: auto` não faz nada.
+
+   Vale só para PROSA. O que fica de fora, e por quê:
+   - célula de tabela: coluna estreita justificada vira coluna de buracos;
+   - legenda, paginação de referência, cabeçalho de slot, etiqueta de
+     card, chip: são rótulos curtos — justificar uma linha só desalinha;
+   - código, terminal e teclas: espaçamento é significado, não estética;
+   - título: `text-wrap: balance` já distribui melhor que justificar.
+
+   Em tela estreita a medida da linha fica curta demais para justificar
+   sem estragar: abaixo de 34rem volta a margem irregular.
+   --------------------------------------------------------------------- */
+article :is(p, li) {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
 }
 
-/* ──────────────────────────────────────────────────────────
-   5. HIERARQUIA DE CABEÇALHOS
-   ────────────────────────────────────────────────────────── */
+/* Parágrafo com quebra dura dentro (o cabeçalho de metadados é o caso
+   típico: cada linha termina em <br>). Justificar aqui é o pior cenário
+   possível — cada linha curta é esticada até a margem, e o bloco vira
+   uma grade de buracos. Medido: 59% de vão na linha mais curta. */
+article p:has(br),
+/* Referências são citação, não prosa: o vão de uma linha que termina
+   antes da paginação chegava a 57%. */
+article .au-refs :is(p, li),
+article :is(td, th) :is(p, li),
+article :is(td, th),
+article figcaption,
+article .au-legenda,
+article .au-pag,
+article .au-slot-h,
+article .au-slot-b,
+article .au-nota-t,
+article .au-cap,
+article .au-chip,
+article .au-pronto,
+article :is(pre, code, kbd, samp) :is(p, li) {
+  text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+
+article :is(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+
+@media (max-width: 34rem) {
+  article :is(p, li) {
+    text-align: left;
+  }
+}
+
+article ul,
+article ol {
+  padding-left: var(--au-s-5);
+  margin-bottom: var(--au-s-4);
+}
+
+article li {
+  margin-bottom: var(--au-s-1);
+}
+
+article li::marker {
+  color: var(--au-ac);
+}
+
+/* Títulos na display (Space Grotesk) — é o fio que liga a capa à página de
+   aula. O corpo continua Inter: a display entra em título e etiqueta, nunca
+   em prosa longa. */
 article h1,
 article h2,
 article h3,
 article h4 {
-  font-family: 'Outfit', 'Inter', sans-serif;
+  font-family: var(--au-display);
+  line-height: 1.18;
   letter-spacing: -0.02em;
-  line-height: var(--leading-tight);
+  text-wrap: balance;
 }
 
-/* H1 — Título principal com gradiente de marca */
 article h1 {
-  font-size: var(--text-3xl);
-  font-weight: 800;
-  margin-top: var(--sp-8);
-  margin-bottom: var(--sp-6);
-  /* Gradiente: usa background-clip sem inline-block para não quebrar wrap */
-  background: linear-gradient(135deg, var(--secondary), var(--uniube-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* H2 — Tópicos principais com linha separadora */
-article h2 {
-  font-size: var(--text-2xl);
+  font-size: var(--au-t-3);
   font-weight: 700;
-  margin-top: var(--sp-12);
-  margin-bottom: var(--sp-4);
-  padding-bottom: var(--sp-2);
-  border-bottom: 2px solid color-mix(in srgb, var(--secondary) 20%, transparent);
+  margin: var(--au-s-6) 0 var(--au-s-3);
+  color: var(--uni-navy);
 }
 
-/* H3 — Subtópicos coloridos */
+:root[saved-theme="dark"] article h1 {
+  color: var(--au-tx);
+}
+
+/* Guard de texto corrido no tema escuro — generaliza os remendos pontuais que
+   já existem neste arquivo (article h1, .au-resumo>b, .au-reflexao).
+
+   POR QUE: o Quartz declara `p, tr, td, li, ol, ul { color: var(--darkgray) }`.
+   É declaração DIRETA no elemento, e declaração direta vence HERANÇA
+   independente de especificidade — então a `color` que o `.au-leitura` define
+   no contêiner nunca chega ao texto. No tema escuro `--darkgray` vira #e2e5ef,
+   enquanto o `.au-leitura` fixa fundo claro de propósito (polaridade positiva,
+   Piepenbrock 2013/2014). Resultado: fundo claro + texto claro = ilegível.
+
+   O `.au-term` não é atingido: o conteúdo dele é span/div, não p/li/td — o
+   terminal segue claro sobre fundo escuro, como deve.
+
+   Mesma mecânica, segundo seletor: o Quartz também declara
+   `.page article p > strong { color: var(--dark) }`, e `--dark` no tema escuro é
+   quase branco — o negrito de dentro do parágrafo desaparecia mesmo com o
+   parágrafo já corrigido. Precisa vir junto, senão o guard resolve metade. */
+:root[saved-theme="dark"] .au-leitura :is(p, tr, td, th, li, ol, ul,
+                                          blockquote, summary, dt, dd, figcaption),
+:root[saved-theme="dark"] .au-leitura :is(p, li, td, th) > :is(strong, b, em, i) {
+  color: var(--au-tx);
+  fill: var(--au-tx);
+}
+
+/* Terceiro seletor, mesma causa raiz — descoberto na Aula 01 do redes1.
+   O `article h1` ja tinha remendo proprio e o `h3` tem cor propria (--au-ac),
+   mas h2/h4/h5/h6 seguiam herdando o `color: var(--dark)` que o base.scss
+   declara para toda a familia de titulos. No escuro, --dark e quase branco e o
+   .au-leitura mantem fundo claro de proposito: o titulo de topico sumia. Um
+   remendo so no h1 resolvia o cabecalho e deixava os topicos invisiveis. */
+:root[saved-theme="dark"] .au-leitura :is(h2, h4, h5, h6),
+:root[saved-theme="dark"] .au-leitura :is(h2, h4, h5, h6) a[role="anchor"] {
+  color: var(--au-tx);
+}
+
+article h2 {
+  font-size: var(--au-t-2);
+  font-weight: 700;
+  margin: var(--au-s-7) 0 var(--au-s-3);
+  padding-bottom: var(--au-s-2);
+  border-bottom: 2px solid var(--au-bd);
+}
+
 article h3 {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  color: var(--secondary);
-  margin-top: var(--sp-8);
-  margin-bottom: var(--sp-3);
+  font-size: var(--au-t-1);
+  font-weight: 650;
+  color: var(--au-ac);
+  margin: var(--au-s-6) 0 var(--au-s-2);
 }
 
-/* ──────────────────────────────────────────────────────────
-   6. COMPONENTES DE CONTEÚDO
-   ────────────────────────────────────────────────────────── */
+article h4 {
+  font-size: var(--au-t-0);
+  font-weight: 650;
+  margin: var(--au-s-5) 0 var(--au-s-2);
+}
 
-/* Callouts (admonitions) */
+/* callouts do Obsidian — a borda esquerda carrega a cor, como no au-nota */
 .callout {
-  border-radius: 12px !important;
-  border: 1px solid color-mix(in srgb, var(--secondary) 20%, transparent) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-  backdrop-filter: blur(8px);
-  padding: var(--sp-6) !important;
-  margin: var(--sp-8) 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none !important;
+  border-left: 3px solid var(--callout-color, var(--au-ac)) !important;
+  border-radius: 0 var(--au-raio) var(--au-raio) 0 !important;
+  background: var(--au-bg2) !important;
+  padding: var(--au-s-3) var(--au-s-4) !important;
+  margin: var(--au-s-5) 0 !important;
+  font-size: var(--au-t--1);
+  line-height: 1.55;
+  box-shadow: none;
 }
-.callout:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-}
+
 .callout-title {
-  font-size: var(--text-lg);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700 !important;
-  margin-bottom: var(--sp-2) !important;
+  font-family: var(--au-sans);
+  font-size: var(--au-t-0) !important;
+  font-weight: 650 !important;
+  margin-bottom: var(--au-s-2) !important;
 }
 
-/* Blockquotes com borda laranja */
-article blockquote {
-  border-left: 4px solid var(--uniube-accent);
-  background: color-mix(in srgb, var(--uniube-accent) 5%, transparent);
-  padding: var(--sp-4) var(--sp-6);
-  margin: var(--sp-8) 0;
-  border-radius: 0 8px 8px 0;
-  font-style: italic;
-  font-size: var(--text-lg);
-  color: var(--text-color);
-  opacity: 0.9;
+.callout p {
+  max-width: none;
 }
 
-/* Blocos de código — estilo macOS */
-figure[data-rehype-pretty-code-figure] {
-  border-radius: 12px !important;
-  box-shadow: var(--code-block-shadow) !important;
-  margin: var(--sp-8) 0 !important;
-  position: relative;
-  padding-top: 2.5rem !important;
-  background-color: var(--code-block-bg) !important;
+/* blockquote simples (as glosas de figura da aula) */
+article blockquote:not(.callout) {
+  border-left: 3px solid var(--au-bd);
+  background: transparent;
+  padding: 0 0 0 var(--au-s-4);
+  margin: var(--au-s-4) 0;
+  font-size: var(--au-t--1);
+  line-height: 1.55;
+  color: var(--au-tx2);
+  font-style: normal;
+  max-width: var(--au-medida);
+}
+
+/* checkpoints <details> — mesma mecânica do au-aposta (predict-then-reveal) */
+article details {
+  border-top: var(--au-borda) solid var(--au-bd);
+  border-bottom: var(--au-borda) solid var(--au-bd);
+  padding: var(--au-s-3) 0;
+  margin: var(--au-s-5) 0;
+  max-width: var(--au-medida);
+}
+
+article details > summary {
+  cursor: pointer;
+  font-family: var(--au-sans);
+  font-size: var(--au-t--1);
+  font-weight: 600;
+  color: var(--au-ac);
+  min-height: 24px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--au-s-2);
+}
+
+article details > summary::-webkit-details-marker {
+  display: none;
+}
+
+article details > summary::before {
+  content: "▸";
+  transition: transform var(--au-transicao);
+  display: inline-block;
+  flex: none;
+}
+
+article details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+article details > summary:focus-visible {
+  outline: 2px solid var(--au-ac);
+  outline-offset: 3px;
+}
+
+article details blockquote {
+  margin: var(--au-s-3) 0 0;
+  border-left: none;
+  padding-left: 0;
+  color: var(--au-tx);
+  font-size: var(--au-t--1);
+}
+
+/* tabelas — números alinhados, cabeçalho em mono, sem zebra decorativa */
+article table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: var(--au-s-5) 0;
+  font-family: var(--au-sans);
+  font-size: var(--au-t--1);
+  font-variant-numeric: tabular-nums;
+  box-shadow: none;
+}
+
+article th {
+  text-align: left;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--au-tx2);
+  font-weight: 500;
+  background: transparent;
+  border-bottom: 2px solid var(--au-bd);
+  padding: var(--au-s-2) var(--au-s-3);
+}
+
+article td {
+  border-bottom: var(--au-borda) solid var(--au-bd);
+  padding: var(--au-s-2) var(--au-s-3);
+  vertical-align: top;
+}
+
+/* tabela larga (o cronograma de 20 semanas) rola sozinha, sem estourar a página */
+article > table {
+  display: block;
+  overflow-x: auto;
+  white-space: normal;
+}
+
+/* código: bloco discreto, sem cromo de janela — o protagonista é o texto */
+article figure[data-rehype-pretty-code-figure] {
+  background: var(--au-cod-bg) !important;
+  border: var(--au-borda) solid var(--au-bd);
+  border-radius: var(--au-raio) !important;
+  margin: var(--au-s-4) 0 !important;
   overflow: hidden !important;
-  border: 1px solid var(--code-block-border) !important;
+  box-shadow: none;
 }
-/* Bolinhas macOS (vermelho/amarelo/verde) */
-figure[data-rehype-pretty-code-figure]::before {
-  content: '';
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  width: 12px;
-  height: 12px;
+
+article figure[data-rehype-pretty-code-figure] pre {
+  margin: 0 !important;
+  padding: var(--au-s-3) !important;
+  background: transparent !important;
+  overflow-x: auto !important;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--1);
+  line-height: 1.5;
+}
+
+article figure[data-rehype-pretty-code-figure] pre code {
+  color: var(--au-cod-tx);
+}
+
+article figure[data-rehype-pretty-code-figure] pre code span {
+  color: var(--shiki-dark, var(--au-cod-tx)) !important;
+}
+
+article code {
+  font-family: var(--au-mono);
+  font-size: 0.9em;
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
+  background: var(--au-bg2);
+  color: var(--au-ac);
+}
+
+/* imagens: sem sombra e sem zoom no hover — diagrama de rede não é foto */
+article img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--au-raio);
+  box-shadow: none;
+  margin: var(--au-s-5) 0;
+}
+
+/* SVG exportado do Excalidraw: fundo transparente, respira nos dois temas */
+article img[src$=".svg"] {
+  background: transparent;
+}
+
+/* links */
+article a {
+  color: var(--au-ac);
+  font-weight: 550;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   4. COMPONENTES `au-` — opt-in, para blocos em HTML na nota
+   Prefixo `au-` em tudo, para nunca colidir com o CSS do Quartz.
+   Tudo funciona sem JavaScript; o JS só acrescenta conforto.
+   ────────────────────────────────────────────────────────────── */
+
+.au-col {
+  max-width: var(--au-medida);
+  margin-inline: auto;
+  padding-inline: var(--au-s-4);
+}
+
+/* rótulo estrutural — semana, modalidade, duração */
+.au-kicker {
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--au-tx2);
+  display: flex;
+  align-items: center;
+  gap: var(--au-s-3);
+  margin: 0;
+}
+
+.au-kicker::before {
+  content: "";
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #ff5f56;
-  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+  background: var(--au-ac);
+  flex: none;
+}
+
+/* PRÉ-TREINAMENTO — "antes de começar". Mayer, princípio de pré-treinamento
+   (d = 0,75): os termos ANTES do diagrama complexo, nunca depois. */
+.au-antes {
+  border-left: 3px solid var(--au-ac);
+  background: var(--au-bg2);
+  padding: var(--au-s-3) var(--au-s-4);
+  margin: 0 0 var(--au-s-5);
+  font-size: var(--au-t--1);
+  line-height: 1.55;
+  color: var(--au-tx2);
+  max-width: var(--au-medida);
+}
+
+.au-antes > :first-child {
+  margin-top: 0;
+}
+.au-antes > :last-child {
+  margin-bottom: 0;
+}
+.au-antes strong {
+  color: var(--au-tx);
+}
+
+/* FIGURA + LEGENDA — contiguidade espacial (g = 0,74). A legenda é irmã da
+   figura e fica colada nela. Nunca em rodapé, nunca exigindo rolar.
+   É o ganho mais barato do sistema inteiro. */
+.au-fig {
+  margin: var(--au-s-5) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--au-s-2);
+}
+
+.au-fig > img,
+.au-fig > svg,
+.au-fig picture img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: var(--au-raio);
+  margin: 0;
+}
+
+.au-fig img[src$=".svg"] {
+  background: transparent;
+}
+
+.au-fig figcaption,
+.au-fig .au-legenda {
+  font-family: var(--au-sans);
+  font-size: var(--au-t--1);
+  line-height: 1.5;
+  color: var(--au-tx2);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.au-fig .au-legenda b {
+  color: var(--au-tx);
+  font-weight: 600;
+}
+
+/* SELETOR DE CAMADA — componente-assinatura, zero JavaScript.
+   Radio + combinador `~` isolam uma camada do diagrama (VLAN, etapa do
+   handshake, salto do pacote). Requisito de DOM: os <input> vêm ANTES
+   do .au-camadas, como irmãos.
+
+   <div class="au-switch">
+     <input type="radio" name="v" id="all" checked><input type="radio" name="v" id="v10">
+     <div class="au-switch-lbl"><label for="all">TODAS</label><label for="v10">VLAN 10</label></div>
+     <svg class="au-camadas">... <g class="c1">...</g> ...</svg>
+   </div> */
+.au-switch {
+  margin: var(--au-s-5) 0;
+}
+
+.au-switch > input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.au-switch-lbl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--au-s-2);
+  margin-bottom: var(--au-s-3);
+}
+
+.au-switch-lbl label {
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem;
+  border: var(--au-borda) solid var(--au-bd);
+  border-radius: var(--au-raio);
+  color: var(--au-tx2);
+  cursor: pointer;
+  /* alvo de toque WCAG 2.5.8 — mínimo 24px, aqui 34 */
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    background var(--au-transicao),
+    color var(--au-transicao);
+}
+
+.au-switch-lbl label:hover {
+  border-color: var(--au-ac);
+  color: var(--au-tx);
+}
+
+/* Foco de teclado: o input focado acende O SEU label.
+   Precisa ser `~` com nth-of-type — os inputs NÃO encostam no .au-switch-lbl
+   (só o último seria irmão adjacente), então `+` deixaria o 1º e o 2º botões
+   sem indicador nenhum. WCAG 2.4.7. */
+.au-switch > input:nth-of-type(1):focus-visible ~ .au-switch-lbl label:nth-of-type(1),
+.au-switch > input:nth-of-type(2):focus-visible ~ .au-switch-lbl label:nth-of-type(2),
+.au-switch > input:nth-of-type(3):focus-visible ~ .au-switch-lbl label:nth-of-type(3),
+.au-switch > input:nth-of-type(4):focus-visible ~ .au-switch-lbl label:nth-of-type(4),
+.au-switch > input:nth-of-type(5):focus-visible ~ .au-switch-lbl label:nth-of-type(5) {
+  outline: 2px solid var(--au-ac);
+  outline-offset: 2px;
+}
+
+.au-camadas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.au-camadas .c1,
+.au-camadas .c2,
+.au-camadas .c3,
+.au-camadas .c4 {
+  transition: opacity var(--au-transicao);
+}
+
+/* estado ativo do botão */
+.au-switch > input:nth-of-type(1):checked ~ .au-switch-lbl label:nth-of-type(1),
+.au-switch > input:nth-of-type(2):checked ~ .au-switch-lbl label:nth-of-type(2),
+.au-switch > input:nth-of-type(3):checked ~ .au-switch-lbl label:nth-of-type(3),
+.au-switch > input:nth-of-type(4):checked ~ .au-switch-lbl label:nth-of-type(4),
+.au-switch > input:nth-of-type(5):checked ~ .au-switch-lbl label:nth-of-type(5) {
+  background: var(--au-ac);
+  border-color: var(--au-ac);
+  color: var(--au-bg);
+}
+
+/* Isolamento. O 1º input é o "TODAS" e não apaga nada; do 2º em diante,
+   o input N isola a camada c(N−1). Teto: 4 camadas (c1–c4) + o TODAS.
+   A ORDEM DOS LABELS PRECISA ESPELHAR A ORDEM DOS INPUTS — o casamento é
+   posicional, não pelo atributo `for`. */
+.au-switch > input:nth-of-type(2):checked ~ .au-camadas :is(.c2, .c3, .c4),
+.au-switch > input:nth-of-type(3):checked ~ .au-camadas :is(.c1, .c3, .c4),
+.au-switch > input:nth-of-type(4):checked ~ .au-camadas :is(.c1, .c2, .c4),
+.au-switch > input:nth-of-type(5):checked ~ .au-camadas :is(.c1, .c2, .c3) {
+  opacity: 0.13;
+}
+
+/* TERMINAL E CONFIG — prompt real do equipamento, não bloco genérico.
+   O aluno vê na página o mesmo texto que vai ver no Packet Tracer. */
+.au-term {
+  background: var(--au-cod-bg);
+  color: var(--au-cod-tx);
+  border: var(--au-borda) solid var(--au-bd);
+  border-radius: var(--au-raio);
+  margin: var(--au-s-4) 0;
+  overflow: hidden;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--1);
+  line-height: 1.5;
+}
+
+.au-term-h {
+  display: flex;
+  align-items: center;
+  gap: var(--au-s-2);
+  padding: var(--au-s-2) var(--au-s-3);
+  border-bottom: var(--au-borda) solid var(--au-bd);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.06em;
+  color: var(--au-cod-tx2);
+}
+
+.au-term-h b {
+  color: var(--au-ac);
+  font-weight: 500;
+}
+.au-term-h .au-sep {
+  flex: 1;
+}
+
+.au-term-b {
+  padding: var(--au-s-3);
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 2;
+  margin: 0;
+}
+
+.au-term-b .ps {
+  color: #63c78e;
+} /* prompt        */
+.au-term-b .kw {
+  color: #8fc4f5;
+} /* palavra-chave */
+.au-term-b .vl {
+  color: #e8c07a;
+} /* valor         */
+.au-term-b .cm {
+  color: #9aa4b0;
+} /* comentário — 5,4:1 no claro, 8,5:1 no escuro */
+
+/* marca de sinalização: a linha que o texto ao lado está explicando
+   (Alpizar et al. 2020, g = 0,53 em retenção) */
+.au-term-b .mark {
+  display: inline-block;
+  width: 100%;
+  background: rgba(232, 192, 122, 0.14);
+  box-shadow: inset 2px 0 0 #e8c07a;
+  padding-left: 6px;
+  margin-left: -8px;
+}
+
+.au-copiar {
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  background: transparent;
+  border: var(--au-borda) solid var(--au-bd);
+  color: var(--au-cod-tx2);
+  border-radius: 2px;
+  padding: 2px 8px;
+  cursor: pointer;
+  min-height: 24px;
+  transition:
+    color var(--au-transicao),
+    border-color var(--au-transicao);
+}
+
+.au-copiar:hover {
+  color: var(--au-ac);
+  border-color: var(--au-ac);
+}
+
+/* APOSTE ANTES DE VER — predict-then-reveal. HTML nativo, custo zero,
+   e casa com o "prevejam a saída" do plano da disciplina. */
+.au-aposta {
+  border-top: var(--au-borda) solid var(--au-bd);
+  border-bottom: var(--au-borda) solid var(--au-bd);
+  padding: var(--au-s-3) 0;
+  margin: var(--au-s-5) 0;
+  max-width: var(--au-medida);
+}
+
+.au-aposta > summary {
+  cursor: pointer;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--au-ac);
+  min-height: 24px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--au-s-2);
+}
+
+.au-aposta > summary::-webkit-details-marker {
+  display: none;
+}
+
+.au-aposta > summary::before {
+  content: "▸";
+  transition: transform var(--au-transicao);
+  display: inline-block;
+}
+
+.au-aposta[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.au-aposta > summary:focus-visible {
+  outline: 2px solid var(--au-ac);
+  outline-offset: 3px;
+}
+
+.au-aposta > :not(summary) {
+  margin: var(--au-s-3) 0 0;
+  font-size: var(--au-t--1);
+  color: var(--au-tx2);
+  line-height: 1.6;
+}
+
+/* CALLOUTS EM HTML — no máximo os três que a skill define.
+   Pro-Tip · Gotcha · Entrevista. Nada além disso: cada caixa nova
+   compete com o conteúdo (princípio da coerência, d = 0,86). */
+.au-nota {
+  border-left: 3px solid var(--au-cor, var(--au-ac));
+  background: var(--au-bg2);
+  border-radius: 0 var(--au-raio) var(--au-raio) 0;
+  padding: var(--au-s-3) var(--au-s-4);
+  margin: var(--au-s-4) 0;
+  font-size: var(--au-t--1);
+  line-height: 1.55;
+  max-width: var(--au-medida);
+}
+
+.au-nota > :first-child {
+  margin-top: 0;
+}
+.au-nota > :last-child {
+  margin-bottom: 0;
+}
+
+.au-nota-t {
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--au-cor, var(--au-ac));
+  margin: 0 0 var(--au-s-2);
+  font-weight: 600;
+}
+
+.au-nota.pro {
+  --au-cor: var(--au-par-verde);
+}
+.au-nota.gotcha {
+  --au-cor: var(--au-par-laranja);
+}
+.au-nota.entrevista {
+  --au-cor: var(--au-par-azul);
+}
+
+:root[saved-theme="dark"] .au-nota.pro,
+.au-operacao .au-nota.pro {
+  --au-cor: #63c78e;
+}
+:root[saved-theme="dark"] .au-nota.gotcha,
+.au-operacao .au-nota.gotcha {
+  --au-cor: #e8a05c;
+}
+:root[saved-theme="dark"] .au-nota.entrevista,
+.au-operacao .au-nota.entrevista {
+  --au-cor: #6ea8f0;
+}
+
+/* TABELA em contêiner de modo */
+.au-tab-wrap {
+  overflow-x: auto;
+  margin: var(--au-s-4) 0;
+}
+
+.au-vitrine table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--au-sans);
+  font-size: var(--au-t--1);
+  font-variant-numeric: tabular-nums;
+}
+
+/* linha da tabela que destaca um nó do diagrama (ver componentes.js) */
+tr[data-no] {
+  cursor: pointer;
+}
+tr[data-no]:hover,
+tr[data-no].au-on {
+  background: var(--au-bg2);
+}
+/* Sem escopo de contêiner de propósito: o alvo é qualquer elemento do SVG
+   (o `id` vem do data-no da linha), e a topologia normalmente mora em
+   .au-fig > svg, não em .au-camadas. */
+.au-destaque {
+  stroke-width: 3;
+  filter: brightness(1.25);
+  outline: none;
+}
+
+/* BARRA DE ESTADO — modo operação. Progresso é estático por padrão
+   (calculado na geração da aula); o JS só o torna persistente. */
+.au-barra {
+  display: flex;
+  align-items: center;
+  gap: var(--au-s-3);
+  padding: var(--au-s-2) var(--au-s-4);
+  background: var(--au-bg2);
+  border-bottom: var(--au-borda) solid var(--au-bd);
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--au-tx2);
+  position: sticky;
+  top: 0;
   z-index: 10;
 }
-figure[data-rehype-pretty-code-figure] pre {
-  margin: 0 !important;
-  padding: var(--sp-4) var(--sp-6) !important;
-  background-color: transparent !important;
-  overflow-x: auto !important;
+
+.au-barra .au-sep {
+  flex: 1;
 }
 
-/* Fix texto de código no tema escuro */
-[saved-theme="dark"] figure[data-rehype-pretty-code-figure] pre code span {
-  color: var(--shiki-dark, #e2e8f0) !important;
-}
-
-/* Garante contraste mínimo no tema claro */
-figure[data-rehype-pretty-code-figure] pre code {
-  color: var(--shiki-light, #24292e);
-}
-
-/* Responsivo: scroll horizontal em telas pequenas */
-@media (max-width: 768px) {
-  figure[data-rehype-pretty-code-figure] {
-    border-radius: 8px !important;
-    margin: var(--sp-4) 0 !important;
-  }
-  figure[data-rehype-pretty-code-figure] pre {
-    font-size: 0.78rem !important;
-  }
-}
-
-/* Código inline */
-article code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: var(--text-sm);
-  padding: 0.2em 0.45em;
-  border-radius: 6px;
-  background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
-  color: var(--secondary);
-}
-
-/* Imagens */
-article img {
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  margin: var(--sp-8) 0;
-  max-width: 100%;
-}
-article img:hover {
-  transform: scale(1.01);
-}
-
-/* Listas */
-article ul,
-article ol {
-  padding-left: var(--sp-6);
-  margin-bottom: var(--sp-6);
-}
-article li {
-  margin-bottom: var(--sp-2);
-}
-article li::marker {
-  color: var(--secondary);
-  font-weight: bold;
-}
-
-/* Links internos e externos com sublinhado animado */
-article a.internal,
-article a.external {
-  position: relative;
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--secondary);
-  transition: color 0.2s;
-}
-article a.internal::after,
-article a.external::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: -2px;
-  left: 0;
-  background-color: var(--secondary);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
-}
-article a.internal:hover::after,
-article a.external:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Tabelas */
-article table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin: var(--sp-8) 0;
-  border-radius: 8px;
+.au-prog {
+  width: 5.5rem;
+  height: 3px;
+  background: var(--au-bd);
+  border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  flex: none;
 }
-article th {
-  background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
-  padding: var(--sp-4);
+
+.au-prog > i {
+  display: block;
+  height: 100%;
+  background: var(--au-ac);
+  transition: width var(--au-transicao);
+}
+
+.au-chip {
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border: var(--au-borda) solid var(--au-bd);
+  border-radius: 2px;
+  color: var(--au-tx2);
+}
+
+.au-chip.on {
+  color: var(--au-ac);
+  border-color: color-mix(in srgb, var(--au-ac) 45%, transparent);
+}
+
+/* âncora não fica escondida atrás de barra sticky */
+article :target {
+  scroll-margin-top: 4rem;
+}
+
+/* toda página de aula traz o próprio H1 (template da disciplina) — o
+   .article-title do Quartz duplicaria o título em cada página */
+.article-title {
+  display: none;
+}
+
+/* VITRINE — hero e cards do índice */
+.au-hero {
+  position: relative;
+  /* alinhado com o padding lateral da grade de cards, para hero e cards
+     compartilharem a mesma margem de ataque */
+  margin: var(--au-s-4) var(--au-s-5) 0;
+  /* O HERO É O NAVY DA UNIUBE. É aqui, e só aqui, que a página levanta a voz:
+     um campo sólido na tinta do logo, com a malha de rede desenhada por cima
+     em linha fina. O resto do portal permanece off-white e quieto — uma peça
+     forte vale mais que a página inteira gritando.
+     Funciona nos dois temas: no claro é o contraste da capa, no escuro é a
+     casa. Por isso o hero NÃO herda --au-bg. */
+  padding: var(--au-s-7) var(--au-s-5) var(--au-s-6);
+  border-radius: var(--au-raio);
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 56px),
+    radial-gradient(120% 130% at 88% 8%, rgba(0, 170, 159, 0.42), transparent 58%),
+    radial-gradient(110% 120% at 4% 100%, rgba(39, 120, 196, 0.38), transparent 55%),
+    linear-gradient(158deg, var(--uni-navy) 0%, var(--uni-navy-2) 62%, #0d1740 100%);
+  overflow: hidden;
+}
+
+.au-hero > * {
+  position: relative;
+}
+
+.au-hero h1 {
+  margin: var(--au-s-3) 0 var(--au-s-3);
+  font-family: var(--au-display);
+  font-size: clamp(var(--au-t-3), 6vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  max-width: 18ch;
+  text-wrap: balance;
+  color: #fff;
+  border: none;
+  padding: 0;
+}
+
+.au-hero p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  max-width: 58ch;
+  font-family: var(--au-sans);
+  line-height: 1.6;
+}
+
+.au-hero p b {
+  color: #fff;
+}
+
+/* etiqueta do topo: contorno claro sobre o navy */
+.au-hero .au-badge {
+  color: rgba(255, 255, 255, 0.72);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* a chamada principal — único elemento preenchido no turquesa da marca */
+.au-hero a .au-badge {
+  color: var(--uni-navy);
+  background: var(--uni-turquesa);
+  border-color: var(--uni-turquesa);
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 8px;
+  transition: filter var(--au-transicao);
+}
+.au-hero a:hover .au-badge {
+  filter: brightness(1.08);
+}
+.au-hero a:focus-visible .au-badge {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.au-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--au-s-1);
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--au-ac);
+  border: var(--au-borda) solid color-mix(in srgb, var(--au-ac) 40%, transparent);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.au-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: var(--au-s-3);
+  padding: var(--au-s-4) var(--au-s-5) var(--au-s-5);
+  list-style: none;
+  margin: 0;
+  /* cor do bloco: cada seção da vitrine herda um par do T568B */
+  --vit: var(--au-ac);
+}
+.au-cards.au-vb1 { --vit: var(--au-par-azul); }
+.au-cards.au-vav { --vit: var(--au-par-laranja); }
+.au-cards.au-vb2 { --vit: var(--au-par-verde); }
+.au-cards.au-vfim { --vit: var(--au-par-marrom); }
+
+.au-card {
+  position: relative;
+  border: var(--au-borda) solid color-mix(in srgb, var(--au-tx) 10%, transparent);
+  border-radius: var(--au-raio);
+  overflow: hidden;
+  /* claro: card branco elevado por sombra suave sobre o off-white */
+  background: var(--au-bg2);
+  box-shadow: 0 1px 2px rgba(29, 32, 87, 0.04);
+  transition:
+    transform var(--au-transicao),
+    border-color var(--au-transicao),
+    box-shadow var(--au-transicao);
+  margin: 0;
+  max-width: none;
+}
+
+/* A ESPINHA — filete vertical na cor do bloco, correndo na borda de ataque de
+   cada card. É o que agrupa visualmente as semanas de um mesmo bloco sem
+   precisar de moldura, rótulo repetido ou fundo colorido. Fica saturada na
+   aula aberta e apagada na que ainda não abriu. */
+.au-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: color-mix(in srgb, var(--vit) 30%, transparent);
+}
+.au-card:has(> a)::before {
+  background: var(--vit);
+}
+
+/* escuro: sombra não existe — a elevação vem do tom */
+:root[saved-theme="dark"] .au-card {
+  background: color-mix(in srgb, var(--au-bg2) 88%, var(--au-tx));
+  box-shadow: none;
+}
+
+.au-card:hover,
+.au-card:focus-within {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--vit) 45%, transparent);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--uni-navy) 14%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .au-card,
+  .au-card:hover,
+  .au-card:focus-within {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* O Quartz pinta link interno com `background: var(--highlight)` e um padding
+   arredondado. Dentro do card isso virava um retângulo azulado cobrindo parte
+   da área e deixando uma faixa branca sobrando embaixo. Aqui o link É o card:
+   ocupa a altura toda e não carrega fundo nenhum. */
+.au-card a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-weight: inherit;
+}
+
+/* card publicado (tem <a>): é o que deve chamar, não o futuro */
+.au-card:has(> a) {
+  border-color: color-mix(in srgb, var(--vit) 35%, transparent);
+}
+.au-card:has(> a) .au-cap b {
+  color: var(--au-tx);
+}
+
+/* foco de teclado visível — o índice inteiro é navegável por Tab */
+.au-card a:focus-visible {
+  outline: 2px solid var(--uni-azul);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* O CÓDIGO DA SEMANA — antes uma caixa 16:9 de gradiente ocupando mais da
+   metade do card para dizer "S03". Muita tinta, nenhuma informação nova: a
+   miniatura não mostrava miniatura nenhuma. Vira uma etiqueta compacta, e o
+   espaço devolvido vai para o título, que é o que o aluno lê para escolher.
+   Efeito colateral pretendido: o card encurta ~45% e cabe muito mais semestre
+   numa tela — o índice existe para escolher, e escolher exige comparar. */
+.au-card .au-thumb {
+  display: inline-block;
+  /* dentro do card-link (flex column) a etiqueta esticaria para a largura
+     inteira e viraria uma barra — ela se mantém do tamanho do texto */
+  align-self: flex-start;
+  margin: var(--au-s-4) 0 var(--au-s-2) var(--au-s-4);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
   font-weight: 600;
-  text-align: left;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  /* semana ainda fechada: etiqueta silenciosa, só contorno */
+  color: var(--au-tx3);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--au-tx) 16%, transparent);
 }
-article td {
-  padding: var(--sp-4);
-  border-bottom: 1px solid color-mix(in srgb, var(--text-color) 10%, transparent);
+
+/* imagem de capa continua suportada — se um dia entrar uma, ela manda */
+.au-card .au-thumb:has(img) {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  aspect-ratio: 16 / 9;
+}
+.au-card .au-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* a barra de progresso marcava 100% em tudo que estava no ar — repetia o que
+   o estado do card já diz. Removida (uma peça a menos, nada perdido). */
+.au-card .au-pbar {
+  display: none;
+}
+
+.au-card .au-cap {
+  padding: 0 var(--au-s-4) var(--au-s-4);
+}
+.au-card .au-cap b {
+  display: block;
+  font-family: var(--au-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--au-s-2);
+  text-wrap: balance;
+  color: var(--au-tx);
+}
+.au-card .au-cap span {
+  display: block;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  line-height: 1.5;
+  color: var(--au-tx2);
+}
+
+/* AULA ABERTA — o único estado que o aluno pode agir sobre. Ganha a etiqueta
+   preenchida na cor do bloco; tudo mais na página fica quieto. */
+.au-card:has(> a) .au-thumb {
+  color: #fff;
+  background: var(--vit);
+  border-color: var(--vit);
+}
+.au-card:has(> a) .au-cap span {
+  color: var(--au-tx2);
+  font-weight: 600;
+}
+
+/* card ainda não publicado: existe no mapa, não é clicável.
+   NUNCA opacity no card inteiro — o título tem de continuar legível. */
+.au-card.au-espera .au-cap b {
+  color: var(--au-tx2);
+  font-weight: 500;
+}
+.au-card.au-espera:hover {
+  transform: none;
+  border-color: color-mix(in srgb, var(--au-tx) 12%, transparent);
+  box-shadow: none;
+}
+.au-card.au-espera .au-cap span::after {
+  content: " · em breve";
+  color: var(--au-tx3);
+}
+
+/* podcast de revisão (NotebookLM) — bloco discreto, nunca protagonista */
+.au-podcast {
+  margin: 2rem 0;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--au-bd);
+  border-left: 4px solid var(--au-par-azul);
+  border-radius: 8px;
+  background: var(--au-bg2);
+  max-width: var(--au-medida);
+}
+.au-podcast p {
+  margin: 0.25rem 0;
+  font-family: var(--au-sans);
+  font-size: var(--au-t--1);
+}
+.au-podcast audio {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   4B. ANATOMIA DA AULA — os blocos que TODA aula tem
+
+   Cada classe daqui corresponde a uma seção obrigatória do
+   `_Template_Aula.md`. O agente de conteúdo não inventa marcação:
+   escolhe o bloco desta lista. É o que torna a publicação
+   plug-and-play — o padrão está no CSS, não na disciplina de quem
+   escreve.
+   ────────────────────────────────────────────────────────────── */
+
+/* NOSSO CAMINHO ATÉ AQUI — abertura de toda aula.
+   Regra dura: isto é RECUPERAÇÃO, não resumo. O aluno responde antes de ver.
+   Recap passivo (professor relendo a aula passada) não move a agulha; prática
+   de recuperação em sala rende g = 0,50 (Yang et al. 2021; Rowland 2014) e
+   g = 0,74 quando espaçada (Latimier et al. 2021). Por isso o bloco é feito de
+   PERGUNTAS colapsadas — nunca de parágrafo pronto. */
+.au-caminho {
+  margin: var(--au-s-6) 0;
+  padding: var(--au-s-4) var(--au-s-5);
+  border: 1px solid var(--au-bd);
+  border-left: 4px solid var(--uni-turquesa);
+  border-radius: var(--au-raio);
+  background: var(--au-bg2);
+  max-width: var(--au-medida);
+}
+.au-caminho > b:first-child,
+.au-caminho .au-nota-t {
+  display: block;
+  font-family: var(--au-display);
+  font-size: var(--au-t-0);
+  color: var(--uni-turquesa);
+  margin-bottom: var(--au-s-2);
+}
+/* cada pergunta de recuperação */
+.au-caminho details {
+  border-top: 1px solid var(--au-bd);
+  padding: var(--au-s-3) 0 0;
+  margin: var(--au-s-3) 0 0;
+}
+.au-caminho details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--au-tx);
+  list-style: none;
+}
+.au-caminho details summary::before {
+  content: "?";
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: var(--au-s-2);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--uni-turquesa) 16%, transparent);
+  color: var(--uni-turquesa);
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  font-weight: 700;
+}
+.au-caminho details[open] summary::before {
+  content: "✓";
+  background: var(--uni-turquesa);
+  color: #fff;
+}
+.au-caminho details > :not(summary) {
+  margin: var(--au-s-2) 0 0 1.75rem;
+  color: var(--au-tx2);
+  font-size: var(--au-t--1);
+}
+
+/* SLOT INTERATIVO — a moldura onde entra ferramenta de aprendizagem:
+   H5P (via h5p-standalone, roda sem servidor), Vevox, Plickers, widget
+   próprio ou <iframe>. O slot existe SEMPRE; o conteúdo é opcional.
+   Sem ferramenta pronta, o bloco mostra a alternativa de sala — a aula
+   nunca depende de a internet do campus funcionar. */
+.au-slot {
+  margin: var(--au-s-6) 0;
+  border: 1px solid var(--au-bd);
+  border-radius: var(--au-raio);
+  background: var(--au-bg2);
+  overflow: hidden;
+}
+.au-slot-h {
+  display: flex;
+  align-items: center;
+  gap: var(--au-s-2);
+  padding: var(--au-s-3) var(--au-s-4);
+  border-bottom: 1px solid var(--au-bd);
+  background: color-mix(in srgb, var(--uni-azul) 6%, transparent);
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--uni-azul);
+}
+.au-slot-h b {
+  font-weight: 700;
+}
+.au-slot-c {
+  padding: var(--au-s-4);
+}
+.au-slot-c > iframe,
+.au-slot-c > .h5p-container {
+  width: 100%;
+  min-height: 420px;
+  border: 0;
+  display: block;
+}
+/* plano B declarado: o que fazer se a ferramenta não subir */
+.au-slot-b {
+  margin: 0;
+  padding: var(--au-s-3) var(--au-s-4);
+  border-top: 1px dashed var(--au-bd);
+  font-size: var(--au-t--1);
+  color: var(--au-tx2);
+}
+.au-slot-b b {
+  color: var(--au-par-laranja);
+}
+
+/* EXERCÍCIO PRÁTICO — só do que foi visto NO DIA. Numerado porque aqui a
+   ordem carrega informação de verdade: é um roteiro a executar. */
+.au-pratica {
+  margin: var(--au-s-6) 0;
+  padding: var(--au-s-4) var(--au-s-5);
+  border: 1px solid color-mix(in srgb, var(--au-par-laranja) 35%, var(--au-bd));
+  border-radius: var(--au-raio);
+  background: color-mix(in srgb, var(--au-par-laranja) 4%, var(--au-bg2));
+}
+.au-pratica > b:first-child {
+  display: block;
+  font-family: var(--au-display);
+  color: var(--au-par-laranja);
+  margin-bottom: var(--au-s-2);
+}
+.au-pratica ol {
+  counter-reset: passo;
+  list-style: none;
+  padding-left: 0;
+}
+.au-pratica ol > li {
+  counter-increment: passo;
+  position: relative;
+  padding-left: 2.25rem;
+  margin-bottom: var(--au-s-3);
+  max-width: var(--au-medida);
+}
+.au-pratica ol > li::before {
+  content: counter(passo);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--au-par-laranja);
+  color: #fff;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  font-weight: 700;
+}
+/* critério de pronto — o aluno tem de saber quando terminou */
+.au-pratica .au-pronto {
+  margin-top: var(--au-s-4);
+  padding-top: var(--au-s-3);
+  border-top: 1px solid color-mix(in srgb, var(--au-par-laranja) 30%, transparent);
+  font-size: var(--au-t--1);
+  color: var(--au-tx2);
+}
+
+/* RESUMO — cheatsheet de fim de aula. Denso de propósito: é para consultar
+   depois, não para ler agora. */
+.au-resumo {
+  margin: var(--au-s-6) 0;
+  padding: var(--au-s-4) var(--au-s-5);
+  border: 1px solid var(--au-bd);
+  border-radius: var(--au-raio);
+  background: var(--au-bg2);
+}
+.au-resumo > b:first-child {
+  display: block;
+  font-family: var(--au-display);
+  color: var(--uni-navy);
+  margin-bottom: var(--au-s-3);
+}
+:root[saved-theme="dark"] .au-resumo > b:first-child {
+  color: var(--au-tx);
+}
+.au-resumo table {
+  margin: 0;
+  font-size: var(--au-t--1);
+}
+
+/* REFLEXÃO — pergunta aberta de saída. Sem resposta na página: de propósito.
+   É o que o aluno leva no ônibus. */
+.au-reflexao {
+  margin: var(--au-s-6) 0;
+  padding: var(--au-s-5);
+  border-left: 3px solid var(--uni-navy);
+  background: color-mix(in srgb, var(--uni-navy) 4%, transparent);
+  border-radius: 0 var(--au-raio) var(--au-raio) 0;
+  max-width: var(--au-medida);
+}
+:root[saved-theme="dark"] .au-reflexao {
+  border-left-color: var(--au-tx2);
+  background: color-mix(in srgb, var(--au-tx) 5%, transparent);
+}
+.au-reflexao p {
+  margin: 0;
+  font-size: var(--au-t-1);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--au-tx);
+}
+.au-reflexao > b:first-child {
+  display: block;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--au-tx3);
+  font-style: normal;
+  margin-bottom: var(--au-s-2);
+}
+
+/* REFERÊNCIAS — com autor, obra, editora, ano E página. A página é
+   obrigatória: mandar o aluno para um livro de 900 folhas sem número de
+   página não é referência, é gesto. */
+.au-refs {
+  margin: var(--au-s-6) 0 var(--au-s-5);
+  padding-top: var(--au-s-4);
+  border-top: 2px solid var(--au-bd);
+  font-size: var(--au-t--1);
+  line-height: 1.6;
+}
+.au-refs > b:first-child {
+  display: block;
+  font-family: var(--au-display);
+  font-size: var(--au-t-0);
+  color: var(--au-tx);
+  margin-bottom: var(--au-s-3);
+}
+.au-refs ol,
+.au-refs ul {
+  padding-left: 1.1rem;
+}
+.au-refs li {
+  margin-bottom: var(--au-s-3);
+  max-width: var(--au-medida);
+  color: var(--au-tx2);
+}
+/* o localizador exato — capítulo/página — em mono, para saltar aos olhos */
+.au-refs .au-pag {
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  color: var(--uni-azul);
+  white-space: nowrap;
+}
+
+/* PRÓXIMA AULA — gancho de fechamento. Uma frase que abre laço, não um
+   índice do que vem. */
+.au-proxima {
+  margin: var(--au-s-6) 0 var(--au-s-7);
+  padding: var(--au-s-4) var(--au-s-5);
+  border: 1px dashed color-mix(in srgb, var(--uni-azul) 45%, transparent);
+  border-radius: var(--au-raio);
+  background: color-mix(in srgb, var(--uni-azul) 5%, transparent);
+  max-width: var(--au-medida);
+}
+.au-proxima > b:first-child {
+  display: block;
+  font-family: var(--au-mono);
+  font-size: var(--au-t--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--uni-azul);
+  margin-bottom: var(--au-s-2);
+}
+.au-proxima p {
+  margin: 0;
+  color: var(--au-tx);
+}
+
+@media (max-width: 800px) {
+  .au-caminho,
+  .au-pratica,
+  .au-resumo,
+  .au-reflexao,
+  .au-proxima {
+    padding: var(--au-s-4);
+  }
+  .au-slot-c > iframe,
+  .au-slot-c > .h5p-container {
+    min-height: 320px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   5. ACESSIBILIDADE, IMPRESSÃO E MOVIMENTO
+   ────────────────────────────────────────────────────────────── */
+
+.au-leitura a,
+.au-operacao a,
+.au-vitrine a {
+  color: var(--au-ac);
+}
+
+:focus-visible {
+  outline: 2px solid var(--au-ac);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* o aluno leva a aula no papel — modo leitura imprime limpo */
+@media print {
+  .au-barra,
+  .au-copiar,
+  .au-switch-lbl,
+  .sidebar,
+  footer,
+  .page-header {
+    display: none;
+  }
+  article {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+  article details[open] > :not(summary),
+  .au-aposta[open] > :not(summary) {
+    display: block;
+  }
+  article details,
+  .au-aposta,
+  .au-fig,
+  article table {
+    break-inside: avoid;
+  }
+  .au-camadas :is(.c1, .c2, .c3, .c4) {
+    opacity: 1 !important;
+  }
+}
+
+/* celular: a coluna manda, o resto se ajusta */
+@media (max-width: 40rem) {
+  :root {
+    --au-medida: 100%;
+  }
+  .au-col {
+    padding-inline: var(--au-s-4);
+  }
+  .au-hero {
+    padding: var(--au-s-5) var(--au-s-4);
+  }
+  .au-cards {
+    padding: var(--au-s-4);
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  }
+  .au-barra {
+    font-size: 0.6875rem;
+    gap: var(--au-s-2);
+  }
+  article table {
+    font-size: var(--au-t--2);
+  }
 }
