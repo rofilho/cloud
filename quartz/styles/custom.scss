@@ -59,8 +59,14 @@
   --au-s-7: 3rem;
 
   /* medida de leitura — regra dura (Dyson & Haselgrove 2001; WCAG 1.4.8) */
-  --au-medida: 68ch;
-
+  /* Medida de leitura. Era 68ch (Dyson & Haselgrove 2001; WCAG 1.4.8), e o
+     efeito colateral era pior que o problema: a coluna de conteúdo tem 1088px,
+     tabela e figura vão até a borda, e todo bloco de texto parava em 636-686px
+     — ~400px de vão morto à direita, em toda página. O Romualdo apontou isso
+     repetidamente. A régua agora é a própria coluna: texto, tabela e figura
+     compartilham as mesmas bordas. Quem limita a linha é a largura da `.page`,
+     não um cap por bloco. Trocado em 30/07/2026. */
+  --au-medida: 100%;
   /* pares T568B — semântica fixa, saturação de LMS moderno */
   /* IDENTIDADE UNIUBE — extraída dos ativos oficiais em 26/07/2026, não
      escolhida por gosto: #1D2057 é o fill do logo_azul.svg; os demais são as
@@ -651,8 +657,9 @@ article a {
   font-size: var(--au-t--1);
   line-height: 1.5;
   color: var(--au-tx2);
-  max-width: 60ch;
-  margin: 0;
+  /* a legenda é irmã da figura e acompanha a largura dela — capada em 60ch
+     ela ficava com a borda direita solta debaixo de um desenho de 1088px */
+  max-width: 100%;  margin: 0;
 }
 
 .au-fig .au-legenda b {
@@ -1725,4 +1732,14 @@ article :target {
   article table {
     font-size: var(--au-t--2);
   }
+}
+
+/* O Quartz embrulha toda tabela num `.table-container` com `overflow-x: auto`.
+   Se a tabela tem `width: 100%` E margem lateral, ela estoura o container por
+   2x a margem e nasce uma barra de rolagem horizontal em TODA página que tem
+   tabela — 1088px de container contra 1120px de conteúdo, medido em 30/07/2026.
+   A margem vertical fica; a lateral é que não cabe. */
+.table-container > table {
+  margin-left: 0;
+  margin-right: 0;
 }
